@@ -1,0 +1,458 @@
+[
+  {
+    "id": 1,
+    "title": "Shake Shack",
+    "distance": "2.0km",
+    "image": {
+      "1x": "https://i.ibb.co/fvcC4Vf/Details.png",
+      "2x": "https://i.ibb.co/qMWVLsB/Details-2x.png",
+      "3x": "https://i.ibb.co/vXNnkFV/Details-3x.png"
+    },
+    "thumbnail": {
+      "1x": "https://i.ibb.co/8cSNtHw/DetailsT.png",
+      "2x": "https://i.ibb.co/zh6bTLN/Details-T-2x.png",
+      "3x": "https://i.ibb.co/JRKsJpr/Details-T-3x.png"
+    },
+    "category": [
+      {
+        "tag": "Restaurant"
+      },
+      {
+        "tag": "Italian"
+      }
+    ],
+    "ratings": 3.5,
+    "description": "Shake Shack is an American fast casual restaurant chain based in New York City. It started out as a hot dog cart inside Madison Square Park in 2001, and its popularity steadily grew. In 2004, it moved to a stand within the park, expanding its menu from New York–style hotdogs to one with hamburgers, hotdogs, fries and its namesake milkshakes.",
+    "contact": {
+      "address": "86 Orchard Street, New York",
+      "phone": "1 212-777-2661",
+      "website": "www.example.com"
+    },
+    "ambiance": [
+      {
+        "name": "Cozy"
+      },
+      {
+        "name": "Serene"
+      },
+      {
+        "name": "Mystical"
+      }
+    ],
+    "service": [
+      {
+        "name": "Personal"
+      }
+    ],
+    "mentioned": [
+      {
+        "name": "Forbes"
+      },
+      {
+        "name": "BAZAAR"
+      },
+      {
+        "name": "CONDE NAST"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Yellow Cab",
+    "distance": "2.0km",
+    "image": {
+      "1x": "https://i.ibb.co/fvcC4Vf/Details.png",
+      "2x": "https://i.ibb.co/qMWVLsB/Details-2x.png",
+      "3x": "https://i.ibb.co/vXNnkFV/Details-3x.png"
+    },
+    "thumbnail": {
+      "1x": "https://i.ibb.co/8cSNtHw/DetailsT.png",
+      "2x": "https://i.ibb.co/zh6bTLN/Details-T-2x.png",
+      "3x": "https://i.ibb.co/JRKsJpr/Details-T-3x.png"
+    },
+    "category": [
+      {
+        "tag": "Restaurant"
+      },
+      {
+        "tag": "Italian"
+      }
+    ],
+    "ratings": 3.5,
+    "description": "Shake Shack is an American fast casual restaurant chain based in New York City. It started out as a hot dog cart inside Madison Square Park in 2001, and its popularity steadily grew. In 2004, it moved to a stand within the park, expanding its menu from New York–style hotdogs to one with hamburgers, hotdogs, fries and its namesake milkshakes.",
+    "contact": {
+      "address": "86 Orchard Street, New York",
+      "phone": "1 212-777-2661",
+      "website": "www.example.com"
+    },
+    "ambiance": [
+      {
+        "name": "Cozy"
+      },
+      {
+        "name": "Serene"
+      },
+      {
+        "name": "Mystical"
+      }
+    ],
+    "service": [
+      {
+        "name": "Personal"
+      }
+    ],
+    "mentioned": [
+      {
+        "name": "Forbes"
+      },
+      {
+        "name": "BAZAAR"
+      },
+      {
+        "name": "CONDE NAST"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Baker House",
+    "distance": "1.3km",
+    "image": {
+      "1x": "https://i.ibb.co/fvcC4Vf/Details.png",
+      "2x": "https://i.ibb.co/qMWVLsB/Details-2x.png",
+      "3x": "https://i.ibb.co/vXNnkFV/Details-3x.png"
+    },
+    "thumbnail": {
+      "1x": "https://i.ibb.co/8cSNtHw/DetailsT.png",
+      "2x": "https://i.ibb.co/zh6bTLN/Details-T-2x.png",
+      "3x": "https://i.ibb.co/JRKsJpr/Details-T-3x.png"
+    },
+    "category": [
+      {
+        "tag": "Restaurant"
+      },
+      {
+        "tag": "Italian"
+      }
+    ],
+    "ratings": 3.5,
+    "description": "Shake Shack is an American fast casual restaurant chain based in New York City. It started out as a hot dog cart inside Madison Square Park in 2001, and its popularity steadily grew. In 2004, it moved to a stand within the park, expanding its menu from New York–style hotdogs to one with hamburgers, hotdogs, fries and its namesake milkshakes.",
+    "contact": {
+      "address": "86 Orchard Street, New York",
+      "phone": "1 212-777-2661",
+      "website": "www.example.com"
+    },
+    "ambiance": [
+      {
+        "name": "Cozy"
+      },
+      {
+        "name": "Serene"
+      },
+      {
+        "name": "Mystical"
+      }
+    ],
+    "service": [
+      {
+        "name": "Personal"
+      }
+    ],
+    "mentioned": [
+      {
+        "name": "Forbes"
+      },
+      {
+        "name": "BAZAAR"
+      },
+      {
+        "name": "CONDE NAST"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "The Hunters",
+    "distance": "1.3km",
+    "image": {
+      "1x": "https://i.ibb.co/fvcC4Vf/Details.png",
+      "2x": "https://i.ibb.co/qMWVLsB/Details-2x.png",
+      "3x": "https://i.ibb.co/vXNnkFV/Details-3x.png"
+    },
+    "thumbnail": {
+      "1x": "https://i.ibb.co/8cSNtHw/DetailsT.png",
+      "2x": "https://i.ibb.co/zh6bTLN/Details-T-2x.png",
+      "3x": "https://i.ibb.co/JRKsJpr/Details-T-3x.png"
+    },
+    "category": [
+      {
+        "tag": "Restaurant"
+      },
+      {
+        "tag": "Italian"
+      }
+    ],
+    "ratings": 3.5,
+    "description": "Shake Shack is an American fast casual restaurant chain based in New York City. It started out as a hot dog cart inside Madison Square Park in 2001, and its popularity steadily grew. In 2004, it moved to a stand within the park, expanding its menu from New York–style hotdogs to one with hamburgers, hotdogs, fries and its namesake milkshakes.",
+    "contact": {
+      "address": "86 Orchard Street, New York",
+      "phone": "1 212-777-2661",
+      "website": "www.example.com"
+    },
+    "ambiance": [
+      {
+        "name": "Cozy"
+      },
+      {
+        "name": "Serene"
+      },
+      {
+        "name": "Mystical"
+      }
+    ],
+    "service": [
+      {
+        "name": "Personal"
+      }
+    ],
+    "mentioned": [
+      {
+        "name": "Forbes"
+      },
+      {
+        "name": "BAZAAR"
+      },
+      {
+        "name": "CONDE NAST"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Cresent Beauty Salon",
+    "distance": "1.3km",
+    "image": {
+      "1x": "https://i.ibb.co/fvcC4Vf/Details.png",
+      "2x": "https://i.ibb.co/qMWVLsB/Details-2x.png",
+      "3x": "https://i.ibb.co/vXNnkFV/Details-3x.png"
+    },
+    "thumbnail": {
+      "1x": "https://i.ibb.co/8cSNtHw/DetailsT.png",
+      "2x": "https://i.ibb.co/zh6bTLN/Details-T-2x.png",
+      "3x": "https://i.ibb.co/JRKsJpr/Details-T-3x.png"
+    },
+    "category": [
+      {
+        "tag": "Restaurant"
+      },
+      {
+        "tag": "Italian"
+      }
+    ],
+    "ratings": 3.5,
+    "description": "Shake Shack is an American fast casual restaurant chain based in New York City. It started out as a hot dog cart inside Madison Square Park in 2001, and its popularity steadily grew. In 2004, it moved to a stand within the park, expanding its menu from New York–style hotdogs to one with hamburgers, hotdogs, fries and its namesake milkshakes.",
+    "contact": {
+      "address": "86 Orchard Street, New York",
+      "phone": "1 212-777-2661",
+      "website": "www.example.com"
+    },
+    "ambiance": [
+      {
+        "name": "Cozy"
+      },
+      {
+        "name": "Serene"
+      },
+      {
+        "name": "Mystical"
+      }
+    ],
+    "service": [
+      {
+        "name": "Personal"
+      }
+    ],
+    "mentioned": [
+      {
+        "name": "Forbes"
+      },
+      {
+        "name": "BAZAAR"
+      },
+      {
+        "name": "CONDE NAST"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Hilton Garden Inn",
+    "distance": "1.3km",
+    "image": {
+      "1x": "https://i.ibb.co/fvcC4Vf/Details.png",
+      "2x": "https://i.ibb.co/qMWVLsB/Details-2x.png",
+      "3x": "https://i.ibb.co/vXNnkFV/Details-3x.png"
+    },
+    "thumbnail": {
+      "1x": "https://i.ibb.co/8cSNtHw/DetailsT.png",
+      "2x": "https://i.ibb.co/zh6bTLN/Details-T-2x.png",
+      "3x": "https://i.ibb.co/JRKsJpr/Details-T-3x.png"
+    },
+    "category": [
+      {
+        "tag": "Restaurant"
+      },
+      {
+        "tag": "Italian"
+      }
+    ],
+    "ratings": 3.5,
+    "description": "Shake Shack is an American fast casual restaurant chain based in New York City. It started out as a hot dog cart inside Madison Square Park in 2001, and its popularity steadily grew. In 2004, it moved to a stand within the park, expanding its menu from New York–style hotdogs to one with hamburgers, hotdogs, fries and its namesake milkshakes.",
+    "contact": {
+      "address": "86 Orchard Street, New York",
+      "phone": "1 212-777-2661",
+      "website": "www.example.com"
+    },
+    "ambiance": [
+      {
+        "name": "Cozy"
+      },
+      {
+        "name": "Serene"
+      },
+      {
+        "name": "Mystical"
+      }
+    ],
+    "service": [
+      {
+        "name": "Personal"
+      }
+    ],
+    "mentioned": [
+      {
+        "name": "Forbes"
+      },
+      {
+        "name": "BAZAAR"
+      },
+      {
+        "name": "CONDE NAST"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Blanche Milktea",
+    "distance": "1.3km",
+    "image": {
+      "1x": "https://i.ibb.co/fvcC4Vf/Details.png",
+      "2x": "https://i.ibb.co/qMWVLsB/Details-2x.png",
+      "3x": "https://i.ibb.co/vXNnkFV/Details-3x.png"
+    },
+    "thumbnail": {
+      "1x": "https://i.ibb.co/8cSNtHw/DetailsT.png",
+      "2x": "https://i.ibb.co/zh6bTLN/Details-T-2x.png",
+      "3x": "https://i.ibb.co/JRKsJpr/Details-T-3x.png"
+    },
+    "category": [
+      {
+        "tag": "Restaurant"
+      },
+      {
+        "tag": "Italian"
+      }
+    ],
+    "ratings": 3.5,
+    "description": "Shake Shack is an American fast casual restaurant chain based in New York City. It started out as a hot dog cart inside Madison Square Park in 2001, and its popularity steadily grew. In 2004, it moved to a stand within the park, expanding its menu from New York–style hotdogs to one with hamburgers, hotdogs, fries and its namesake milkshakes.",
+    "contact": {
+      "address": "86 Orchard Street, New York",
+      "phone": "1 212-777-2661",
+      "website": "www.example.com"
+    },
+    "ambiance": [
+      {
+        "name": "Cozy"
+      },
+      {
+        "name": "Serene"
+      },
+      {
+        "name": "Mystical"
+      }
+    ],
+    "service": [
+      {
+        "name": "Personal"
+      }
+    ],
+    "mentioned": [
+      {
+        "name": "Forbes"
+      },
+      {
+        "name": "BAZAAR"
+      },
+      {
+        "name": "CONDE NAST"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "YellowCab Pizzarea",
+    "distance": "1.3km",
+    "image": {
+      "1x": "https://i.ibb.co/fvcC4Vf/Details.png",
+      "2x": "https://i.ibb.co/qMWVLsB/Details-2x.png",
+      "3x": "https://i.ibb.co/vXNnkFV/Details-3x.png"
+    },
+    "thumbnail": {
+      "1x": "https://i.ibb.co/8cSNtHw/DetailsT.png",
+      "2x": "https://i.ibb.co/zh6bTLN/Details-T-2x.png",
+      "3x": "https://i.ibb.co/JRKsJpr/Details-T-3x.png"
+    },
+    "category": [
+      {
+        "tag": "Restaurant"
+      },
+      {
+        "tag": "Italian"
+      }
+    ],
+    "ratings": 3.5,
+    "description": "Shake Shack is an American fast casual restaurant chain based in New York City. It started out as a hot dog cart inside Madison Square Park in 2001, and its popularity steadily grew. In 2004, it moved to a stand within the park, expanding its menu from New York–style hotdogs to one with hamburgers, hotdogs, fries and its namesake milkshakes.",
+    "contact": {
+      "address": "86 Orchard Street, New York",
+      "phone": "1 212-777-2661",
+      "website": "www.example.com"
+    },
+    "ambiance": [
+      {
+        "name": "Cozy"
+      },
+      {
+        "name": "Serene"
+      },
+      {
+        "name": "Mystical"
+      }
+    ],
+    "service": [
+      {
+        "name": "Personal"
+      }
+    ],
+    "mentioned": [
+      {
+        "name": "Forbes"
+      },
+      {
+        "name": "BAZAAR"
+      },
+      {
+        "name": "CONDE NAST"
+      }
+    ]
+  }
+]

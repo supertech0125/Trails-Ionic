@@ -1,0 +1,46 @@
+@import "../../../../../theme/variables.scss";
+
+:host {
+  // ion-tab-bar {
+  //   // height: 64px;
+  //   border-top-left-radius: 18px;
+  //   border-top-right-radius: 18px;
+  //   padding-inline-start: 20px;
+  //   padding-inline-end: 20px;
+  //   box-shadow: 0px -2px 4px #0A9FA309;
+  // }
+
+  ion-tab-button {
+    ion-icon {
+      font-size: 24px;
+    }
+
+    ion-label {
+      font-family: $font-family-base;
+      font-weight: $font-weight-base;
+      font-size: 10px;
+      line-height: 12px;
+      text-align: center;
+      letter-spacing: 0px;
+      color: $color-heading-fade-text;
+    }
+
+    &.tab-selected {
+      border-top: 3px solid $color-heading-note-text;
+
+      ion-label {
+        font-weight: $font-weight-semi-bold;
+        text-align: center;
+        letter-spacing: 0px;
+        color: $color-heading-note-text;
+      }
+    }
+  }
+
+  .desktop {
+    ion-router-outlet {
+      margin-top: 70px;
+      // margin-bottom: 56px;
+    }
+  }
+}

@@ -1,0 +1,65 @@
+@import '../../../../../../theme/variables.scss';
+
+:host {
+  .uploader-form {
+    ion-item {
+      --padding-start: 0px;
+      --inner-padding-end: 0px;
+    }
+
+    ion-label {
+      h2 {
+        font-family: $font-family-base;
+        font-weight: $font-weight-base;
+        font-size: 15px;
+        line-height: 18px;
+        letter-spacing: 0.24px;
+        color: $color-heading-note-text;
+
+        margin-bottom: 9px;
+      }
+
+      .images-thumbnails {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .image-thumbnail {
+          width: 72px;
+          height: 72px;
+          background: #eefbfb 0% 0% no-repeat padding-box;
+          border-radius: 14px;
+
+          margin-right: 10px;
+          margin-bottom: 10px;
+
+          img {
+            border-radius: 14px;
+          }
+        }
+
+        .add-image-thumbnail {
+          width: 72px;
+          height: 72px;
+          position: relative;
+          background: #eefbfb 0% 0% no-repeat padding-box;
+          border-radius: 14px;
+          backdrop-filter: blur(undefined);
+          -webkit-backdrop-filter: blur(undefined);
+
+          ion-icon {
+            font-size: 26px;
+            color: #91cacb;
+
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            margin: auto;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,185 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <!-- <ion-button (click)="back()">
+                <ion-icon slot="icon-only" class="back-button-has-icon-only" name="chevron-back-outline"></ion-icon>
+            </ion-button> -->
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="4" offset-lg="4" size-md="6" offset-md="3">
+        <app-content-header-view
+          [title]="'Sign up'"
+          [subTitle]="
+            'Please fill in the following details in order to provide you a greater experience'
+          "
+        >
+        </app-content-header-view>
+        <form
+          novalidate
+          [formGroup]="registerForm"
+          (ngSubmit)="register($event)"
+        >
+          <ion-list class="basic-form">
+            <app-trail-input
+              #firstName
+              label="First Name"
+              type="text"
+              name="firstName"
+              autocomplete="off"
+              tabindex="3"
+              fieldId="'firstName'"
+              required
+              formControlName="firstName"
+            ></app-trail-input>
+            <div
+              *ngIf="
+                (f.firstName?.dirty || f.firstName?.touched) &&
+                f.firstName?.invalid &&
+                f.firstName.errors
+              "
+            >
+              <div class="mat-error" *ngIf="f.firstName?.errors?.required">
+                First Name is required.
+              </div>
+            </div>
+            <app-trail-input
+              #lastName
+              label="Last Name"
+              type="text"
+              name="lastName"
+              autocomplete="off"
+              tabindex="3"
+              fieldId="'lastName'"
+              required
+              formControlName="lastName"
+            ></app-trail-input>
+            <div
+              *ngIf="
+                (f.lastName?.dirty || f.lastName?.touched) &&
+                f.lastName?.invalid &&
+                f.lastName.errors
+              "
+            >
+              <div class="mat-error" *ngIf="f.lastName?.errors?.required">
+                Last Name is required.
+              </div>
+            </div>
+            <app-trail-input
+              #email
+              label="Email Address"
+              type="email"
+              name="email"
+              autocomplete="off"
+              tabindex="3"
+              fieldId="'email'"
+              required
+              formControlName="email"
+            ></app-trail-input>
+            <div
+              *ngIf="
+                (f.email?.dirty || f.email?.touched) &&
+                f.email?.invalid &&
+                f.email.errors
+              "
+            >
+              <div class="mat-error" *ngIf="f.email?.errors?.required">
+                Email is required.
+              </div>
+              <div class="mat-error" *ngIf="f.email?.errors?.pattern">
+                Email must be a valid email address
+              </div>
+            </div>
+            <app-trail-input
+              #pwd
+              label="Password"
+              type="password"
+              name="password"
+              autocomplete="off"
+              tabindex="4"
+              minlength="8"
+              required
+              formControlName="password"
+            ></app-trail-input>
+            <div
+              *ngIf="
+                (f.password?.dirty || f.password?.touched) &&
+                f.password?.invalid &&
+                f.password.errors
+              "
+            >
+              <div class="mat-error" *ngIf="f.password?.errors?.required">
+                Password is required.
+              </div>
+              <div class="mat-error" *ngIf="f.password?.errors?.minlength">
+                Password must be at least 6 characters length.
+              </div>
+              <div class="mat-error" *ngIf="f.password?.errors?.pattern">
+                Invalid Password. 1 lowercase letter, 1 uppercase letter, at
+                least 1 number, at least 6 characters
+              </div>
+            </div>
+            <app-trail-input
+              #pwd
+              label="Confirm Password"
+              type="password"
+              name="confirmPassword"
+              autocomplete="off"
+              tabindex="4"
+              minlength="8"
+              required
+              formControlName="confirmPassword"
+            ></app-trail-input>
+            <div
+              *ngIf="
+                (f.confirmPassword?.dirty || f.confirmPassword?.touched) &&
+                f.confirmPassword?.invalid &&
+                f.confirmPassword.errors
+              "
+            >
+              <div
+                class="mat-error"
+                *ngIf="f.confirmPassword?.errors?.required"
+              >
+                Confirm Password is required.
+              </div>
+              <div
+                class="mat-error"
+                *ngIf="f.confirmPassword?.errors?.minlength"
+              >
+                Confirm Password must be at least 6 characters length.
+              </div>
+              <div class="mat-error" *ngIf="f.confirmPassword?.errors?.pattern">
+                Invalid Password. 1 lowercase letter, 1 uppercase letter, at
+                least 1 number, at least 6 characters
+              </div>
+            </div>
+            <div class="sign-up-forgot-view">
+              <span class="sign-up-forgot-text">
+                By tapping the button below you agree with the
+                <span class="app-link">Terms of Service</span> &nbsp;and&nbsp;
+                <span class="app-link">Privacy Policy</span>
+              </span>
+            </div>
+            <div class="welcome-button-view">
+              <app-trail-button
+                label="Create Account"
+                type="submit"
+              ></app-trail-button>
+              <div class="create-view">
+                Already have an account?
+                <span class="sign-up-text" (click)="signIn()">&nbsp;Login</span>
+              </div>
+            </div>
+          </ion-list>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

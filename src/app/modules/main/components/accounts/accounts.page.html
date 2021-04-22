@@ -1,0 +1,170 @@
+<ion-header class="ion-no-border" *ngIf="!isDesktop">
+  <ion-toolbar>
+    <ion-title> &nbsp; </ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <app-account-info-item
+      [currentProfile]="currentProfile"
+      (editProfileEv)="editProfile()"
+    ></app-account-info-item>
+  </ion-toolbar>
+
+  <ion-toolbar class="segment-toolbar">
+    <ion-segment mode="md" [(ngModel)]="activeSegment" color="heading-note">
+      <ion-segment-button
+        class="segment-toolbar-button"
+        [value]="accountTabs.CREATED_TRAILS.value"
+      >
+        <ion-label>Created Trails</ion-label>
+      </ion-segment-button>
+      <ion-segment-button
+        class="segment-toolbar-button"
+        [value]="accountTabs.SAVED_PLACES.value"
+      >
+        <ion-label>Saved Places</ion-label>
+      </ion-segment-button>
+      <ion-segment-button
+        class="segment-toolbar-button"
+        [value]="accountTabs.SAVED_TRAILS.value"
+      >
+        <ion-label>Saved Trails</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header class="desktop ion-no-border" *ngIf="isDesktop">
+  <ion-toolbar>
+    <ion-row class="ion-justify-content-center ion-align-items-end">
+      <ion-col size="3">
+        <app-account-info-item
+          [currentProfile]="currentProfile"
+          (editProfileEv)="editProfile()"
+        ></app-account-info-item>
+      </ion-col>
+      <ion-col size="3">
+        <div class="navbar ion-text-center">
+          <ion-button
+            fill="clear"
+            (click)="activeSegment = accountTabs.CREATED_TRAILS.value"
+            class="link"
+            ngClass="{'active-link': activeSegment === 'created'}"
+          >
+            Created Trails
+          </ion-button>
+          <ion-button
+            fill="clear"
+            (click)="activeSegment = accountTabs.SAVED_PLACES.value"
+            class="link"
+            ngClass="{'active-link': activeSegment === 'places'}"
+          >
+            Saved Places
+          </ion-button>
+          <ion-button
+            fill="clear"
+            (click)="activeSegment = accountTabs.SAVED_TRAILS.value"
+            class="link"
+            ngClass="{'active-link': activeSegment === 'trails'}"
+          >
+            Saved Trails
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-content">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+    ></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-xl="4"
+        offset-xl="4"
+        size-lg="4"
+        offset-lg="4"
+        size-md="6"
+        offset-md="3"
+      >
+        <ng-container
+          *ngIf="activeSegment === accountTabs.CREATED_TRAILS.value"
+        >
+          <ng-container *ngIf="!showCreatedTrails">
+            <ng-container *ngFor="let item of fakeArr">
+              <app-trail-loading-skeleton></app-trail-loading-skeleton>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="showCreatedTrails">
+            <ng-container
+              *ngIf="filterCreatedTrailsArr && filterCreatedTrailsArr.length < 1"
+            >
+              <app-saved-trails-places
+                [action]="activeSegment"
+              ></app-saved-trails-places>
+            </ng-container>
+            <ng-container
+              *ngIf="filterCreatedTrailsArr && filterCreatedTrailsArr.length > 0"
+            >
+              <ng-container *ngFor="let item of filterCreatedTrailsArr">
+                <app-trail-card [trail]="item"></app-trail-card>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="activeSegment === accountTabs.SAVED_TRAILS.value">
+          <ng-container *ngIf="!showSavedTrails">
+            <ng-container *ngFor="let item of fakeArr">
+              <app-trail-loading-skeleton></app-trail-loading-skeleton>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="showSavedTrails">
+            <ng-container *ngIf="filterTrailsArr && filterTrailsArr.length < 1">
+              <app-saved-trails-places
+                [action]="activeSegment"
+              ></app-saved-trails-places>
+            </ng-container>
+            <ng-container *ngIf="filterTrailsArr && filterTrailsArr.length > 0">
+              <ng-container *ngFor="let item of filterTrailsArr">
+                <app-trail-card [trail]="item"></app-trail-card>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="activeSegment === accountTabs.SAVED_PLACES.value">
+          <ng-container *ngIf="!showSavedPlaces">
+            <ng-container *ngFor="let item of fakeArr">
+              <app-places-loading-skeleton></app-places-loading-skeleton>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="showSavedPlaces">
+            <ng-container *ngIf="filterPlacesArr && filterPlacesArr.length < 1">
+              <app-saved-trails-places
+                [action]="activeSegment"
+              ></app-saved-trails-places>
+            </ng-container>
+            <ng-container *ngIf="filterPlacesArr && filterPlacesArr.length > 0">
+              <ng-container *ngFor="let item of filterPlacesArr">
+                <app-place-card [place]="item"></app-place-card>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="lines-small">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

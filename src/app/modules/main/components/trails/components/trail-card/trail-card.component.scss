@@ -1,0 +1,113 @@
+@import '../../../../../../../theme/variables.scss';
+
+:host {
+  position: relative;
+
+  ion-card {
+    position: relative;
+  }
+
+  .trail-card-header {
+    .icon-only {
+      font-size: 24px;
+      padding: 9px;
+    }
+
+    .trail-card-header-label {
+      display: flex;
+      flex-direction: column;
+
+      .sub-type-view {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .sub-type {
+          font-family: $font-family-base;
+          font-weight: $font-weight-base;
+          font-size: 11px;
+          line-height: 14px;
+          letter-spacing: 0;
+          text-align: left;
+          color: $color-heading-note-text;
+          text-transform: none;
+
+          padding-right: 3px;
+
+          &:not(:first-child) {
+            &:before {
+              content: '• ';
+            }
+          }
+        }
+      }
+
+      .place-type {
+        padding-right: 4px;
+        margin-bottom: 3px;
+
+        font-family: $font-family-base;
+        font-weight: $font-weight-bold;
+        font-size: 15px;
+        line-height: 18px;
+        letter-spacing: 0;
+        text-align: left;
+        color: $color-heading-text;
+        text-transform: none;
+      }
+    }
+
+    .slot-end {
+      margin-inline: 0px;
+    }
+  }
+
+  app-card-map {
+    .card-map {
+      margin-top: 0px;
+      margin-bottom: 0px;
+
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      box-shadow: none;
+      border-radius: 0px;
+
+      google-map {
+        .map-container {
+          height: 230px !important;
+        }
+      }
+    }
+  }
+
+  app-card-new-map {
+    ::ng-deep {
+      .card-map {
+        margin-top: 0px;
+        margin-bottom: 0px;
+
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        box-shadow: none;
+        border-radius: 0px;
+
+        height: 230px !important;
+      }
+    }
+  }
+
+  .card-map-rating-view {
+    position: relative;
+
+    .trail-rating-badge {
+      position: absolute;
+      bottom: 5px;
+      left: 16px;
+    }
+    .trail-distance-badge {
+      position: absolute;
+      bottom: 5px;
+      right: 16px;
+    }
+  }
+}

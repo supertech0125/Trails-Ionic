@@ -1,0 +1,114 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon
+          slot="icon-only"
+          class="back-button-has-icon-only"
+          name="chevron-back-outline"
+        ></ion-icon>
+        <!-- <ion-back-button></ion-back-button> -->
+      </ion-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-xl="3"
+        offset-xl="4.5"
+        size-lg="4"
+        offset-lg="4"
+        size-md="6"
+        offset-md="3"
+      >
+        <app-content-header-view
+          [title]="'Sign in'"
+          [subTitle]="'Enter your login details below'"
+        ></app-content-header-view>
+        <form novalidate [formGroup]="loginForm" (ngSubmit)="login($event)">
+          <ion-list class="basic-form">
+            <ion-item class="no-input-padding app-trail-input" lines="none">
+              <ion-label position="stacked">Email Address</ion-label>
+              <input
+                type="email"
+                class="form-control"
+                name="userName"
+                autocomplete="off"
+                id="userName"
+                formControlName="userName"
+                tabindex="3"
+                required
+              />
+            </ion-item>
+            <div
+              *ngIf="
+                (f.userName?.dirty || f.userName?.touched) &&
+                f.userName?.invalid &&
+                f.userName.errors
+              "
+            >
+              <div class="mat-error" *ngIf="f.userName?.errors?.required">
+                Email is required.
+              </div>
+              <div class="mat-error" *ngIf="f.userName?.errors?.pattern">
+                Email must be a valid email address
+              </div>
+            </div>
+            <ion-item class="no-input-padding app-trail-input" lines="none">
+              <ion-label position="stacked">Password</ion-label>
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                autocomplete="off"
+                id="password"
+                formControlName="password"
+                tabindex="4"
+                minlength="8"
+                required
+              />
+            </ion-item>
+            <div
+              *ngIf="
+                (f.password?.dirty || f.password?.touched) &&
+                f.password?.invalid &&
+                f.password.errors
+              "
+            >
+              <div class="mat-error" *ngIf="f.password?.errors?.required">
+                Password is required.
+              </div>
+              <div class="mat-error" *ngIf="f.password?.errors?.minlength">
+                Password must be at least 6 characters length.
+              </div>
+              <!-- <div class="mat-error" *ngIf="f.password?.errors?.pattern">
+              Invalid Password. 1 lowercase letter, 1 uppercase letter, at least 1
+              number, at least 6 characters
+            </div> -->
+            </div>
+            <div class="sign-up-forgot-view">
+              <span
+                class="sign-up-forgot-text flex-end"
+                routerLink="/forgot-password"
+                >Forgot Password</span
+              >
+            </div>
+            <div class="welcome-button-view">
+              <app-trail-button label="Log in" type="submit"></app-trail-button>
+              <div class="create-view">
+                Don’t have an account?
+                <span class="sign-up-text" (click)="signUp()"
+                  >&nbsp;Create Account</span
+                >
+              </div>
+            </div>
+          </ion-list>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

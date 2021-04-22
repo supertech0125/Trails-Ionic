@@ -1,0 +1,9 @@
+<ion-button fill="clear" (click)="bookmarkClick.emit($event)">
+  <ng-container *ngIf="isLoading">
+    <ion-spinner color="warning2"></ion-spinner>
+  </ng-container>
+  <ng-container *ngIf="!isLoading">
+    <ion-icon slot="icon-only" name="bookmark-outline" color="warning2" *ngIf="!isActive"></ion-icon>
+    <ion-icon slot="icon-only" name="bookmark" color="warning2" *ngIf="isActive"></ion-icon>
+  </ng-container>
+</ion-button>

@@ -1,0 +1,90 @@
+<app-mobile-toolbar-header
+  *ngIf="!isDesktop"
+  [title]="'Places'"
+  [action]="'places'"
+  [showSearch]="showSearch"
+  [showFilterBadge]="onFiltering"
+  (onShowSearch)="onShowSearch()"
+  (openFilter)="openFilterModal()"
+  (onSearchInput)="onSearchInput($event)"
+></app-mobile-toolbar-header>
+
+<app-desktop-toolbar-header
+  *ngIf="isDesktop"
+  [title]="'Places'"
+  [action]="'places'"
+  [showSearch]="showSearch"
+  [showFilterBadge]="onFiltering"
+  (onShowSearch)="onShowSearch()"
+  (openFilter)="openFilterModal()"
+  (onSearchInput)="onSearchInput($event)"
+>
+</app-desktop-toolbar-header>
+
+<ion-content class="main-content">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" mode="md">
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+    ></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-xl="4"
+        offset-xl="4"
+        size-lg="4"
+        offset-lg="4"
+        size-md="6"
+        offset-md="3"
+      >
+        <!-- <app-loading-spinner
+          *ngIf="!showContent && !isDataLoaded"
+        ></app-loading-spinner> -->
+
+        <ng-container *ngIf="!showContent && !isDataLoaded">
+          <ng-container *ngFor="let item of fakeArr">
+            <app-places-loading-skeleton></app-places-loading-skeleton>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="showContent && isDataLoaded">
+          <ng-container *ngTemplateOutlet="placesContent"></ng-container>
+        </ng-container>
+
+        <ng-container
+          *ngIf="showContent && !isDataLoaded && (placesArr && placesArr.length < 1)"
+        >
+          <ng-container *ngTemplateOutlet="noRecord"></ng-container>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="loadData($event)"
+    *ngIf="showContent"
+  >
+    <ion-infinite-scroll-content loadingSpinner="lines-small">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ng-template #noRecord>
+  <app-trail-places-no-result-found
+    [action]="'places'"
+    [caption]="'No places found!'"
+    [subCaption]="'Try searching or filtering for something else'"
+  ></app-trail-places-no-result-found>
+</ng-template>
+
+<ng-template #placesContent>
+  <ng-container *ngIf="placesArr && placesArr.length < 1">
+    <ng-container *ngTemplateOutlet="noRecord"></ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="placesArr && placesArr.length >0">
+    <ng-container *ngFor="let item of placesArr">
+      <app-place-card [place]="item"></app-place-card>
+    </ng-container>
+  </ng-container>
+</ng-template>

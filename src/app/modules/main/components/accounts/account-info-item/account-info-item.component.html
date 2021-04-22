@@ -1,0 +1,24 @@
+<ion-item lines="none" class="user-detail-item" *ngIf="currentProfile">
+  <ion-avatar slot="start" class="user-avatar">
+    <img
+      [src]="currentProfile.profileImageUrl"
+      onError="this.src='./assets/png/account/Oval.png'"
+    />
+  </ion-avatar>
+  <ion-label>
+    <h2 class="user-name">
+      {{ currentProfile.firstName }} {{ currentProfile.lastName }}
+    </h2>
+    <p class="user-email">{{ currentProfile.email }}</p>
+    <div class="edit-button-view">
+      <ion-button
+        class="edit-button"
+        shape="round"
+        size="small"
+        color="warning2"
+        (click)="editProfileEv.emit($event)"
+        >Edit Profile</ion-button
+      >
+    </div>
+  </ion-label>
+</ion-item>

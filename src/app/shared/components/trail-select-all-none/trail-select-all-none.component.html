@@ -1,0 +1,17 @@
+<ion-item class="no-input-padding" lines="none">
+  <ion-label position="stacked" *ngIf="label && label !== ''">{{
+    label
+  }}</ion-label>
+  <div class="custom-select">
+    <input
+      class="form-control"
+      name="form-control"
+      [placeholder]="selectedText"
+      readonly
+      (click)="showAlert()"
+    />
+    <div class="select-icon" slot="end">
+      <ion-icon name="caret-down-outline"></ion-icon>
+    </div>
+  </div>
+</ion-item>

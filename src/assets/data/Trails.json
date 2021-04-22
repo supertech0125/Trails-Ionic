@@ -1,0 +1,167 @@
+[
+  {
+    "title": "Daytime",
+    "category": [
+      {
+        "tag": "Friends"
+      },
+      {
+        "tag": "Family"
+      },
+      {
+        "tag": "Dating"
+      }
+    ],
+    "ratings": 5,
+    "user": {
+      "userID": 1,
+      "firstname": "Blanche",
+      "lastname": "Erika",
+      "title": "Author",
+      "image": {
+        "1x": "https://i.ibb.co/hDHcX7x/profile.png",
+        "2x": "https://i.ibb.co/vLgdSmm/profile-2x.png",
+        "3x": "https://i.ibb.co/GF7hSKG/profile-3x.png"
+      }
+    },
+    "trails": [
+      {
+        "id": 1,
+        "name": "Queens Plaza Eats",
+        "image": {
+          "1x": "https://i.ibb.co/1vKqQpG/product.png",
+          "2x": "https://i.ibb.co/61sqJCd/product-2x.png",
+          "3x": "https://i.ibb.co/NYq4hm5/product-3x.png"
+        },
+        "location": {
+          "latitude": "40.709944",
+          "longitude": "-74.016211"
+        },
+        "category": [
+          {
+            "tag": "Restaurant"
+          },
+          {
+            "tag": "Italian"
+          }
+        ],
+        "badge": 1,
+        "ratings": 5.0
+      },
+      {
+        "id": 2,
+        "name": "Resobox",
+        "image": {
+          "1x": "https://i.ibb.co/pJWVdrH/product2.png",
+          "2x": "https://i.ibb.co/NWtM0SL/product2-2x.png",
+          "3x": "https://i.ibb.co/0sXmkXM/product2-3x.png"
+        },
+        "location": {
+          "latitude": "40.749944",
+          "longitude": "-74.006211"
+        },
+        "category": [
+          {
+            "tag": "Art Gallery"
+          },
+          {
+            "tag": "Contemporary"
+          }
+        ],
+        "badge": 2,
+        "ratings": 5.0
+      }
+    ]
+  },
+  {
+    "title": "Evening",
+    "category": [
+      {
+        "tag": "Solo"
+      }
+    ],
+    "ratings": 5,
+    "user": {
+      "userID": 1,
+      "firstname": "Jeff",
+      "lastname": "Smith",
+      "title": "Author",
+      "image": {
+        "1x": "https://i.ibb.co/HVGGwLt/Oval.png",
+        "2x": "https://i.ibb.co/SncdsyG/Oval-2x.png",
+        "3x": "https://i.ibb.co/mvb4gFj/Oval-3x.png"
+      }
+    },
+    "trails": [
+      {
+        "id": 1,
+        "name": "YellowCab",
+        "image": {
+          "1x": "https://i.ibb.co/1vKqQpG/product.png",
+          "2x": "https://i.ibb.co/61sqJCd/product-2x.png",
+          "3x": "https://i.ibb.co/NYq4hm5/product-3x.png"
+        },
+        "location": {
+          "latitude": "40.739944",
+          "longitude": "-74.016211"
+        },
+        "category": [
+          {
+            "tag": "Restaurant"
+          },
+          {
+            "tag": "Italian"
+          }
+        ],
+        "badge": 1,
+        "ratings": 5.0
+      },
+      {
+        "id": 2,
+        "name": "Dunkin Donut",
+        "image": {
+          "1x": "https://i.ibb.co/pJWVdrH/product2.png",
+          "2x": "https://i.ibb.co/NWtM0SL/product2-2x.png",
+          "3x": "https://i.ibb.co/0sXmkXM/product2-3x.png"
+        },
+        "location": {
+          "latitude": "40.729944",
+          "longitude": "-74.006211"
+        },
+        "category": [
+          {
+            "tag": "Art Gallery"
+          },
+          {
+            "tag": "Contemporary"
+          }
+        ],
+        "badge": 2,
+        "ratings": 5.0
+      },
+      {
+        "id": 2,
+        "name": "Misfit",
+        "image": {
+          "1x": "https://i.ibb.co/pJWVdrH/product2.png",
+          "2x": "https://i.ibb.co/NWtM0SL/product2-2x.png",
+          "3x": "https://i.ibb.co/0sXmkXM/product2-3x.png"
+        },
+        "location": {
+            "latitude": "40.719944",
+            "longitude": "-74.006211"
+          },
+        "category": [
+          {
+            "tag": "Art Gallery"
+          },
+          {
+            "tag": "Contemporary"
+          }
+        ],
+        "badge": 3,
+        "ratings": 5.0
+      }
+    ]
+  }
+]

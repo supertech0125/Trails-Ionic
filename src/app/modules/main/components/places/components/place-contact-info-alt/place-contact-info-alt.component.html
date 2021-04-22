@@ -1,0 +1,56 @@
+<ion-item lines="none">
+  <ion-label class="place-text-header">Contact Information</ion-label>
+  <ion-button
+    slot="end"
+    color="warning2"
+    class="reserve-button"
+    size="small"
+    (click)="openReservation()"
+    *ngIf="reservationUrl && reservationUrl !== ''"
+  >
+    Reserve
+  </ion-button>
+</ion-item>
+<ion-row class="ion-align-self-center">
+  <ion-col size="4">
+    <ion-button
+      fill="clear"
+      expand="full"
+      [disabled]="address == ''"
+      (click)="openAddressOnMap()"
+    >
+      <ion-icon
+        slot="icon-only"
+        class="place-text-icon"
+        name="location-outline"
+      ></ion-icon>
+    </ion-button>
+  </ion-col>
+  <ion-col size="4">
+    <ion-button
+      fill="clear"
+      expand="full"
+      [disabled]="phone == ''"
+      (click)="makePhoneCall()"
+      ><ion-icon
+        slot="icon-only"
+        class="place-text-icon"
+        name="phone-portrait-outline"
+      ></ion-icon>
+    </ion-button>
+  </ion-col>
+  <ion-col size="4">
+    <ion-button
+      fill="clear"
+      expand="full"
+      [disabled]="website == ''"
+      (click)="openWebsite()"
+    >
+      <ion-icon
+        slot="icon-only"
+        class="place-text-icon"
+        name="globe-outline"
+      ></ion-icon>
+    </ion-button>
+  </ion-col>
+</ion-row>

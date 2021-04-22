@@ -1,0 +1,118 @@
+@import '../variables.scss';
+
+.app-button {
+  font-family: $font-family-base;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0px;
+  --border-radius: 18px;
+  border-radius: 18px;
+
+  height: 48px;
+
+  &.button-outline {
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  &.button-clear {
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  &.app-button-large {
+    height: 62px;
+    font-size: 17px;
+    line-height: 20px;
+    letter-spacing: 1.17px;
+  }
+
+  &.app-button-small {
+    height: 38px;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  &.app-button-xsmall {
+    font-size: 11px;
+    line-height: 13px;
+    height: 28px;
+  }
+}
+
+.app-gradient-button {
+  --background: transparent
+    linear-gradient(
+      180deg,
+      var(--ion-color-trail-steps) 0%,
+      var(--ion-color-trail-steps2) 100%
+    )
+    0% 0% no-repeat padding-box;
+  --background-activated: transparent
+    linear-gradient(
+      180deg,
+      var(--ion-color-trail-steps) 0%,
+      var(--ion-color-trail-steps2) 100%
+    )
+    0% 0% no-repeat padding-box;
+  --background-focused: transparent
+    linear-gradient(
+      180deg,
+      var(--ion-color-trail-steps) 0%,
+      var(--ion-color-trail-steps2) 100%
+    )
+    0% 0% no-repeat padding-box;
+  --background-hover: transparent
+    linear-gradient(
+      180deg,
+      var(--ion-color-trail-steps) 0%,
+      var(--ion-color-trail-steps2) 100%
+    )
+    0% 0% no-repeat padding-box;
+
+  &::part(native) {
+    background: transparent
+      linear-gradient(180deg, $color-trail-steps 0%, $color-trail-steps2 100%)
+      0% 0% no-repeat padding-box;
+  }
+
+  &.button-clear {
+    --background: transparent !important;
+    --background-activated: transparent !important;
+    --background-focused: transparent
+      linear-gradient(
+        180deg,
+        var(--ion-color-trail-steps) 0%,
+        var(--ion-color-trail-steps2) 100%
+      )
+      0% 0% no-repeat padding-box !important;
+    --background-hover: transparent;
+    --background-focused-opacity: 0.1;
+
+    &::part(native) {
+      background: transparent !important;
+    }
+  }
+}
+
+.app-gradient-button-outline {
+  --border-width: 3px;
+  --border-style: solid;
+  --border-color: var(--ion-color-white) !important;
+
+  background: transparent;
+  --background: transparent;
+  --background-activated: transparent;
+}
+.back-button-has-icon-only {
+  color: $color-header-icon;
+}
+
+.searchbar-cancel-button {
+  color: $color-header-icon !important;
+}
+
+.button-has-icon-only {
+  color: $color-heading-fade-text;
+  --color: var(--ion-color-heading-fade-text);
+}

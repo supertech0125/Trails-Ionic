@@ -1,0 +1,14 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="md">
+    <ion-title class="search-modal-title"> {{ place.name }} </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" color="medium">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <app-places-loading-skeleton *ngIf="!showCard"></app-places-loading-skeleton>
+  <app-place-card [place]="place" *ngIf="showCard"></app-place-card>
+</ion-content>

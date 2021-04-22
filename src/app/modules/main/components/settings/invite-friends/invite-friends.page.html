@@ -1,0 +1,46 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-xl="4"
+        offset-xl="4"
+        size-lg="4"
+        offset-lg="4"
+        size-md="6"
+        offset-md="3"
+      >
+        <app-content-header-view
+          [title]="'Invite Friends'"
+          [subTitle]="'Invite your friends and enjoy travelling destinations together'"
+        ></app-content-header-view>
+        <ion-list class="basic-form">
+          <app-trail-input
+            label="Share link"
+            type="text"
+            name="shareLink"
+            autocomplete="off"
+            tabindex="3"
+            fieldId="'shareLink'"
+            value="https://trailsteps.ss/cjsKck12"
+            readonly="true"
+            iconName="link"
+          ></app-trail-input>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-no-border ion-padding">
+    <app-trail-button label="Share"></app-trail-button>
+  </ion-toolbar>
+</ion-footer>

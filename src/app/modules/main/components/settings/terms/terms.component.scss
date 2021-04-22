@@ -1,0 +1,19 @@
+@import '../../../../../../theme/variables.scss';
+
+:host {
+  h1 {
+    font-family: $font-family-base;
+    font-weight: $font-weight-bold;
+    font-size: 16px;
+  }
+
+  h3 {
+    font-weight: $font-weight-bold;
+  }
+
+  h3,
+  p {
+    font-family: $font-family-base;
+    font-size: 8px;
+  }
+}

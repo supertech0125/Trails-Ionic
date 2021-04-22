@@ -1,0 +1,16 @@
+:host {
+  ion-badge {
+    border-radius: 100%;
+    --padding-top: 4px;
+    --padding-end: 4px;
+    --padding-bottom: 4px;
+    --padding-start: 4px;
+
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+    height: 10px;
+    width: 10px;
+  }
+}

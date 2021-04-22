@@ -1,0 +1,17 @@
+<ion-item class="no-input-padding" lines="none">
+  <ion-label position="stacked">{{ label }}</ion-label>
+  <input
+    [type]="type"
+    class="form-control"
+    name="form-control"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [required]="required"
+    [id]="fieldId"
+    (input)="onChange($event.target.value)"
+    (blur)="onTouched()"
+    [value]="inputValue"
+  />
+  <ion-icon [name]="iconName" *ngIf="iconName" slot="end"></ion-icon>
+</ion-item>

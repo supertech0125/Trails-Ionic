@@ -1,0 +1,90 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon
+          slot="icon-only"
+          class="back-button-has-icon-only"
+          name="chevron-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="ion-padding-start ion-padding-end">
+    <div class="ratings-header-view" *ngIf="rating">
+      <h1 class="app-heading-text">{{rating}}</h1>
+      <div class="app-note-text-view">
+        <ion-icon name="star" color="warning2"></ion-icon>
+        <span class="app-note-text"
+          >({{trailPlaceRating.reviewCount}} Review
+          <span *ngIf="trailPlaceRating.reviewCount > 1">s</span>)</span
+        >
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+    ></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-xl="4"
+        offset-xl="4"
+        size-lg="4"
+        offset-lg="4"
+        size-md="6"
+        offset-md="3"
+      >
+        <ion-list *ngIf="showContent">
+          <ng-container
+            *ngIf="showContent && ratingsArr && ratingsArr.length > 0"
+          >
+            <ng-container *ngFor="let item of ratingsArr">
+              <app-trail-rating-comments
+                [review]="item"
+              ></app-trail-rating-comments>
+            </ng-container>
+          </ng-container>
+
+          <ng-container
+            *ngIf="showContent && ratingsArr && ratingsArr.length < 1"
+          >
+            <app-no-reviews></app-no-reviews>
+          </ng-container>
+        </ion-list>
+        <ion-list *ngIf="!showContent">
+          <ion-item *ngFor="let item of fakeArr">
+            <ion-avatar slot="start">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-avatar>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text
+                  animated
+                  style="width: 50%"
+                ></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text
+                  animated
+                  style="width: 80%"
+                ></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text
+                  animated
+                  style="width: 60%"
+                ></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

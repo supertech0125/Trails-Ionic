@@ -1,0 +1,61 @@
+@import '../../../../theme/variables.scss';
+
+:host {
+  .list-filters {
+    ion-list-header {
+      padding-inline-start: 0px !important;
+
+      ion-label {
+        margin-top: 22px !important;
+
+        font-family: $font-family-base;
+        font-weight: $font-weight-semi-bold;
+        font-size: 17px;
+        line-height: 20px;
+        letter-spacing: 0px;
+        color: $color-heading-text;
+      }
+    }
+
+    ion-item-divider {
+      --padding-start: 0px;
+      --background: #fff;
+
+      ion-label {
+        font-family: $font-family-base !important;
+        font-weight: $font-weight-base;
+        font-size: 15px !important;
+        line-height: 20px;
+        letter-spacing: 0px;
+        color: $color-heading-note-text !important;
+      }
+    }
+
+    .filter-item-checkbox {
+      ion-label {
+        font-family: $font-family-base !important;
+        font-weight: $font-weight-base;
+        font-size: 15px !important;
+        line-height: 20px;
+        letter-spacing: 0px;
+        color: $color-heading-note-text !important;
+      }
+
+      ion-checkbox {
+        &::part(container) {
+          border: none;
+          border-color: transparent;
+          background: transparent;
+        }
+
+        &::part(mark) {
+          stroke: rgb(255, 201, 64);
+        }
+      }
+    }
+
+    ion-item {
+      --padding-start: 0px !important;
+    }
+  }
+}

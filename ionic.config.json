@@ -1,0 +1,7 @@
+{
+  "name": "TrailSteps-Ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

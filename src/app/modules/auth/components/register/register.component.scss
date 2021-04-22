@@ -1,0 +1,60 @@
+@import '../../../../../theme/variables.scss';
+
+:host {
+  .sign-up-forgot-view {
+    margin-top: 19px;
+    text-align: left;
+
+    .sign-up-forgot-text {
+      font-family: $font-family-base;
+      font-weight: $font-weight-base;
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: 0;
+      color: $color-heading-note-text;
+    }
+  }
+
+  .welcome-button-view {
+    margin-top: 40px;
+
+    .app-button {
+      --border-width: 3px;
+      --border-style: solid;
+      --border-radius: 18px;
+
+      &::part(native) {
+        border: 3px solid $color-white;
+        border-radius: 18px;
+
+        font-family: $font-family-base;
+        font-weight: $font-weight-bold;
+        font-size: 17px;
+        line-height: 20px;
+        letter-spacing: 1.17;
+        text-align: center;
+        color: $color-white;
+      }
+    }
+  }
+
+  .create-view {
+    margin-top: 24px;
+    margin-bottom: 66px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: $font-family-base;
+    font-weight: $font-weight-base;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0;
+    color: $color-heading-note-text;
+
+    .sign-up-text {
+      font-weight: $font-weight-bold;
+      cursor: pointer;
+    }
+  }
+}

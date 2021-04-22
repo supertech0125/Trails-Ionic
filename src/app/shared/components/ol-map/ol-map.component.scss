@@ -1,0 +1,16 @@
+:host {
+    display: block;
+  
+    .map-container {
+      width: 100%;
+  
+      .ol-viewport {
+        .ol-overlaycontainer-stopevent {
+          .ol-attribution {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,26 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="md" *ngIf="!showSearch">
+    <ion-title class="app-title"> {{ title }} </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onShowSearch.emit($event)">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <ion-button (click)="openFilter.emit($event)">
+        <ion-icon slot="icon-only" name="funnel-sharp"></ion-icon>
+        <ion-badge color="danger" *ngIf="showFilterBadge">&nbsp;</ion-badge>
+      </ion-button>
+      <ion-button (click)="openSearch()">
+        <ion-icon slot="icon-only" name="navigate"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar mode="md" *ngIf="showSearch">
+    <app-trail-searchbar
+      placeholder="Search"
+      showCancelButton="always"
+      (ionChange)="onSearchInput.emit($event)"
+      (ionCancel)="onShowSearch.emit($event)"
+      debounce="500"
+    ></app-trail-searchbar>
+  </ion-toolbar>
+</ion-header>

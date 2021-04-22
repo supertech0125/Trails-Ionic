@@ -1,0 +1,57 @@
+@import '../../../../../../../theme/variables.scss';
+
+:host {
+  .place-trail-distance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    .place-trail-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ffffff 0% 0% no-repeat padding-box;
+      box-shadow: 0px 2px 6px #0a9fa322;
+
+      margin-right: 6px;
+      z-index: 1;
+      position: relative;
+      left: -9px;
+
+      ion-icon {
+        font-size: 14px;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+    }
+
+    .place-trail-line {
+      height: 42px;
+      border: 1px dashed #91cacb;
+      width: 1.5px;
+
+      position: absolute;
+      left: 0px;
+    }
+
+    .place-trail-label {
+      font-family: $font-family-base;
+      font-weight: $font-weight-base;
+      font-size: 10px;
+      line-height: 12px;
+      letter-spacing: 0px;
+      text-align: left;
+      color: $color-heading-note-text;
+      padding-left: 5px;
+
+      left: -15px;
+      position: relative;
+    }
+  }
+}

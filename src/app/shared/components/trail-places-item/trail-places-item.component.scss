@@ -1,0 +1,111 @@
+@import '../../../../theme/variables.scss';
+
+:host {
+  .trail-places-item {
+    --padding-start: 0px;
+
+    .slot-start {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .slot-end {
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+    }
+
+    .remove-circle-button {
+      --padding-start: 0;
+      --padding-end: 0;
+    }
+
+    &.selected {
+      ion-thumbnail {
+        ion-img {
+          border: 2px solid #ffc940;
+          opacity: 0.75;
+        }
+      }
+    }
+
+    .icon-delete {
+      margin-right: 18px;
+      font-size: 21px;
+    }
+
+    .icon-order {
+      margin-top: 10px;
+      font-size: 21px;
+      color: $color-header-icon;
+    }
+
+    .badge-index {
+      color: #0a9fa3;
+      font-family: $font-family-base;
+      font-weight: $font-weight-semi-bold;
+      font-size: 10px;
+      line-height: 12px;
+      letter-spacing: 0;
+    }
+
+    ion-thumbnail {
+      position: relative;
+      width: 74px;
+      height: 74px;
+      background: #ffffff 0% 0% no-repeat padding-box;
+
+      ion-img {
+        position: relative;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border-radius: 14px;
+      }
+
+      ion-icon {
+        font-size: 21px;
+        position: absolute;
+        top: 35%;
+        left: 35%;
+
+        background: #fff;
+        border-radius: 50%;
+        border: none;
+      }
+    }
+
+    .heading-text {
+      font-family: $font-family-base;
+      font-weight: $font-weight-semi-bold;
+      font-size: 15px;
+      line-height: 18px;
+      letter-spacing: 0;
+      color: $color-heading-text;
+    }
+
+    .sub-title-text {
+      font-family: $font-family-base;
+      font-weight: $font-weight-base;
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: 0;
+      color: $color-heading-note-text;
+
+      display: flex;
+      flex-wrap: wrap;
+
+      .sub-type {
+        padding-right: 8px;
+
+        &:before {
+          content: '• ';
+        }
+      }
+
+      .place-type {
+        padding-right: 4px;
+      }
+    }
+  }
+}

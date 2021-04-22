@@ -1,0 +1,15 @@
+:host {
+  display: block;
+
+  .card-map {
+    width: 100%;
+
+    .ol-viewport {
+      .ol-overlaycontainer-stopevent {
+        .ol-attribution {
+          display: none;
+        }
+      }
+    }
+  }
+}

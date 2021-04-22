@@ -1,0 +1,22 @@
+<ion-item class="rating-item">
+  <div slot="start" class="slot-start">
+    <ion-avatar>
+      <img
+        [src]="review.profileImageUrl"
+        onError="this.src='./assets/png/account/Oval.png'"
+      />
+    </ion-avatar>
+  </div>
+  <ion-label class="ion-text-wrap">
+    <h2 class="rating-user-name">
+      {{ review.firstName }} {{ review.lastName }}
+    </h2>
+    <ion-note class="rating-time">{{review.timestamp | amTimeAgo}}</ion-note>
+    <p class="rating-comment">{{ review.comment }}</p>
+
+    <app-trail-rating-badge
+      [rating]="rating"
+      color="warning2"
+    ></app-trail-rating-badge>
+  </ion-label>
+</ion-item>

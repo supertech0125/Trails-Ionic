@@ -1,0 +1,25 @@
+@import '../../../../../../theme/variables.scss';
+
+:host {
+  .trail-places-item {
+    --padding-start: 0px;
+
+    ion-thumbnail {
+      position: relative;
+      width: 113px;
+      height: 113px;
+      background: #ffffff 0% 0% no-repeat padding-box;
+
+      ion-skeleton-text {
+        border-radius: 14px;
+      }
+    }
+
+    .review-view {
+      ion-skeleton-text {
+        border-radius: 64px;
+        height: 2.1em;
+      }
+    }
+  }
+}

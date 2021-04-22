@@ -1,0 +1,20 @@
+<ion-list class="uploader-form">
+  <ion-item lines="none">
+    <ion-label>
+      <h2>Add Attachments</h2>
+      <div class="images-thumbnails">
+        <ng-container *ngFor="let image of attachmentsArr">
+          <ion-thumbnail class="image-thumbnail">
+            <img
+              [src]="image"
+              onError="this.src='https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y'"
+            />
+          </ion-thumbnail>
+        </ng-container>
+        <ion-thumbnail class="add-image-thumbnail" (click)="addAttachments()">
+          <ion-icon name="camera-outline"></ion-icon>
+        </ion-thumbnail>
+      </div>
+    </ion-label>
+  </ion-item>
+</ion-list>

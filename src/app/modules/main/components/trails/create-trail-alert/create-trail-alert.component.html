@@ -1,0 +1,20 @@
+<ion-content class="ion-padding">
+    <div class="notification-view">
+        <div class="custom-card-view">
+            <img src="./assets/png/alert.png" />
+        </div>
+        <ion-card-content>
+            <h2 class="custom-card-status">
+                Alert
+            </h2>
+            <p class="custom-card-status-note">
+                You haven’t save your trail yet. Are you sure want leave this page?
+            </p>
+        </ion-card-content>
+    </div>
+
+    <app-trail-button label="Continue" (click)="continue()"></app-trail-button>
+    <ion-button fill="clear" expand="block" color="heading-note" (click)="dismiss()">
+        Cancel
+    </ion-button>
+</ion-content>

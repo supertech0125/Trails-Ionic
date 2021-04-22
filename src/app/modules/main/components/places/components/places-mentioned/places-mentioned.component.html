@@ -1,0 +1,22 @@
+<ion-list>
+  <ion-list-header>
+    <ion-label class="place-text-header">Mentioned in</ion-label>
+  </ion-list-header>
+  <ion-item lines="none">
+    <ion-label class="ion-text-wrap">
+      <app-trail-badge
+        [label]="item.name"
+        state="active"
+        *ngFor="let item of mentionedIn"
+      ></app-trail-badge>
+    </ion-label>
+    <div slot="end" *ngIf="mentionedIn && mentionedIn.length > 0">
+      <app-trail-badge
+        label="..."
+        state="active"
+        shape="round"
+        (click)="viewMentioned()"
+      ></app-trail-badge>
+    </div>
+  </ion-item>
+</ion-list>

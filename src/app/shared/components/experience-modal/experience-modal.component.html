@@ -1,0 +1,30 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border ion-margin-start ion-margin-end">
+    <app-content-header-view [title]="'Experience'" [subTitle]="'Select the experience of the location'">
+    </app-content-header-view>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ng-container *ngFor="let item of experienceFilters">
+      <ion-item-divider (click)="item.selected = !item.selected">
+        <ion-label>
+          {{ item.name }}
+        </ion-label>
+        <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
+      </ion-item-divider>
+      <ng-container *ngIf="item.selected">
+        <ion-item class="filter-item-checkbox" lines="none" *ngFor="let entry of item.subfilters">
+          <ion-label>{{ entry.name }}</ion-label>
+          <ion-checkbox mode="md" slot="start" color="warning2" [(ngModel)]="entry.selected"></ion-checkbox>
+        </ion-item>
+      </ng-container>
+    </ng-container>
+  </ion-list>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <app-trail-button label="Next"></app-trail-button>
+    <app-trail-button fill="clear" label="Cancel" (click)="dismiss()"></app-trail-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,31 @@
+@import '../../../../../../../theme/variables.scss';
+
+:host {
+  .trail-theme-item {
+    ion-label {
+      ion-badge {
+        margin-right: 6px;
+      }
+    }
+
+    .trail-theme-item-name {
+      font-family: $font-family-base;
+      font-weight: $font-weight-semi-bold;
+      font-size: 15px;
+      line-height: 18px;
+      letter-spacing: -0.43px;
+      text-align: left;
+      color: $color-heading-text;
+    }
+
+    .trail-theme-item-title {
+      font-family: $font-family-base;
+      font-weight: $font-weight-bold;
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: 0px;
+      text-align: left;
+      color: $color-heading-note-text;
+    }
+  }
+}

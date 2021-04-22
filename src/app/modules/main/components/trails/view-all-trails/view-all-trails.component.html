@@ -1,0 +1,34 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="md">
+    <ion-title class="search-modal-title"> All Trails - {{trail.trailUser?.firstName}} {{trail.trailUser?.lastName}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" color="medium">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-list>
+    <!-- 
+      =================================================================
+      =================================================================
+      =================================================================
+     -->
+    <ng-container *ngIf="showPlaces">
+      <ng-container *ngFor="let item of trailsArr">
+        <app-trail-card [trail]="item"></app-trail-card>
+      </ng-container>
+    </ng-container>
+    <!-- 
+      =================================================================
+      =================================================================
+      =================================================================
+     -->
+    <ng-container *ngIf="!showPlaces">
+      <ng-container *ngFor="let item of fakeArr">
+        <app-trail-loading-skeleton></app-trail-loading-skeleton>
+      </ng-container>
+    </ng-container>
+  </ion-list>
+</ion-content>

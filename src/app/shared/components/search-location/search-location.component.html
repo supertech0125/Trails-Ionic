@@ -1,0 +1,72 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar></ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <!-- <google-map
+    #Map
+    [options]="mapOptions"
+    [center]="mapCenter"
+    [height]="'100%'"
+    [width]="'100%'"
+    *ngIf="showMap"
+  >
+    <ng-container *ngIf="mapMarker">
+      <map-marker
+        #MapMarker
+        [position]="mapMarker"
+        [options]="mapMarkerOptions"
+        (mapDragend)="mapPositionChanged($event)"
+      >
+      </map-marker>
+    </ng-container>
+  </google-map> -->
+
+  <ion-card class="card-map-location">
+    <ion-card-header>
+      <ion-toolbar class="ion-no-border" mode="md">
+        <div slot="start">
+          <ion-title>
+            <ion-icon
+              class="back-button-has-icon-only"
+              name="location"
+            ></ion-icon>
+            Location
+          </ion-title>
+        </div>
+        <ion-buttons slot="end">
+          <ion-button (click)="dismiss()" fill="clear" color="royal">
+            Close
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-card-header>
+    <ion-list class="basic-form">
+      <app-trail-input
+        label="Address"
+        type="text"
+        name="feedbackMessage"
+        autocomplete="off"
+        placeholder="Your location"
+        maxlength="60"
+        [inputValue]="locationAddress"
+        [(ngModel)]="locationAddress"
+        readonly="true"
+        (click)="onChangeLocation()"
+      >
+      </app-trail-input>
+    </ion-list>
+    <div class="ion-padding">
+      <app-trail-button
+        label="Update"
+        (click)="updateLocation()"
+      ></app-trail-button>
+    </div>
+  </ion-card>
+
+  <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+    <ion-fab-button color="warning2" (click)="getGeolocation()">
+      <ion-icon name="locate-outline" *ngIf="!isLocating"></ion-icon>
+      <ion-spinner *ngIf="isLocating"></ion-spinner>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,213 @@
+@import "../../../../theme/variables.scss";
+
+:host {
+    background: transparent linear-gradient(180deg, $color-trail-steps 0%, $color-trail-steps2 100%) 0% 0% no-repeat padding-box;
+    --background: transparent linear-gradient(180deg,
+            var(--ion-color-trail-steps) 0%,
+            var(--ion-color-trail-steps2) 100%) 0% 0% no-repeat padding-box;
+
+    ion-content {
+        background: transparent;
+        --background: transparent;
+    }
+
+    ion-footer {
+        background: transparent;
+        --background: transparent;
+
+        ion-toolbar {
+            background: transparent;
+            --background: transparent;
+        }
+    }
+
+    .app-button {
+        --border-width: 3px;
+        --border-style: solid;
+        --border-radius: 18px;
+        --border-color: #ffffff !important;
+
+        --color: #ffffff !important;
+        --color-activated: #ffffff !important;
+
+        --background-activated: transparent;
+        --background-focused: transparent;
+
+        &::part(native) {
+            border: 3px solid $color-white;
+            border-radius: 18px;
+
+            font-family: $font-family-base;
+            font-weight: $font-weight-bold;
+            font-size: 17px;
+            line-height: 20px;
+            letter-spacing: 1.17;
+            text-align: center;
+            color: $color-white;
+        }
+    }
+
+    .logoCenterView {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 50px;
+    }
+
+    .footerView {
+        margin-top: 64px;
+        margin-bottom: 55px;
+
+        .text-separator {
+            font-family: $font-family-base;
+            font-weight: $font-weight-bold;
+            font-size: 24px;
+            line-height: 29px;
+            letter-spacing: 0.29px;
+            text-align: center;
+            color: $color-white;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .text-description {
+            font-family: $font-family-base;
+            font-weight: $font-weight-base;
+            font-size: 17px;
+            line-height: 25px;
+            letter-spacing: 0.27px;
+            text-align: center;
+            color: $color-white;
+        }
+    }
+
+    /* iPhone 5  */
+    @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+
+        /* STYLES GO HERE */
+        .logoCenterView {
+            padding-top: 30px;
+
+            img {
+                width: 50%;
+            }
+        }
+
+        .footerView {
+            .text-separator {
+                font-size: 20px;
+                line-height: 24px;
+                letter-spacing: 0.29px;
+            }
+
+            .text-description {
+                font-size: 15px;
+                line-height: 18px;
+                letter-spacing: 0.27px;
+            }
+        }
+
+        .app-button {
+            height: 48px;
+
+            &::part(native) {
+                border-width: 2px;
+            }
+        }
+
+        .create-view {
+            display: block;
+            text-align: center;
+        }
+    }
+
+    /* iPhone 6, 7, & 8  */
+    @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+
+        /* STYLES GO HERE */
+        .logoCenterView {
+            padding-top: 50px;
+
+            img {
+                width: 60%;
+            }
+        }
+    }
+
+    /* iPhone 6, 7, & 8 Plus */
+    @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+
+        /* STYLES GO HERE */
+        .logoCenterView {
+            padding-top: 50px;
+
+            img {
+                width: 60%;
+            }
+        }
+
+        .app-button {
+            height: 56px;
+
+            &::part(native) {
+                border-width: 3px;
+            }
+        }
+    }
+
+    /* iPhone X and Xs Max */
+    @media only screen and (min-device-width: 375px) and (min-device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) {
+        .logoCenterView {
+            img {
+                width: 70%;
+            }
+        }
+
+        .footerView {
+            .text-separator {
+                font-size: 24px;
+                line-height: 29px;
+                letter-spacing: 0.29px;
+            }
+
+            .text-description {
+                font-size: 17px;
+                line-height: 25px;
+                letter-spacing: 0.27px;
+            }
+        }
+
+        .app-button {
+            height: 62px;
+        }
+    }
+
+    /* iPhone XR */
+    @media only screen and (min-device-width: 414px) and (min-device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) {
+        .logoCenterView {
+            img {
+                width: 70%;
+            }
+        }
+
+        .footerView {
+            .text-separator {
+                font-size: 24px;
+                line-height: 29px;
+                letter-spacing: 0.29px;
+            }
+
+            .text-description {
+                font-size: 17px;
+                line-height: 25px;
+                letter-spacing: 0.27px;
+            }
+        }
+
+
+        /* styles */
+        .app-button {
+            height: 62px;
+        }
+    }
+}

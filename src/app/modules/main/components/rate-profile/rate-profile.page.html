@@ -1,0 +1,104 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon
+          slot="icon-only"
+          class="back-button-has-icon-only"
+          name="chevron-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-xl="4"
+        offset-xl="4"
+        size-lg="4"
+        offset-lg="4"
+        size-md="6"
+        offset-md="3"
+      >
+        <ion-list>
+          <ng-container *ngIf="!showContent">
+            <app-rate-profile-loading-skeleton></app-rate-profile-loading-skeleton>
+          </ng-container>
+          <ng-container *ngIf="showContent">
+            <ng-container *ngIf="action === 'place'">
+              <ng-container *ngIf="place">
+                <app-trail-places-rating-item
+                  [place]="place"
+                  [trailPlaceRating]="trailPlaceRating"
+                  action="place"
+                  (viewRatingClick)="onViewRatings()"
+                >
+                </app-trail-places-rating-item>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="action === 'trail'">
+              <ng-container *ngIf="trail">
+                <app-trail-places-rating-item
+                  [trail]="trail"
+                  [trailPlaceRating]="trailPlaceRating"
+                  action="trail"
+                  (viewRatingClick)="onViewRatings()"
+                >
+                </app-trail-places-rating-item>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ion-list>
+        <div class="rate-experience-form">
+          <h2 class="heading-title">Rate your experience</h2>
+          <p class="heading-sub-title">Share your experience to help others</p>
+          <ng-container *ngIf="showContent">
+            <ionic5-star-rating
+              #rating
+              activeIcon="star"
+              defaultIcon="star"
+              activeColor="#FFC940"
+              defaultColor="#C3E2E3"
+              readonly="false"
+              [rating]="rating"
+              fontSize="32px"
+              (ratingChanged)="logRatingChange($event)"
+            >
+            </ionic5-star-rating>
+          </ng-container>
+        </div>
+        <ion-list class="basic-form">
+          <app-trail-textarea
+            label="Review"
+            type="text"
+            name="feedbackMessage"
+            autocomplete="off"
+            placeholder="Write your review here"
+            [maxlength]="maxNumberOfCharacters"
+            [inputValue]="feedbackMessage"
+            [(ngModel)]="feedbackMessage"
+            #feedback
+            (keyup)="onKeyUp($event)"
+            [disabled]="!showContent"
+          >
+          </app-trail-textarea>
+          <ion-label color="heading-note" class="text-counter"
+            >{{numberOfCharacters}}/{{maxNumberOfCharacters}}</ion-label
+          >
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <app-trail-button
+      label="Next"
+      (click)="submitRate()"
+      [disabled]="!showContent"
+    ></app-trail-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,122 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon
+          slot="icon-only"
+          class="back-button-has-icon-only"
+          name="chevron-back-outline"
+        ></ion-icon>
+        <!-- <ion-back-button></ion-back-button> -->
+      </ion-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-xl="4"
+        offset-xl="4"
+        size-lg="4"
+        offset-lg="4"
+        size-md="6"
+        offset-md="3"
+      >
+        <app-content-header-view
+          [title]="'Edit Profile'"
+        ></app-content-header-view>
+        <ion-item lines="none" class="user-detail-item">
+          <ion-avatar slot="start" class="user-avatar" (click)="changeAvatar()">
+            <img
+              [src]="currentProfile.profileImageUrl"
+              onError="this.src='./assets/png/account/Oval.png'"
+              *ngIf="!userAvatar"
+            />
+            <img [src]="userAvatar" *ngIf="userAvatar" />
+          </ion-avatar>
+          <ion-label class="ion-text-wrap" (click)="changeAvatar()">
+            <h2 class="user-name">Upload Photo</h2>
+            <p class="user-email">Recommended size is 360 x360 pixels</p>
+          </ion-label>
+        </ion-item>
+        <form novalidate [formGroup]="loginForm">
+          <ion-list class="basic-form">
+            <ion-item class="no-input-padding app-trail-input" lines="none">
+              <ion-label position="stacked">First name</ion-label>
+              <input
+                type="text"
+                class="form-control"
+                name="firstName"
+                autocomplete="off"
+                id="firstName"
+                formControlName="firstName"
+                required
+              />
+            </ion-item>
+
+            <div
+              *ngIf="
+          (f.firstName?.dirty || f.firstName?.touched) &&
+          f.firstName?.invalid &&
+          f.firstName.errors
+        "
+            >
+              <div class="mat-error" *ngIf="f.firstName?.errors?.required">
+                First Name is required.
+              </div>
+            </div>
+            <ion-item class="no-input-padding app-trail-input" lines="none">
+              <ion-label position="stacked">Last name</ion-label>
+              <input
+                type="text"
+                class="form-control"
+                name="lastName"
+                autocomplete="off"
+                id="lastName"
+                formControlName="lastName"
+                required
+              />
+            </ion-item>
+            <div
+              *ngIf="
+          (f.lastName?.dirty || f.lastName?.touched) &&
+          f.lastName?.invalid &&
+          f.lastName.errors
+        "
+            >
+              <div class="mat-error" *ngIf="f.lastName?.errors?.required">
+                Last Name is required.
+              </div>
+            </div>
+            <ion-item class="no-input-padding app-trail-input" lines="none">
+              <ion-label position="stacked">Last name</ion-label>
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                autocomplete="off"
+                id="email"
+                formControlName="email"
+                required
+                disabled
+              />
+            </ion-item>
+          </ion-list>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <app-trail-button
+      label="Update"
+      (click)="update()"
+      [disabled]="isSubmitting && loginForm.invalid"
+    >
+    </app-trail-button>
+  </ion-toolbar>
+</ion-footer>

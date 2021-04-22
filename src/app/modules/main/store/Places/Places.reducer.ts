@@ -1,0 +1,135 @@
+import { createReducer, on } from '@ngrx/store';
+import { IPlacesResponse, Places } from '../../models/places.model';
+import {
+  clearPlacesAction,
+  paginatePlacesAction,
+  PlacesAction,
+  PlacesActionFailure,
+  PlacesActionSuccess,
+  SearchPlacesActionSuccess,
+  paginateSearchPlacesAction,
+  clearSearchPlacesAction,
+} from './Places.action';
+
+export interface PlacesState {
+  places?: IPlacesResponse | null;
+  placesData?: Places[] | null;
+  placesError: any | null;
+  placesLoading: boolean;
+  placesLoaded: boolean;
+  placesOnSearching: boolean;
+  placesOnPaginate: boolean;
+}
+
+export interface SearchPlacesState {
+  searchPlaces?: IPlacesResponse | null;
+  searchPlacesData?: Places[] | null;
+  searchPlacesError: any | null;
+  searchPlacesLoading: boolean;
+  searchPlacesLoaded: boolean;
+  searchPlacesOnSearching: boolean;
+  searchPlacesOnPaginate: boolean;
+}
+
+export const initialPlacesState: PlacesState = {
+  places: undefined,
+  placesData: [],
+  placesLoading: true,
+  placesLoaded: false,
+  placesError: null,
+  placesOnSearching: false,
+  placesOnPaginate: false,
+};
+
+export const initialSearchPlacesState: SearchPlacesState = {
+  searchPlaces: undefined,
+  searchPlacesData: [],
+  searchPlacesLoading: true,
+  searchPlacesLoaded: false,
+  searchPlacesError: null,
+  searchPlacesOnSearching: false,
+  searchPlacesOnPaginate: false,
+};
+
+const placesData = (places: any[], state): Places[] => {
+  const itemPlaces = [...state.placesData];
+  places.forEach((content) => {
+    itemPlaces.push(content);
+  });
+  return itemPlaces;
+};
+
+const searchPlacesData = (places: any[], state): Places[] => {
+  const itemPlaces = [...state.searchPlacesData];
+  places.forEach((content) => {
+    itemPlaces.push(content);
+  });
+  return itemPlaces;
+};
+
+export const placesReducer = createReducer(
+  initialPlacesState,
+  on(paginatePlacesAction, (state, action) => ({
+    ...state,
+    placesOnPaginate: action.paginate,
+  })),
+  on(clearPlacesAction, (state) => ({
+    ...state,
+    places: undefined,
+    placesData: [],
+    placesLoading: true,
+    placesLoaded: false,
+    placesError: null,
+    placesOnPaginate: false,
+  })),
+  on(PlacesAction, (state) => ({
+    ...state,
+    placesLoading: state.placesOnPaginate ? false : true,
+    placesLoaded:
+      state.placesData && state.placesData.length > 0 ? true : false,
+  })),
+  on(PlacesActionSuccess, (state, action) => ({
+    ...state,
+    places: action.places,
+    // placesData: placesData(action.places.data, state),
+    placesData: action.places.data,
+    placesLoading: false,
+    placesLoaded: true,
+  })),
+  on(PlacesActionFailure, (state, action) => ({
+    ...state,
+    placesLoading: false,
+    placesLoaded: false,
+    placesError: action.error,
+  }))
+);
+
+export const searchPlacesReducer = createReducer(
+  initialSearchPlacesState,
+  on(paginateSearchPlacesAction, (state, action) => ({
+    ...state,
+    searchPlacesOnPaginate: action.paginate,
+  })),
+  on(clearSearchPlacesAction, (state) => ({
+    ...state,
+    searchPlaces: undefined,
+    searchPlacesData: [],
+    searchPlacesLoading: true,
+    searchPlacesLoaded: false,
+    searchPlacesError: null,
+    searchPlacesOnPaginate: false,
+  })),
+  on(SearchPlacesActionSuccess, (state, action) => ({
+    ...state,
+    searchPlaces: action.places,
+    searchPlacesData: searchPlacesData(action.places.data, state),
+    searchPlacesLoading: false,
+    searchPlacesLoaded: true,
+  })),
+  on(PlacesActionFailure, (state, action) => ({
+    ...state,
+    searchPlacesLoading: false,
+    searchPlacesLoaded: false,
+    searchPlacesError: action.error,
+  }))
+);

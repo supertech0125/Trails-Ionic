@@ -1,0 +1,96 @@
+<app-mobile-toolbar-header
+  *ngIf="!isDesktop"
+  [title]="'Trails'"
+  [action]="'trails'"
+  [showSearch]="showSearch"
+  [showFilterBadge]="onFiltering"
+  (onShowSearch)="onShowSearch()"
+  (openFilter)="openFilterModal()"
+  (onSearchInput)="onSearchInput($event)"
+></app-mobile-toolbar-header>
+
+<app-desktop-toolbar-header
+  *ngIf="isDesktop"
+  [title]="'Trails'"
+  [action]="'trails'"
+  [showSearch]="showSearch"
+  [showFilterBadge]="onFiltering"
+  (onShowSearch)="onShowSearch()"
+  (openFilter)="openFilterModal()"
+  (onSearchInput)="onSearchInput($event)"
+>
+</app-desktop-toolbar-header>
+
+<ion-content [fullscreen]="true" class="main-content">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+    ></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-xl="4"
+        offset-xl="4"
+        size-lg="4"
+        offset-lg="4"
+        size-md="6"
+        offset-md="3"
+      >
+        <ng-container *ngIf="!showContent && !isDataLoaded">
+          <ng-container *ngFor="let item of fakeArr">
+            <app-places-loading-skeleton></app-places-loading-skeleton>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="showContent && isDataLoaded">
+          <ng-container *ngTemplateOutlet="trailsContent"></ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="showContent && !isDataLoaded">
+          <ng-container *ngTemplateOutlet="noRecord"></ng-container>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="loadData($event)"
+    *ngIf="showContent"
+  >
+    <ion-infinite-scroll-content loadingSpinner="lines-small">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    [ngClass]="{'iosFix': platform.is('ios')}"
+  >
+    <ion-fab-button
+      color="warning2"
+      class="trail-add-button"
+      (click)="onCreateTrail()"
+    >
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
+<ng-template #noRecord>
+  <app-trail-places-no-result-found
+    [action]="'trails'"
+    [caption]="'No trails found!'"
+    [subCaption]="'Try searching or filtering for something else'"
+  ></app-trail-places-no-result-found>
+</ng-template>
+
+<ng-template #trailsContent>
+  <ng-container *ngIf="filterTrailsArr && filterTrailsArr.length < 1">
+    <ng-container *ngTemplateOutlet="noRecord"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="filterTrailsArr && filterTrailsArr.length >0">
+    <ng-container *ngFor="let item of filterTrailsArr">
+      <app-trail-card [trail]="item"></app-trail-card>
+    </ng-container>
+  </ng-container>
+</ng-template>

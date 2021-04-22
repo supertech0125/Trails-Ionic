@@ -1,0 +1,24 @@
+@import '../../../../theme/variables.scss';
+
+:host {
+  .card-map-marker {
+    width: 25px;
+    height: 25px;
+
+    border: 2px solid $color-heading-note-text;
+    border-radius: 50%;
+  }
+
+  .card-map-marker-label {
+    padding: 6px;
+
+    font-family: $font-family-base;
+    font-weight: $font-weight-light;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0px;
+    color: $color-white;
+
+    background: $color-heading-note-text;
+  }
+}

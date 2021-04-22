@@ -1,0 +1,107 @@
+@import "../../../../theme/variables.scss";
+
+:host {
+  ion-header {
+    ion-toolbar {
+      & :first-of-type {
+        padding-top: 0 !important;
+      }
+    }
+  }
+
+  .search-modal-title {
+    font-family: $font-family-base;
+    font-weight: $font-weight-bold;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: 0.29px;
+    text-align: left;
+    color: $color-heading-text;
+
+    ion-icon {
+      position: relative;
+      top: calc(3em + var(--ion-safe-area-top, 0px));
+    }
+  }
+
+  .search-placeholder {
+    ::ng-deep {
+      --placeholder-font-style: var(--font-family-base);
+      --placeholder-font-weight: var(--font-weight-base);
+      --border-radius: 6px;
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: 0;
+      --placeholder-color: var(--color-royal);
+      --background: #fff;
+      --color: var(--ion-color-heading-note);
+
+      .searchbar-input-container {
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        height: 36px;
+
+        .searchbar-input {
+          padding-left: 9px !important;
+          font-family: $font-family-base;
+          font-weight: $font-weight-base;
+          font-size: 12px;
+          line-height: 14px;
+          letter-spacing: 0;
+          color: $color-heading-note-text;
+        }
+
+        .searchbar-search-icon {
+          display: none;
+          width: 0;
+          height: 0;
+        }
+      }
+    }
+  }
+
+  .search-location-item {
+    ion-label {
+      font-family: $font-family-base !important;
+      font-weight: $font-weight-base !important;
+      font-size: 12px !important;
+      line-height: 14px;
+      letter-spacing: 0;
+      text-align: left;
+      color: $color-heading-note-text;
+    }
+  }
+
+  .search-result-item {
+    ion-label {
+      font-family: $font-family-base !important;
+      font-weight: $font-weight-base !important;
+
+      h2 {
+        font-size: 14px !important;
+        line-height: 16px;
+        letter-spacing: 0;
+        text-align: left;
+        color: $color-heading-note-text;
+      }
+
+      p {
+        font-size: 11px !important;
+        line-height: 13px;
+        letter-spacing: 0;
+        text-align: left;
+        color: #7d8ef7;
+      }
+    }
+
+    .distance {
+      font-family: $font-family-base;
+      font-weight: $font-weight-base;
+      font-size: 11px !important;
+      line-height: 13px;
+      letter-spacing: 0;
+      text-align: left;
+      color: #7d8ef7;
+    }
+  }
+}

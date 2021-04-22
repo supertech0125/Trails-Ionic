@@ -1,0 +1,23 @@
+:host {
+  .trail-card-header {
+    .icon-only {
+      font-size: 24px;
+      padding: 9px;
+    }
+
+    .trail-card-header-label {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .trail-user-item {
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+    ion-avatar {
+      height: 40px;
+      width: 40px;
+    }
+  }
+}

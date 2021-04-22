@@ -1,0 +1,127 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon
+          slot="icon-only"
+          class="back-button-has-icon-only"
+          name="chevron-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onSavePlaces()" fill="clear" color="royal">
+        Done
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-xl="4"
+        offset-xl="4"
+        size-lg="4"
+        offset-lg="4"
+        size-md="6"
+        offset-md="3"
+      >
+        <!-- <app-card-map
+    [mapMarkers]="addedTrailsArrMarkers"
+    [enableZooming]="true"
+    [enableDragging]="true"
+    [enableCurrentLocationMarker]="true"
+  ></app-card-map> -->
+        <app-card-new-map
+          [mapMarkers]="addedTrailsArrMarkers"
+          [enableZooming]="true"
+          [enableDragging]="true"
+          [enableRouting]="true"
+          [enableCurrentLocationMarker]="true"
+        ></app-card-new-map>
+        <div>
+          <h3 class="created-trail-header">Trail Steps</h3>
+          <div class="created-trail-header-view">
+            <h1 class="created-trail-heading-text">Create Trail</h1>
+            <h1 class="created-trail-note-text">
+              Going out for a trail? We got you covered. Select your favorite
+              nearby restaurants as you go or discover new exciting places near
+              you. Just hit the button below and enjoy your trail!
+            </h1>
+          </div>
+          <ion-list class="created-trail-list">
+            <ion-reorder-group
+              (ionItemReorder)="doReorder($event)"
+              [disabled]="!enableReorder"
+            >
+              <ion-reorder
+                *ngFor="let item of addedTrailsArr"
+                [ngClass]="{'reorder-selected': enableReorder}"
+              >
+                <app-trail-places-item
+                  [place]="item"
+                  [showDelete]="true"
+                  [showReOrder]="true"
+                  [showDistance]="true"
+                  [autoDistance]="false"
+                  (placeClick)="onSelectPlace(item)"
+                  (placeDeleteClick)="onDeletePlace(item)"
+                  (placeReOrderClick)="onReorderPlace(item)"
+                ></app-trail-places-item>
+              </ion-reorder>
+            </ion-reorder-group>
+          </ion-list>
+          <app-trail-button
+            label="Add Steps"
+            (click)="onAddTrailSteps()"
+          ></app-trail-button>
+          <ion-list class="created-trail-list-filter">
+            <ion-list-header>
+              <ion-label> Trail Details </ion-label>
+            </ion-list-header>
+            <app-trail-select
+              [selectable]="true"
+              [label]="trailsDetailsTime.header"
+              [items]="trailsDetailsTime.items"
+              (ionChangeEv)="onTrailTimeFilterSelect($event)"
+            >
+            </app-trail-select>
+            <app-trail-select
+              [selectable]="true"
+              [multiple]="true"
+              label="{{trailDetailsWith.subtitle}}"
+              [items]="trailDetailsWith.items"
+              [selectedText]="trailWhoSelectedText"
+              (ionChange)="onTrailWithFilterSelect($event)"
+            >
+            </app-trail-select>
+            <!-- <ion-row>
+              <ion-col>
+                <app-trail-select
+                  [selectable]="true"
+                  [label]="trailsDetailsTime.header"
+                  [items]="trailsDetailsTime.items"
+                  (ionChangeEv)="onTrailTimeFilterSelect($event)"
+                >
+                </app-trail-select>
+              </ion-col>
+              <ion-col>
+                <app-trail-select
+                  [selectable]="true"
+                  [multiple]="true"
+                  label="{{trailDetailsWith.subtitle}}"
+                  [items]="trailDetailsWith.items"
+                  [selectedText]="trailWhoSelectedText"
+                  (ionChange)="onTrailWithFilterSelect($event)"
+                >
+                </app-trail-select>
+              </ion-col>
+            </ion-row> -->
+          </ion-list>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

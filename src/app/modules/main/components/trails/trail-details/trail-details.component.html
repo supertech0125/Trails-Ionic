@@ -1,0 +1,133 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="md">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon
+          slot="icon-only"
+          class="back-button-has-icon-only"
+          name="chevron-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="app-title">&nbsp; </ion-title>
+    <ion-buttons slot="end">
+      <app-trail-share-button
+        *ngIf="showContent && isLoggedIn"
+        (shareClick)="onShareTrail()"
+      ></app-trail-share-button>
+      <app-trail-save-bookmark
+        *ngIf="showContent && isLoggedIn"
+        [isActive]="trail.isbookMarked"
+        [isLoading]="isBookmarking"
+        (bookmarkClick)="bookmarkActionClick($event)"
+      >
+      </app-trail-save-bookmark>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-xl="4"
+        offset-xl="4"
+        size-lg="4"
+        offset-lg="4"
+        size-md="6"
+        offset-md="3"
+      >
+        <ng-container *ngIf="showContent">
+          <ion-list>
+            <ion-item lines="none" class="trail-card-header">
+              <ion-label class="trail-card-header-label ion-text-wrap">
+                <h2 class="place-type" *ngIf="trail.time">
+                  {{ trail.time | titlecase }}
+                </h2>
+                <div class="sub-type-view">
+                  <ng-container
+                    *ngIf="trail.purpose && trail.purpose.length > 0"
+                  >
+                    <span class="sub-type" *ngFor="let item of trail.purpose">{{
+                      item | titlecase
+                    }}</span>
+                  </ng-container>
+
+                  <ng-container *ngIf="trail.who && trail.who.length > 0">
+                    <span class="sub-type" *ngFor="let item of trail.who">{{
+                      item | titlecase
+                    }}</span>
+                  </ng-container>
+                </div>
+              </ion-label>
+            </ion-item>
+            <div class="card-map-rating-view">
+              <!-- <app-card-map [mapMarkers]="trail.mapMarkers" [enableZooming]="true" [enableDragging]="true" [enableRouting]="true">
+          </app-card-map> -->
+              <app-card-new-map
+                [mapMarkers]="trail.mapMarkers"
+                [enableZooming]="false"
+                [enableDragging]="false"
+                [enableRouting]="true"
+                [enableRouting]="true"
+              ></app-card-new-map>
+              <app-trail-rating-badge
+                [rating]="trail.averageRating"
+                color="white"
+                class="trail-rating-badge"
+                (ratingClick)="onRateTrail()"
+              >
+              </app-trail-rating-badge>
+              <app-trail-rating-badge
+                *ngIf="trail.distanceToTrail && trail.distanceToTrail > 0"
+                class="trail-distance-badge"
+                rating="{{ trail.distanceToTrail }} km"
+                color="white"
+                iconName="location"
+              >
+              </app-trail-rating-badge>
+            </div>
+            <app-trail-card-distance-item
+              [sumOfAllDistance]="trail.sumOfAllDistance"
+            >
+            </app-trail-card-distance-item>
+            <app-trail-theme
+              [trailTheme]="trail.trailTheme"
+              *ngIf="trail.trailTheme !== null"
+            >
+            </app-trail-theme>
+            <div class="ion-padding-start" *ngIf="trail.trailPlace?.length > 0">
+              <ng-container *ngFor="let item of trail.trailPlace">
+                <app-trail-places-item
+                  [place]="item"
+                  [showIndex]="true"
+                  (placeClick)="viewPlaceDetail(item)"
+                >
+                </app-trail-places-item>
+                <ion-item lines="none" *ngIf="item.distanceKM > 0">
+                  <div slot="start">
+                    <app-place-trail-distance
+                      [distance]="item.distanceKM"
+                    ></app-place-trail-distance>
+                  </div>
+                </ion-item>
+              </ng-container>
+            </div>
+            <app-trail-card-user-item
+              [trail]="trail"
+              (viewAllTrailsEv)="viewAllTrails()"
+              *ngIf="trail.trailUser && trail.trailUser !== null"
+            ></app-trail-card-user-item>
+          </ion-list>
+        </ng-container>
+
+        <ng-container *ngIf="!showContent">
+          <app-trail-detail-loading-skeleton></app-trail-detail-loading-skeleton>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

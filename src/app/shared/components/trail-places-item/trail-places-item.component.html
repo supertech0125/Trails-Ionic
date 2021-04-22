@@ -1,0 +1,70 @@
+<ion-item
+  class="trail-places-item"
+  [ngClass]="{ selected: showCheckbox && place.selected }"
+  (click)="clickPlace($event)"
+>
+  <div slot="start" class="slot-start">
+    <ion-button
+      fill="clear"
+      class="remove-circle-button"
+      *ngIf="showDelete"
+      (click)="deletePlace($event)"
+    >
+      <ion-icon
+        name="remove-circle"
+        color="heading-note"
+        class="icon-delete"
+      ></ion-icon>
+    </ion-button>
+    <ion-thumbnail>
+      <ion-img [src]="place.thumbnail"></ion-img>
+      <ng-container *ngIf="showCheckbox">
+        <ion-icon
+          name="checkmark-circle"
+          color="heading-note"
+          *ngIf="place.selected"
+        ></ion-icon>
+      </ng-container>
+    </ion-thumbnail>
+  </div>
+  <ion-label>
+    <h2 class="heading-text">{{ place.name }}</h2>
+    <p class="sub-title-text">
+      <span class="place-type">{{placeType}}</span>
+      <ng-container
+        *ngIf="place?.types?.subTypes && place?.types?.subTypes?.length > 0"
+      >
+        <span class="sub-type" *ngFor="let item of place.types?.subTypes">{{
+          item.subType
+        }}</span>
+      </ng-container>
+    </p>
+    <app-trail-rating-badge
+      [rating]="place.rating"
+      color="warning2"
+    ></app-trail-rating-badge>
+  </ion-label>
+  <div slot="end" class="slot-end">
+    <ng-container *ngIf="showDistance">
+      <app-trail-distance
+        [latitude]="place.latitude"
+        [longitude]="place.longitude"
+        [distance]="place.distanceKM"
+        [autoDistance]="autoDistance"
+      ></app-trail-distance>
+    </ng-container>
+    <ng-container *ngIf="showIndex">
+      <ion-badge color="teal" class="badge-index">{{ place.index }}</ion-badge>
+    </ng-container>
+    <ion-icon
+      color="heading-note"
+      name="menu-outline"
+      class="icon-order"
+      (longPressed)="reOrderPlace($event)"
+      ion-long-press
+      [interval]="400"
+      *ngIf="showReOrder"
+    >
+    </ion-icon>
+  </div>
+</ion-item>

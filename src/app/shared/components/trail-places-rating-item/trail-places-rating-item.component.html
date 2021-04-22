@@ -1,0 +1,77 @@
+<ion-item class="trail-places-item">
+  <div slot="start" class="slot-start">
+    <ion-thumbnail *ngIf="action === 'place'">
+      <ion-img [src]="place?.image"></ion-img>
+    </ion-thumbnail>
+    <ion-thumbnail *ngIf="action === 'trail'">
+      <!-- <app-card-map
+        [mapMarkers]="trail.mapMarkers"
+        [enableZooming]="false"
+        [enableDragging]="false"
+      ></app-card-map> -->
+      <app-card-new-map
+        [mapMarkers]="trail.mapMarkers"
+        [enableZooming]="false"
+        [enableDragging]="false"
+        [enableRouting]="true"
+      ></app-card-new-map>
+    </ion-thumbnail>
+  </div>
+  <ion-label class="ion-text-wrap">
+    <h2 class="caption-title">{{ action }}</h2>
+    <h2 class="heading-text">{{ ratingName | titlecase }}</h2>
+    <p class="sub-title-text">
+      <ng-container *ngIf="action === 'place'">
+        <span class="place-type" *ngIf="place && place.types">{{
+          place.types?.type | titlecase
+        }}</span>
+        <ng-container
+          *ngIf="place?.types?.subTypes && place?.types?.subTypes?.length > 0"
+        >
+          <span class="sub-type" *ngFor="let item of place.types?.subTypes">{{
+            item.subType | titlecase
+          }}</span>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="action === 'trail'">
+        <ng-container *ngIf="trail.purpose && trail.purpose.length > 0">
+          <span class="sub-type" *ngFor="let item of trail.purpose">{{
+            item | titlecase
+          }}</span>
+        </ng-container>
+
+        <ng-container *ngIf="trail.who && trail.who.length > 0">
+          <span class="sub-type" *ngFor="let item of trail.who">{{
+            item | titlecase
+          }}</span>
+        </ng-container>
+      </ng-container>
+    </p>
+    <div class="review-view">
+      <app-trail-rating-badge
+        *ngIf="action === 'place'"
+        [rating]="ratingCount"
+        color="warning2"
+      ></app-trail-rating-badge>
+      <app-trail-rating-badge
+        *ngIf="action === 'trail'"
+        [rating]="trail.averageRating"
+        color="warning2"
+      ></app-trail-rating-badge>
+      <div
+        class="review"
+        *ngIf="reviewCount > 0"
+        (click)="viewRatingClick.emit()"
+      >
+        {{ reviewCount }} Review<span *ngIf="reviewCount > 1">s</span>
+      </div>
+      <!-- <div
+        class="view"
+        *ngIf="reviewCount > 0"
+        (click)="viewRatingClick.emit()"
+      >
+        View
+      </div> -->
+    </div>
+  </ion-label>
+</ion-item>

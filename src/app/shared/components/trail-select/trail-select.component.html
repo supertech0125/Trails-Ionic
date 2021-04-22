@@ -1,0 +1,69 @@
+<ion-item class="no-input-padding" lines="none">
+  <ng-container *ngTemplateOutlet="selectLabel"></ng-container>
+  <ng-container *ngIf="!!selectable">
+    <ng-container *ngTemplateOutlet="selectable"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="!selectable">
+    <ng-container *ngTemplateOutlet="nonSelectable"></ng-container>
+  </ng-container>
+</ion-item>
+
+<!-- 
+  ====================================================================
+  ========================  TEMPLATES  ===============================
+  ====================================================================
+ -->
+
+<ng-template #selectNonMultiple>
+  <ion-item class="no-input-padding" lines="none">
+    <ng-container *ngTemplateOutlet="selectLabel"></ng-container>
+    <ng-container *ngIf="!!selectable">
+      <ng-container *ngTemplateOutlet="selectable"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="!selectable">
+      <ng-container *ngTemplateOutlet="nonSelectable"></ng-container>
+    </ng-container>
+  </ion-item>
+</ng-template>
+
+<ng-template #selectLabel>
+  <ion-label position="stacked" *ngIf="label && label !== ''">{{
+    label
+  }}</ion-label>
+</ng-template>
+
+<ng-template #selectable>
+  <ion-select
+    mode="ios"
+    class="form-control"
+    [interface]="!multiple ? 'action-sheet' : 'alert'"
+    [placeholder]="placeholder"
+    [value]="value"
+    [interfaceOptions]="interfaceOptions"
+    [disabled]="disabled"
+    [multiple]="multiple"
+    (ionBlur)="ionBlurEv.emit($event)"
+    (ionCancel)="ionCancelEv.emit($event)"
+    (ionChange)="ionChangeEv.emit($event)"
+    [selectedText]="selectedText"
+  >
+    <ion-select-option [value]="item.value" *ngFor="let item of items">{{
+      item.label
+    }}</ion-select-option>
+  </ion-select>
+</ng-template>
+
+<ng-template #nonSelectable>
+  <div class="custom-select">
+    <input
+      class="form-control"
+      name="form-control"
+      [placeholder]="placeholder"
+      readonly
+      (click)="ionClickEv.emit($event)"
+    />
+    <div class="select-icon" slot="end">
+      <ion-icon name="caret-down-outline"></ion-icon>
+    </div>
+  </div>
+</ng-template>

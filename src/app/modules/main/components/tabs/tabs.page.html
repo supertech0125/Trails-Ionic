@@ -1,0 +1,131 @@
+<ion-tabs *ngIf="!isDesktop">
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="places" #tabplaces>
+      <ion-icon
+        *ngIf="!tabplaces.selected"
+        src="./assets/svg/places.svg"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="tabplaces.selected"
+        src="./assets/svg/places_active.svg"
+      ></ion-icon>
+      <ion-label>Places</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="trails" #tabtrails>
+      <ion-icon
+        *ngIf="!tabtrails.selected"
+        src="./assets/svg/trails.svg"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="tabtrails.selected"
+        src="./assets/svg/trails_active.svg"
+      ></ion-icon>
+      <ion-label>Trails</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="account" #tabaccount>
+      <ion-icon
+        *ngIf="!tabaccount.selected"
+        src="./assets/svg/account.svg"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="tabaccount.selected"
+        src="./assets/svg/account_active.svg"
+      ></ion-icon>
+      <ion-label>Account</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="settings" #tabsettings>
+      <ion-icon
+        *ngIf="!tabsettings.selected"
+        src="./assets/svg/settings.svg"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="tabsettings.selected"
+        src="./assets/svg/settings_active.svg"
+      ></ion-icon>
+      <ion-label>Settings</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+<div *ngIf="isDesktop" class="desktop">
+  <ion-header>
+    <ion-toolbar>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="3">
+          <img src="./assets/png/logo_wave.png" class="logo ion-text-left" />
+        </ion-col>
+        <ion-col size="3">
+          <div class="navbar" class="ion-text-center">
+            <ion-button
+              fill="clear"
+              routerLink="/main/places"
+              routerDirection="root"
+              routerLinkActive="active-link"
+              class="link"
+            >
+              <ion-icon
+                *ngIf="!isUrlPlaces"
+                src="./assets/svg/places.svg"
+              ></ion-icon>
+              <ion-icon
+                *ngIf="isUrlPlaces"
+                src="./assets/svg/places_active.svg"
+              ></ion-icon>
+            </ion-button>
+            <ion-button
+              fill="clear"
+              routerLink="/main/trails"
+              routerDirection="root"
+              routerLinkActive="active-link"
+              class="link"
+            >
+              <ion-icon
+                *ngIf="!isUrlTrails"
+                src="./assets/svg/trails.svg"
+              ></ion-icon>
+              <ion-icon
+                *ngIf="isUrlTrails"
+                src="./assets/svg/trails_active.svg"
+              ></ion-icon>
+            </ion-button>
+            <ion-button
+              fill="clear"
+              routerLink="/main/account"
+              routerDirection="root"
+              routerLinkActive="active-link"
+              class="link"
+            >
+              <ion-icon
+                *ngIf="!isUrlAccount"
+                src="./assets/svg/account.svg"
+              ></ion-icon>
+              <ion-icon
+                *ngIf="isUrlAccount"
+                src="./assets/svg/account_active.svg"
+              ></ion-icon>
+            </ion-button>
+            <ion-button
+              fill="clear"
+              routerLink="/main/settings"
+              routerDirection="root"
+              routerLinkActive="active-link"
+              class="link"
+            >
+              <ion-icon
+                *ngIf="!isUrlSettings"
+                src="./assets/svg/settings.svg"
+              ></ion-icon>
+              <ion-icon
+                *ngIf="isUrlSettings"
+                src="./assets/svg/settings_active.svg"
+              ></ion-icon>
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-router-outlet class="desktop-wrapper"></ion-router-outlet>
+</div>

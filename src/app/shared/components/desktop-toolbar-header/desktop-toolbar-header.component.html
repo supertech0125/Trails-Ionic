@@ -1,0 +1,23 @@
+<ion-header class="desktop ion-no-border">
+  <ion-toolbar>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="3">
+        <ion-title class="app-title"> {{ title }} </ion-title>
+      </ion-col>
+      <ion-col size="3">
+        <div class="navbar ion-text-center">
+          <ion-button fill="clear" (click)="onShowSearch.emit($event)">
+            <ion-icon slot="icon-only" name="search"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" (click)="openFilter.emit($event)">
+            <ion-icon slot="icon-only" name="funnel-sharp"></ion-icon>
+            <ion-badge color="danger" *ngIf="showFilterBadge">&nbsp;</ion-badge>
+          </ion-button>
+          <ion-button fill="clear" (click)="openSearch()">
+            <ion-icon slot="icon-only" name="navigate"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>

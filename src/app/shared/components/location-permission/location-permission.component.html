@@ -1,0 +1,19 @@
+<ion-content class="ion-padding">
+    <div class="logoCenterView">
+        <img src="./assets/png/LocationPermission.png" />
+    </div>
+    <div class="footerView">
+        <h2 class="text-separator">Allow Access to Your Location</h2>
+        <p class="text-description">Please allow Trailsteps to access your location to maximize the features of the app
+        </p>
+    </div>
+</ion-content>
+<ion-footer class="ion-no-border">
+    <ion-toolbar class="ion-no-border">
+        <ion-button class="app-button" expand="block" fill="outline" color="trailsteps" (click)="allow()">Allow
+        </ion-button>
+
+        <ion-button expand="block" fill="clear" color="white" (click)="dismiss()">Cancel
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

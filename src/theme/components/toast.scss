@@ -1,0 +1,160 @@
+.global-css-toast {
+  --background: #333333;
+  --color: #fff;
+  --box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+
+  &::part(message) {
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+  }
+}
+
+.toast-notif-success {
+  transform: translateY(0%) !important;
+  text-align: center;
+  --background: var(--ion-color-ts-green);
+  --border-radius: 0px !important;
+  --color: var(--ion-color-ts-green-contrast);
+  --width: 100% !important;
+  --border-color: var(--ion-color-ts-green-shade);
+  --max-width: 100%;
+  --start: 0px;
+  --end: 0px;
+  top: -10px;
+  height: 76px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.toast-notif-error {
+  transform: translateY(0%) !important;
+  text-align: center;
+  --background: var(--ion-color-ts-red);
+  --border-radius: 0px !important;
+  --color: var(--ion-color-ts-red-contrast);
+  --width: 100% !important;
+  --border-color: var(--ion-color-ts-red-shade);
+  --max-width: 100%;
+  --start: 0px;
+  --end: 0px;
+  top: -10px;
+  height: 76px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.toast-notif-warning {
+  transform: translateY(0%) !important;
+  text-align: center;
+  --background: var(--ion-color-ts-amber);
+  --border-radius: 0px !important;
+  --color: var(--ion-color-ts-amber-contrast);
+  --width: 100% !important;
+  --border-color: var(--ion-color-ts-amber-shade);
+  --max-width: 100%;
+  --start: 0px;
+  --end: 0px;
+  top: -10px;
+  height: 76px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.toast-notif-info {
+  transform: translateY(0%) !important;
+  text-align: center;
+  --background: var(--ion-color-ts-blue);
+  --border-radius: 0px !important;
+  --color: var(--ion-color-ts-blue-contrast);
+  --width: 100% !important;
+  --border-color: var(--ion-color-ts-blue-shade);
+  --max-width: 100%;
+  --start: 0px;
+  --end: 0px;
+  top: -10px;
+  height: 76px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.online-toast-notif-success {
+  transform: translateY(0%) !important;
+  text-align: center;
+  --background: var(--ion-color-ts-green);
+  --border-radius: 0px !important;
+  --color: var(--ion-color-ts-green-contrast);
+  --width: 100% !important;
+  --border-color: var(--ion-color-ts-green-shade);
+  --max-width: 100%;
+  --start: 0px;
+  --end: 0px;
+  top: -10px;
+  height: 56px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.offline-toast-notif-danger {
+  transform: translateY(0%) !important;
+  text-align: center;
+  --background: var(--ion-color-ts-red);
+  --border-radius: 0px !important;
+  --color: var(--ion-color-ts-red-contrast);
+  --width: 100% !important;
+  --border-color: var(--ion-color-ts-red-shade);
+  --max-width: 100%;
+  --start: 0px;
+  --end: 0px;
+  top: -10px;
+  height: 56px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.offline-toast-notif-warning {
+  transform: translateY(0%) !important;
+  text-align: center;
+  --background: var(--ion-color-ts-amber);
+  --border-radius: 0px !important;
+  --color: var(--ion-color-ts-amber-contrast);
+  --width: 100% !important;
+  --border-color: var(--ion-color-ts-amber-shade);
+  --max-width: 100%;
+  --start: 0px;
+  --end: 0px;
+  top: -10px;
+  height: 56px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.offline-toast-notif-info {
+  transform: translateY(0%) !important;
+  text-align: center;
+  --background: var(--ion-color-medium);
+  --color: #fff;
+  --border-color: var(--ion-color-medium-shade);
+  font-size: 0.8rem;
+  font-weight: 600;
+  --border-radius: 4px !important;
+  height: 56px;
+}
+
+.toast-notif-info {
+  transform: translateY(0%) !important;
+  text-align: center;
+  --background: var(--ion-color-ts-blue);
+  --border-radius: 0px !important;
+  --color: var(--ion-color-ts-blue-contrast);
+  --width: 100% !important;
+  --border-color: var(--ion-color-ts-blue-shade);
+  --max-width: 100%;
+  --start: 0px;
+  --end: 0px;
+  top: -10px;
+  height: 76px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}

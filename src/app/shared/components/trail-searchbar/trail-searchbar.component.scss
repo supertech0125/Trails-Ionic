@@ -1,0 +1,36 @@
+@import '../../../../theme/variables.scss';
+
+:host {
+  ion-searchbar {
+    padding-top: 16px !important;
+    --border-radius: 8px !important;
+
+    .searchbar-input-container {
+      background: #eefbfb 0% 0% no-repeat padding-box;
+      border: 1px solid #7d8ef7;
+      border-radius: 8px;
+    }
+
+    .searchbar-input {
+      font-family: $font-family-base;
+      font-weight: $font-weight-base;
+      font-size: 17px !important;
+      line-height: 20px;
+      letter-spacing: 0;
+      color: $color-heading-note-text !important;
+    }
+
+    .searchbar-search-icon {
+      color: $color-heading-note-text !important;
+    }
+
+    .searchbar-cancel-button {
+      font-family: $font-family-base;
+      font-weight: $font-weight-base;
+      font-size: 17px !important;
+      line-height: 20px;
+      letter-spacing: 0;
+      color: #7d8ef7 !important;
+    }
+  }
+}

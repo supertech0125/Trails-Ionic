@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="184px" height="124px" viewBox="0 0 184 124" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>pin</title>
+    <defs>
+        <linearGradient x1="100%" y1="71.7518255%" x2="0%" y2="76.6135161%" id="linearGradient-1">
+            <stop stop-color="#00CDD0" offset="0%"></stop>
+            <stop stop-color="#48B1BF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="35.3968777%" y1="50%" x2="40.2687847%" y2="-110.839029%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-3" cx="29" cy="29" r="7"></circle>
+        <linearGradient x1="100%" y1="52.9232715%" x2="0%" y2="53.5766439%" id="linearGradient-4">
+            <stop stop-color="#00CDD0" offset="0%"></stop>
+            <stop stop-color="#48B1BF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="35.3968777%" y1="50%" x2="40.2687847%" y2="28.3845199%" id="linearGradient-5">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <path d="M152,0 C159.731986,-1.42034288e-15 166,6.2680135 166,14 L166,32 C166,39.7319865 159.731986,46 152,46 L97.162,46 L91.3239836,53.1531201 C91.2389362,53.2573031 91.1470278,53.3555901 91.0489016,53.4473378 L90.8971295,53.5799742 C89.6136288,54.6277299 87.7237721,54.4366208 86.6760164,53.1531201 L86.6760164,53.1531201 L80.837,46 L32,46 C24.2680135,46 18,39.7319865 18,32 L18,14 C18,6.2680135 24.2680135,1.42034288e-15 32,0 L152,0 Z" id="path-6"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Location-Copy" transform="translate(-90.000000, -311.000000)">
+            <g id="pin" transform="translate(90.000000, 311.000000)">
+                <g id="Group-2" transform="translate(60.000000, 65.000000)">
+                    <circle id="Oval-Copy" fill="#05CBCF" opacity="0.205426897" cx="29" cy="29" r="29"></circle>
+                    <circle id="Oval-Copy-3" stroke="#07CACE" cx="29" cy="29" r="29"></circle>
+                    <g id="Oval">
+                        <use fill="url(#linearGradient-1)" xlink:href="#path-3"></use>
+                        <use fill="url(#linearGradient-2)" xlink:href="#path-3"></use>
+                    </g>
+                </g>
+                <g id="Group-12">
+                    <g id="Combined-Shape">
+                        <use fill="url(#linearGradient-4)" xlink:href="#path-6"></use>
+                        <use fill="url(#linearGradient-5)" xlink:href="#path-6"></use>
+                    </g>
+                    <text id="Drag-to-reposition" font-family="SFProText-Semibold, SF Pro Text" font-size="13" font-weight="500" line-spacing="18" letter-spacing="0.156764706" fill="#FFFFFF">
+                        <tspan x="33.1586977" y="25">Drag to reposition</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

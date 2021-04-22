@@ -1,0 +1,31 @@
+@import '../../../../../../theme/variables.scss';
+
+:host {
+  .user-detail-item {
+    --padding-start: 0px;
+
+    .user-avatar {
+      width: 81px;
+      height: 81px;
+      box-shadow: 0px 4px 10px #0000000d;
+    }
+
+    .user-name {
+      font-family: $font-family-base;
+      font-weight: $font-weight-semi-bold;
+      font-size: 15px;
+      line-height: 18px;
+      letter-spacing: 0px;
+      color: $color-heading-text;
+    }
+
+    .user-email {
+      font-family: $font-family-base;
+      font-weight: $font-weight-light;
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: 0px;
+      color: $color-heading-note-text;
+    }
+  }
+}

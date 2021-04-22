@@ -1,0 +1,154 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+@import './theme/shared.scss';
+
+ion-refresher,
+ion-infinite-loading {
+  z-index: 10;
+}
+
+.app-title {
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: 0.29px;
+  color: $color-heading-text;
+}
+
+.app-modal-title {
+  font-family: $font-family-base;
+  font-weight: $font-weight-medium;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0;
+  text-align: left;
+  color: $color-heading-text;
+}
+
+.app-link {
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: 0;
+  text-align: left;
+  color: $color-heading-note-text;
+  cursor: pointer;
+}
+
+.app-padding-header {
+  padding-top: calc(var(--ion-safe-area-top, 0) + 8px) !important;
+}
+
+.basic-form {
+  .no-input-padding {
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+  }
+
+  .icon-password-view {
+    // color: $color-placeholder-object;
+    font-size: 18px !important;
+  }
+}
+
+.main-content {
+  --background: var(--ion-color-content);
+
+  ion-grid {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+  }
+}
+
+ion-content {
+  --padding-bottom: calc(44px + var(--ion-safe-area-bottom, 0px));
+}
+
+.tabs-inner {
+  position: unset !important;
+}
+
+.mat-error {
+  margin-top: 0.66666667em !important;
+  top: calc(100% - 1.79166667em);
+  font-size: 0.75em !important;
+  font-weight: 400;
+  line-height: 1.125 !important;
+  display: block;
+  color: $color-error !important;
+}
+
+.profile-actionsheet {
+  .action-sheet-wrapper {
+    .action-sheet-container {
+      .action-sheet-group {
+        border-radius: 6px;
+
+        .action-sheet-button {
+          .action-sheet-button-inner {
+            font-family: $font-family-base;
+            font-weight: $font-weight-medium;
+            font-size: 14px;
+            line-height: 18px;
+            letter-spacing: 0;
+            color: $color-heading-note-text;
+          }
+        }
+      }
+    }
+  }
+}
+
+// ion-header {
+//   .toolbar {
+//     margin: auto;
+//   }
+// }
+
+// @media (min-width: map-get($grid-breakpoints, xl)) {
+//   ion-navbar.toolbar,
+//   ion-header .toolbar[fixed],
+//   ion-footer .toolbar[fixed],
+//   ion-tabs .tabbar {
+//     margin: 0;
+//     padding-right: calc((100% - #{map-get($grid-max-widths, lg)}) / 2);
+//     padding-left: calc((100% - #{map-get($grid-max-widths, lg)}) / 2);
+//   }
+// }
+
+.desktop {
+  .logo {
+    max-height: 30px;
+    margin: 10px 2px;
+  }
+
+  .link {
+    color: $color-trail-steps;
+    --color: var(--ion-color-trail-steps);
+  }
+
+  .active-link {
+    color: $color-heading-text;
+    --color: var(--ion-color-heading-text);
+    font-weight: 600;
+  }
+
+  .navbar {
+    .button-has-icon-only {
+      ion-icon {
+        font-size: 1.4em;
+      }
+    }
+  }
+}

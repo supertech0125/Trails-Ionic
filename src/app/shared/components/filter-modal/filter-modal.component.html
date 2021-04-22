@@ -1,0 +1,178 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon
+          slot="icon-only"
+          class="back-button-has-icon-only"
+          name="chevron-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="clearAll()" fill="clear" color="royal">
+        Clear All
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <app-content-header-view [title]="'Filter'"></app-content-header-view>
+  <ion-list class="list-filters">
+    <ng-container *ngIf="action === 'trails'">
+      <ion-list-header>
+        <ion-label> Trails </ion-label>
+      </ion-list-header>
+      <app-trail-select
+        [selectable]="true"
+        [value]="filter.trail"
+        (ionChangeEv)="onTrailFilterSelect($event)"
+        [items]="typeOfTrailsArr"
+      ></app-trail-select>
+    </ng-container>
+    <ng-container *ngIf="action === 'place'">
+      <ion-list-header>
+        <ion-label> Place </ion-label>
+      </ion-list-header>
+      <app-trail-select
+        [selectable]="true"
+        [value]="filter.place"
+        [items]="typeOfPlacesArr"
+        (ionChangeEv)="onPlaceFilterSelect($event)"
+      >
+      </app-trail-select>
+    </ng-container>
+    <ion-list-header>
+      <ion-label> Type </ion-label>
+    </ion-list-header>
+    <!-- <app-trail-select
+      [selectable]="true"
+      [multiple]="true"
+      [items]="placeTypeArr"
+      [value]="placeTypeIdsArr"
+      [mode]="'md'"
+      [selectedText]="placeTypeSelectedText"
+      (ionChangeEv)="onPlaceTypeFilterSelect($event)"
+    >
+    </app-trail-select> -->
+    <app-trail-select-all-none
+      [selectable]="true"
+      [items]="placeTypeArr"
+      [value]="placeTypeIdsArr"
+      [mode]="'md'"
+      [selectedText]="placeTypeSelectedText"
+      (ionChangeEv)="onPlaceTypeFilterSelect($event)"
+    >
+    </app-trail-select-all-none>
+    <ng-container *ngIf="showPlaceSubTypes">
+      <ion-list-header>
+        <ion-label> Cuisine </ion-label>
+      </ion-list-header>
+      <!-- <app-trail-select
+        [mode]="'md'"
+        [selectable]="true"
+        [multiple]="true"
+        [value]="placeSubTypeIdsArr"
+        [selectedText]="placeSubTypeSelectedText"
+        [items]="placeSubTypeArr"
+        (ionChangeEv)="onPlaceSubTypeFilterSelect($event)"
+      >
+      </app-trail-select> -->
+
+      <app-trail-select-all-none
+        [mode]="'md'"
+        [selectable]="true"
+        [value]="placeSubTypeIdsArr"
+        [selectedText]="placeSubTypeSelectedText"
+        [items]="placeSubTypeArr"
+        (ionChangeEv)="onPlaceSubTypeFilterSelect($event)"
+      >
+      </app-trail-select-all-none>
+    </ng-container>
+    <ng-container *ngIf="action === 'trails'">
+      <ion-list-header>
+        <ion-label> {{ filterDetailsTime.header }} </ion-label>
+      </ion-list-header>
+      <app-trail-select
+        [selectable]="true"
+        [items]="filterDetailsTime.items"
+        [value]="trailWhenIdsArr"
+        [selectedText]="trailWhenSelectedText"
+        [multiple]="true"
+        (ionChangeEv)="onTrailTimeFilterSelect($event)"
+      >
+      </app-trail-select>
+      <ion-list-header>
+        <ion-label> {{ filterDetailsWith.header }} </ion-label>
+      </ion-list-header>
+      <app-trail-select
+        [selectable]="true"
+        [multiple]="true"
+        [value]="trailWhoIdsArr"
+        [items]="filterDetailsWith.items"
+        [selectedText]="trailWithSelectedText"
+        (ionChange)="onTrailWithFilterSelect($event)"
+      >
+      </app-trail-select>
+      <!-- <ion-list>
+        <ion-item-divider>
+          <ion-label> {{ filterDetailsWith.subtitle }} </ion-label>
+        </ion-item-divider>
+        <ion-item
+          class="filter-item-checkbox"
+          lines="none"
+          *ngFor="let entry of filterDetailsWith.items"
+        >
+          <ion-label>{{ entry.label }}</ion-label>
+          <ion-checkbox
+            mode="md"
+            slot="start"
+            color="warning2"
+            [(ngModel)]="entry.selected"
+            (ionChange)="onTrailWithFilterSelect($event)"
+          ></ion-checkbox>
+        </ion-item>
+      </ion-list> -->
+    </ng-container>
+    <!-- <ion-list-header>
+      <ion-label> Experience </ion-label>
+    </ion-list-header>
+    <app-trail-select
+      label="Select the experience of the location"
+      [selectable]="false"
+      placeholder="Select experience"
+      (ionClickEv)="onExperienceModal()"
+    ></app-trail-select> -->
+    <ion-list-header>
+      <ion-label> Sort By </ion-label>
+    </ion-list-header>
+    <app-trail-select
+      [selectable]="true"
+      [items]="sortArr"
+      [value]="filter.sort"
+      (ionChangeEv)="onSortFilterSelect($event)"
+    ></app-trail-select>
+    <!-- <ng-container *ngIf="subFilters && subFilters.length > 0">
+      <ion-list-header>
+        <ion-label> Filter By </ion-label>
+      </ion-list-header>
+      <app-trail-select
+        [selectable]="true"
+        label=""
+        [value]="filter.sortAs"
+        [items]="subFilters"
+        (ionChangeEv)="onSubFilterSelect($event)"
+      >
+      </app-trail-select>
+    </ng-container> -->
+  </ion-list>
+</ion-content>
+<ion-footer class="ion-no-border ion-padding">
+  <ion-toolbar class="ion-no-border">
+    <app-trail-button
+      label="Update"
+      (click)="updateFilter()"
+    ></app-trail-button>
+  </ion-toolbar>
+</ion-footer>

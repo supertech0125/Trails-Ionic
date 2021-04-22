@@ -1,0 +1,30 @@
+@import '../../../../theme/variables.scss';
+
+:host {
+  .header-view {
+    margin-bottom: 25px;
+  }
+
+  .app-heading-text {
+    font-family: $font-family-base;
+    font-weight: $font-weight-bold;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.34px;
+    text-align: left;
+    color: $color-heading-text;
+
+    margin-top: 10px;
+  }
+
+  .app-note-text {
+    font-family: $font-family-base;
+    font-weight: $font-weight-base;
+    font-size: 17px;
+    line-height: 20px;
+    letter-spacing: 0;
+    text-align: left;
+    color: $color-heading-note-text;
+    margin-top: 7px;
+  }
+}

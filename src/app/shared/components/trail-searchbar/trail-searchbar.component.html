@@ -1,0 +1,10 @@
+<ion-searchbar
+  mode="ios"
+  [placeholder]="placeholder"
+  [showCancelButton]="showCancelButton"
+  debounce="500"
+  (ionBlur)="ionBlur.emit($event)"
+  (ionCancel)="ionCancel.emit($event)"
+  (ionChange)="ionChange.emit($event)"
+  (ionClear)="ionClear.emit($event)"
+></ion-searchbar>

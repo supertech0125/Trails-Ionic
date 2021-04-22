@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size-xl="4"
+        offset-xl="4"
+        size-lg="4"
+        offset-lg="4"
+        size-md="6"
+        offset-md="3"
+      >
+        <app-content-header-view
+          [title]="'FEEDBACK'"
+          [subTitle]="'We appreciate all feedback on our app. Please share your suggestions and do let us know if you are facing any issues!'"
+        ></app-content-header-view>
+        <ion-list>
+          <ion-radio-group
+            class="feedback-group"
+            (ionChange)="onSelectFeedback($event)"
+          >
+            <ion-item lines="none" *ngFor="let item of appFeedBackArr">
+              <ion-label color="heading-note">{{item.label}}</ion-label>
+              <ion-radio
+                color="header-icon"
+                mode="md"
+                slot="start"
+                [value]="item.id"
+              ></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+        <ion-list class="basic-form">
+          <app-trail-textarea
+            label="Write message"
+            type="text"
+            name="feedbackMessage"
+            autocomplete="off"
+            placeholder="Write your review here"
+            maxlength="100"
+            [(ngModel)]="feedbackMessage"
+            (keyup)="onKeyUp($event)"
+          ></app-trail-textarea>
+          <ion-label color="heading-note" class="text-counter"
+            >{{numberOfCharacters}}/{{maxNumberOfCharacters}}</ion-label
+          >
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-no-border ion-padding">
+    <app-trail-button
+      label="Submit"
+      (click)="sendFeedback()"
+    ></app-trail-button>
+  </ion-toolbar>
+</ion-footer>

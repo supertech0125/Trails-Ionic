@@ -1,0 +1,17 @@
+<ng-container *ngIf="shape === null">
+  <ion-badge color="heading-fade" *ngIf="state === 'normal'">{{
+    label
+  }}</ion-badge>
+  <ion-badge color="heading-note" *ngIf="state === 'active'">{{
+    label
+  }}</ion-badge>
+</ng-container>
+
+<ng-container *ngIf="shape == 'round'">
+  <ion-badge color="heading-fade" class="badge-round" *ngIf="state === 'normal'">{{
+    label
+  }}</ion-badge>
+  <ion-badge color="heading-note" class="badge-round" *ngIf="state === 'active'">{{
+    label
+  }}</ion-badge>
+</ng-container>

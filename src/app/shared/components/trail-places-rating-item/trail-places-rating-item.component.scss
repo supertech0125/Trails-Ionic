@@ -1,0 +1,148 @@
+@import '../../../../theme/variables.scss';
+
+:host {
+  .trail-places-item {
+    --padding-start: 0px;
+
+    ion-thumbnail {
+      position: relative;
+      width: 113px;
+      height: 113px;
+      background: #ffffff 0% 0% no-repeat padding-box;
+
+      ion-img {
+        position: relative;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border-radius: 14px;
+      }
+
+      ion-icon {
+        font-size: 21px;
+        position: absolute;
+        top: 35%;
+        left: 35%;
+
+        background: #fff;
+        border-radius: 50%;
+        border: none;
+      }
+
+      app-card-map {
+        .card-map {
+          margin-top: 0px;
+          margin-bottom: 0px;
+
+          margin-inline-start: 0px;
+          margin-inline-end: 0px;
+          box-shadow: none;
+          border-radius: 0px;
+
+          google-map {
+            .map-container {
+              height: 113px !important;
+              border-radius: 14px;
+            }
+          }
+        }
+      }
+
+      app-card-new-map {
+        ::ng-deep {
+          .card-map {
+            margin-top: 0px;
+            margin-bottom: 0px;
+
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            box-shadow: none;
+
+            height: 113px !important;
+
+            .ol-viewport {
+              border-radius: 14px;
+            }
+          }
+        }
+      }
+    }
+
+    .caption-title {
+      font-family: $font-family-base;
+      font-weight: $font-weight-bold;
+      font-size: 15px;
+      line-height: 18px;
+      letter-spacing: 0.18px;
+      color: $color-heading-note-text;
+      text-transform: uppercase;
+    }
+
+    .heading-text {
+      font-family: $font-family-base;
+      font-weight: $font-weight-semi-bold;
+      font-size: 21px;
+      line-height: 25px;
+      letter-spacing: 0;
+      color: $color-heading-text;
+    }
+
+    .sub-title-text {
+      font-family: $font-family-base;
+      font-weight: $font-weight-base;
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: 0;
+      color: $color-heading-note-text;
+
+      display: flex;
+      flex-wrap: wrap;
+
+      .sub-type {
+        padding-right: 5px;
+
+        &:not(:first-child) {
+          &:before {
+            content: '• ';
+          }
+        }
+      }
+
+      .place-type {
+        padding-right: 4px;
+      }
+    }
+
+    .review-view {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+      .review {
+        font-family: $font-family-base;
+        font-weight: $font-weight-base;
+        font-size: 13px;
+        line-height: 15px;
+        letter-spacing: 0;
+        // color: $color-heading-note-text;
+        color: #7d8ef7;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+
+      .view {
+        font-family: $font-family-base;
+        font-weight: $font-weight-base;
+        font-size: 13px;
+        line-height: 15px;
+        letter-spacing: 0;
+        color: #7d8ef7;
+        padding-left: 5px;
+        cursor: pointer;
+
+        &:before {
+          content: ' • ';
+          color: $color-heading-note-text;
+        }
+      }
+    }
+  }
+}

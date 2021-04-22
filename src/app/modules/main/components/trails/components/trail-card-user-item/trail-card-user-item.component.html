@@ -1,0 +1,23 @@
+<ion-item
+  class="trail-user-item"
+  lines="none"
+  *ngIf="trail.trailUser && trail.trailUser !== null"
+>
+  <ion-avatar slot="start">
+    <img
+      [src]="trail.trailUser.profileImageUrl"
+      onError="this.src='./assets/png/account/Oval.png'"
+    />
+  </ion-avatar>
+  <ion-label class="ion-text-wrap">
+    <h2 class="trail-user-item-name">
+      {{ trail.trailUser?.firstName }} {{ trail.trailUser?.lastName }}
+    </h2>
+    <p class="trail-user-item-title">Author</p>
+  </ion-label>
+  <div slot="end">
+    <span class="trail-user-item-note" (click)="viewAllTrailsEv.emit($event)"
+      >view all trails</span
+    >
+  </div>
+</ion-item>

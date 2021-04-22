@@ -1,0 +1,35 @@
+@import '../../../../theme/variables.scss';
+
+:host {
+  ion-button {
+    font-family: $font-family-base;
+    font-weight: $font-weight-semi-bold;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0;
+    text-align: left;
+
+    color: $color-heading-note-text !important;
+    --color: var(--ion-color-heading-note-text) !important;
+
+    --padding-start: 9px;
+    --padding-end: 9px;
+
+    ion-icon {
+      font-size: 15px;
+      color: $color-warning !important;
+      --color: var(--ion-color-warning2) !important;
+      padding-right: 2px;
+    }
+
+    &.ion-color-warning2 {
+      color: $color-white !important;
+      --color: var(--ion-color-white) !important;
+
+      ion-icon {
+        color: $color-white !important;
+        --color: var(--ion-color-white) !important;
+      }
+    }
+  }
+}

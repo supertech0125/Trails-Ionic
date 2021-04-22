@@ -1,0 +1,13 @@
+<ng-container *ngIf="!isDesktop">
+  <ion-app>
+    <ion-router-outlet></ion-router-outlet>
+  </ion-app>
+</ng-container>
+<!-- 
+  ======================================================================
+  ======================================================================
+  ======================================================================
+ -->
+<ng-container *ngIf="isDesktop">
+  <router-outlet></router-outlet>
+</ng-container>

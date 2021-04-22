@@ -1,0 +1,67 @@
+@import '../../../../../../theme/variables.scss';
+
+:host {
+  .user-detail-item {
+    .user-avatar {
+      width: 81px;
+      height: 81px;
+      box-shadow: 0px 4px 10px #0000000d;
+
+      img {
+        box-shadow: 0px 4px 10px #0000000d;
+      }
+
+      /* iPhone 5  / SE*/
+      @media only screen and (min-device-width: 320px) and (max-device-height: 568px) {
+        width: 61px;
+        height: 61px;
+      }
+    }
+
+    .user-name {
+      font-family: $font-family-base;
+      font-weight: $font-weight-bold;
+      font-size: 24px;
+      line-height: 29px;
+      letter-spacing: 0.67px;
+      color: $color-heading-text;
+
+      /* iPhone 5  / SE*/
+      @media only screen and (min-device-width: 320px) and (max-device-height: 568px) {
+        font-size: 16px;
+        line-height: 19px;
+      }
+    }
+
+    .user-email {
+      font-family: $font-family-base;
+      font-weight: $font-weight-medium;
+      font-size: 15px;
+      line-height: 18px;
+      letter-spacing: 0.42px;
+      color: $color-heading-note-text;
+
+      /* iPhone 5  / SE*/
+      @media only screen and (min-device-width: 320px) and (max-device-height: 568px) {
+        font-size: 13px;
+        line-height: 16px;
+      }
+    }
+
+    .edit-button-view {
+      padding-top: 10px;
+
+      .edit-button {
+        --padding-start: 12px;
+        --padding-end: 12px;
+        height: 25px !important;
+
+        font-family: $font-family-base;
+        font-weight: $font-weight-medium;
+        font-size: 10px;
+        line-height: 12px;
+        letter-spacing: 0;
+      }
+    }
+  }
+}

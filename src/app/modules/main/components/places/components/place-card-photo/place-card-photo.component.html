@@ -1,0 +1,21 @@
+<ng-container
+  *ngIf="place.hasPhoto_1080 && place.photo?.photo_1080?.length < 2"
+>
+  <ion-img
+    [src]="place.photo?.photo_1080[0]?.url"
+    class="places-card-image"
+  ></ion-img>
+</ng-container>
+<ng-container
+  *ngIf="place.hasPhoto_1080 && place.photo?.photo_1080?.length > 1"
+>
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let item of place?.photo?.photo_1080">
+      <ion-img
+        [src]="item.url"
+        class="places-card-image"
+        (click)="viewPhoto(item.url)"
+      ></ion-img>
+    </ion-slide>
+  </ion-slides>
+</ng-container>

@@ -1,0 +1,46 @@
+<ion-card
+  class="notification-view"
+  [ngClass]="{
+    created: action === 'created',
+    trails: action === 'trails',
+    places: action === 'places'
+  }"
+>
+  <div
+    class="custom-card-view"
+    [ngClass]="{
+      created: action === 'created',
+      trails: action === 'trails',
+      places: action === 'places'
+    }"
+  >
+    <img
+      src="./assets/png/LocationPermission.png"
+      *ngIf="action == 'created'"
+    />
+    <img src="./assets/png/logo_alt.png" *ngIf="action == 'trails'" />
+    <img src="./assets/png/alert.png" *ngIf="action == 'places'" />
+  </div>
+  <ion-card-content>
+    <h2
+      class="custom-card-status"
+      [ngClass]="{
+        created: action === 'created',
+        trails: action === 'trails',
+        places: action === 'places'
+      }"
+    >
+      {{ caption }}
+    </h2>
+    <p
+      class="custom-card-status-note"
+      [ngClass]="{
+        created: action === 'created',
+        trails: action === 'trails',
+        places: action === 'places'
+      }"
+    >
+      {{ subCaption }}
+    </p>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,117 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon
+          slot="icon-only"
+          class="back-button-has-icon-only"
+          name="chevron-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="addSteps()"
+        fill="solid"
+        color="royal"
+        class="add-button"
+        *ngIf="hasSelectedPlace()"
+      >
+        Add
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar class="toolbar-title">
+    <app-content-header-view [title]="'Add Steps'"></app-content-header-view>
+  </ion-toolbar>
+</ion-header>
+<ion-toolbar mode="md">
+  <app-trail-searchbar
+    placeholder="Search"
+    debounce="500"
+    (ionChange)="onSearchInput($event)"
+    (ionCancel)="onShowSearch()"
+  ></app-trail-searchbar>
+  <ion-buttons slot="end">
+    <ion-button (click)="openFilterModal()">
+      <ion-icon slot="icon-only" name="funnel-sharp"></ion-icon>
+    </ion-button>
+    <ion-button (click)="openSearchPlace()">
+      <ion-icon slot="icon-only" name="navigate"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+    ></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ng-container *ngIf="!showContent">
+      <ng-container *ngTemplateOutlet="loadingTemplate"></ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="showContent">
+      <ng-container *ngTemplateOutlet="placesContent"></ng-container>
+    </ng-container>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="lines-small">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ng-template #placesContent>
+  <ng-container *ngIf="filterPlacesArr && filterPlacesArr.length < 1">
+    <app-trail-places-no-result-found
+      [action]="'places'"
+      [caption]="'No places found!'"
+      [subCaption]="'Try searching or filtering for something else'"
+    ></app-trail-places-no-result-found>
+  </ng-container>
+  <ng-container *ngIf="filterPlacesArr && filterPlacesArr.length > 0">
+    <ng-container *ngFor="let item of filterPlacesArr">
+      <ion-item-sliding #slidingItem>
+        <app-trail-places-item
+          [place]="item"
+          [showCheckbox]="true"
+          [showDistance]="true"
+          [autoDistance]="false"
+          (placeClick)="onSelectPlace(item)"
+        ></app-trail-places-item>
+        <ion-item-options side="end">
+          <ion-item-option
+            color="trailsteps"
+            (click)="onSelectPlace(item, slidingItem)"
+            expandable
+            >Add</ion-item-option
+          >
+        </ion-item-options>
+      </ion-item-sliding>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <ng-container *ngFor="let item of fakeArr">
+    <ion-item class="trail-places-item">
+      <ion-thumbnail slot="start" style="width: 74px; height: 74px">
+        <ion-skeleton-text
+          animated
+          style="border-radius: 14px; width: 74px; height: 74px"
+        ></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ng-container>
+</ng-template>

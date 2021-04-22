@@ -1,0 +1,57 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar mode="md">
+        <ion-title class="search-modal-title">
+            <ion-icon class="back-button-has-icon-only" name="location"></ion-icon>Change location
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()" color="medium">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar #searchbar class="search-placeholder" searchIcon="undefined" debounce="500"
+            (ionChange)="onSearchPlaces($event)" placeholder="Search for your location..."></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+    <!-- 
+      =================================================================
+      =================================================================
+      =================================================================
+     -->
+    <ion-list *ngIf="isSearching">
+        <ng-container *ngIf="showSearch">
+            <ion-item class="search-result-item" *ngFor="let item of searchResultArr" (click)="selectLocation(item)">
+                <div slot="start" class="ion-text-center">
+                    <ion-icon name="map-outline"></ion-icon>
+                    <p class="distance">
+                        <!-- {{ item.distance_meters | distance: 'm':'km' }} -->
+                    </p>
+                </div>
+                <ion-label>
+                    <h2>{{ item.title }}</h2>
+                    <p class="ion-note">
+                        {{ item.subtitle }}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ng-container>
+
+        <ng-container *ngIf="!showSearch">
+            <ion-item lines="none" *ngFor="let item of fakeArr">
+                <ion-thumbnail slot="start">
+                    <ion-skeleton-text></ion-skeleton-text>
+                </ion-thumbnail>
+                <ion-label>
+                    <h2>
+                        <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+                    </h2>
+                    <p>
+                        <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ng-container>
+    </ion-list>
+</ion-content>

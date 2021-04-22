@@ -1,0 +1,13 @@
+@import "../../../../../../../theme/variables.scss";
+
+:host {
+  .place-text-header {
+    font-family: $font-family-base;
+    font-weight: $font-weight-medium;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0;
+    text-align: left;
+    color: $color-heading-text;
+  }
+}

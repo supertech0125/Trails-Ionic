@@ -1,0 +1,16 @@
+<ion-item class="no-input-padding" lines="none">
+  <ion-label position="stacked">{{ label }}</ion-label>
+  <ion-textarea
+    item-content
+    class="form-control"
+    name="form-control"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [required]="required"
+    [id]="fieldId"
+    [value]="inputValue"
+    (input)="onChange($event.target.value)"
+    (blur)="onTouched()"
+  ></ion-textarea>
+</ion-item>

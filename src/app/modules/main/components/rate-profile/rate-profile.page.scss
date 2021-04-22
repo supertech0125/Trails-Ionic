@@ -1,0 +1,63 @@
+@import "../../../../../theme/variables.scss";
+
+:host {
+  ion-content {
+    ion-grid {
+      padding-inline-start: 0;
+      padding-inline-end: 0;
+    }
+  }
+
+  .basic-form,
+  .rate-experience-form,
+  .uploader-form {
+    margin-bottom: 24px;
+  }
+
+  .rate-experience-form {
+    display: block;
+    text-align: center;
+    margin-top: 60px;
+
+    .heading-title {
+      font-family: $font-family-base;
+      font-weight: $font-weight-bold;
+      font-size: 17px;
+      line-height: 20px;
+      letter-spacing: 0.21px;
+      text-align: center;
+      color: $color-heading-text;
+
+      margin-bottom: 10px;
+    }
+
+    .heading-sub-title {
+      font-family: $font-family-base;
+      font-weight: $font-weight-base;
+      font-size: 15px;
+      line-height: 25px;
+      letter-spacing: 0.24px;
+      text-align: center;
+      color: $color-heading-note-text;
+
+      margin-top: 0px;
+    }
+  }
+
+  .basic-form {
+    position: relative;
+
+    .text-counter {
+      position: absolute;
+      top: 10px;
+      right: 0;
+      z-index: 1;
+
+      font-family: $font-family-base;
+      font-weight: $font-weight-base;
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: 0.21px;
+    }
+  }
+}
