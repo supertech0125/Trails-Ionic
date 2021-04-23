@@ -1,0 +1,19 @@
+{
+  "appId": "com.metomine.Avenues",
+  "appName": "Avenues",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0,
+      "showSpinner": false,
+      "launchAutoHide": false,
+      "splashImmersive": true,
+      "splashFullScreen": true,
+      "androidScaleType": "CENTER_CROP",
+      "backgroundColor": "#ffffffff"
+    }
+  },
+  "cordova": {}
+}
