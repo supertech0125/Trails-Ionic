@@ -35,9 +35,9 @@
         }}</span>
       </ng-container>
     </ion-card-subtitle>
-    <app-trail-distance
+    <app-saved-places-distance
       [distanceKM] = "place?.distanceKM"
-    ></app-trail-distance>
+    ></app-saved-places-distance>
     <ng-container *ngIf="place?.priceRange > 0">
       <ionic5-star-rating
         #rating

@@ -17,6 +17,7 @@ import { TrailTextareaComponent } from './trail-textarea/trail-textarea.componen
 import { TrailBadgeComponent } from './trail-badge/trail-badge.component';
 import { TrailRatingBadgeComponent } from './trail-rating-badge/trail-rating-badge.component';
 import { TrailDistanceComponent } from './trail-distance/trail-distance.component';
+import { SavedPlacesDistanceComponent } from './saved-places-distance/saved-places-distance.component';
 import { TrailSaveBookmarkComponent } from './trail-save-bookmark/trail-save-bookmark.component';
 import { TrailSearchbarComponent } from './trail-searchbar/trail-searchbar.component';
 import { TrailSelectComponent } from './trail-select/trail-select.component';
@@ -50,6 +51,7 @@ const COMPONENTS = [
   TrailBadgeComponent,
   TrailRatingBadgeComponent,
   TrailDistanceComponent,
+  SavedPlacesDistanceComponent,
   TrailSaveBookmarkComponent,
   TrailSearchbarComponent,
   TrailSelectComponent,
