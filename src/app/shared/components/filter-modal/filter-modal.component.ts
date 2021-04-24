@@ -288,8 +288,16 @@ export class FilterModalComponent implements OnInit {
     });
 
     if (size(subType) !== size(this.placeSubTypeArr)) {
-      this.placeSubTypeSelectedText = SELECTION_TEXT;
       this.filter.placeSubType = placeTypeArr.join(',');
+      if(size(subType) > 1 ) {
+        this.placeSubTypeSelectedText = SELECTION_TEXT;
+      } else {
+        if(!isEmpty(subType)) {
+          this.placeSubTypeSelectedText = subType[0];
+        } else {
+          this.placeSubTypeSelectedText = '';
+        }
+      }
     } else {
       this.placeSubTypeSelectedText = ALL_CUISINES;
       this.filter.placeSubType = lowerCase(ALL_TEXT);

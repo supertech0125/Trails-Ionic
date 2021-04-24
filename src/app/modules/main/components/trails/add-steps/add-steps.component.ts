@@ -132,16 +132,35 @@ export class AddStepsComponent implements OnInit, OnDestroy {
   doRefresh(event) {
     console.log('Begin async operation');
 
-    this.reset();
-    this.refreshPlace(
-      null,
-      String(this.currentPage),
-      null,
-      null,
-      null,
-      null,
-      event
-    );
+    let range = null;
+    let type = null;
+    let subStype = null;
+    let sortAs = null;
+    
+    range = this.filterPlace.place;
+    type = this.filterPlace.placeType;
+    subStype = this.filterPlace.placeSubType;
+    
+    if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RATING.value) {
+      sortAs = this.filterPlace.sortAs || RATINGS_SORT.HIGH.value;
+    }
+    
+    if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RECENCY.value) {
+      sortAs = this.filterPlace.sortAs;
+    }
+    
+    this.refreshPlace(null, null, range, type, subStype, sortAs, event);
+
+    // this.reset();
+    // this.refreshPlace(
+    //   null,
+    //   String(this.currentPage),
+    //   null,
+    //   null,
+    //   null,
+    //   null,
+    //   event
+    // );
   }
 
   loadData(event) {
@@ -373,45 +392,45 @@ export class AddStepsComponent implements OnInit, OnDestroy {
 
     const handleResponse = (places) => {
       let filterPlacesArr = [];
-
+      
       // const placesArr = this.formatter.formatPlaceManualCoordinates(
-      //   places,
-      //   true,
-      //   this.coordinates
-      // );
-      const placesArr = this.formatter.formatPlace2(places);
-      this.placesArr = [...placesArr];
-
-      if (!isEmpty(this.filterPlacesArr)) {
-        filterPlacesArr = [...this.filterPlacesArr, ...this.placesArr];
-      } else {
-        filterPlacesArr = [...this.placesArr];
-      }
-
-
-      // Remove places that are already added on the create trails
-      each(this.selectedPlaces, (place: any) => {
-        filterPlacesArr = filterPlacesArr.filter((obj) => {
-          return obj.id !== place.id;
-        });
-      });
-
-      each(filterPlacesArr, (place: any) => {
-        const resIndex = findIndex(this.filterPlacesArr, { id: place.id });
-        const result = find(this.filterPlacesArr, { id: place.id });
-        if (result) {
-          this.filterPlacesArr[resIndex] = place;
+        //   places,
+        //   true,
+        //   this.coordinates
+        // );
+        const placesArr = this.formatter.formatPlace2(places);
+        this.placesArr = [...placesArr];
+        
+        if (!isEmpty(this.filterPlacesArr)) {
+          filterPlacesArr = [...this.filterPlacesArr, ...this.placesArr];
         } else {
-          this.filterPlacesArr.push(place);
+          filterPlacesArr = [...this.placesArr];
         }
-      });
-
-      setTimeout(() => {
-        this.showContent = true;
-      }, 300);
-    };
-
-    if (!this.isPaginate) {
+        
+        
+        // Remove places that are already added on the create trails
+        each(this.selectedPlaces, (place: any) => {
+          filterPlacesArr = filterPlacesArr.filter((obj) => {
+            return obj.id !== place.id;
+          });
+        });
+        
+        each(filterPlacesArr, (place: any) => {
+          const resIndex = findIndex(this.filterPlacesArr, { id: place.id });
+          const result = find(this.filterPlacesArr, { id: place.id });
+          if (result) {
+            this.filterPlacesArr[resIndex] = place;
+          } else {
+            this.filterPlacesArr.push(place);
+          }
+        });
+        
+        setTimeout(() => {
+          this.showContent = true;
+        }, 300);
+      };
+      
+      if (!this.isPaginate) {
       this.showContent = false;
     }
 
