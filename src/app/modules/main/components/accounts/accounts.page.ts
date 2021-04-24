@@ -6,6 +6,7 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import each from 'lodash-es/each';
 import orderBy from 'lodash-es/orderBy';
 import { takeUntil } from 'rxjs/operators';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 import {
   TRAIL_CURRENT_USER_PROFILE,
@@ -70,7 +71,8 @@ export class AccountsPage implements OnInit, OnDestroy {
     private formatter: FormatterServices,
     private dataLoader: DataLoaderService,
     private pubsub: PubsubService,
-    private screensizeService: ScreensizeService
+    private screensizeService: ScreensizeService,
+    private commonService: CommonService
   ) {
     this.fakeArr = Array.from({
       length: 10,
@@ -251,6 +253,11 @@ export class AccountsPage implements OnInit, OnDestroy {
     return data;
   }
 
+  private sortByDistanceKM(data: any) {
+    data.sort((a: any, b: any) => (a.distanceKM * 1 > b.distanceKM * 1) ? 1 : -1)
+    return data;
+  }
+
   private initUserProfile() {
     const profile = this.storage.getItem(TRAIL_CURRENT_USER_PROFILE);
     if (profile) {
@@ -263,8 +270,9 @@ export class AccountsPage implements OnInit, OnDestroy {
     this.store
       .pipe(select(bookmarkPlacesSelector), takeUntil(this.unsubscribe$))
       .subscribe(
-        (response) => {
+        async (response) => {
           if (response) {
+            const coordinates = this.storage.getItem(TRAIL_CURRENT_USER_GEOLOCATION);
             this.placesArr = [];
             this.filterPlacesArr = [];
 
@@ -277,7 +285,22 @@ export class AccountsPage implements OnInit, OnDestroy {
               this.placesArr
             );
 
-            let result = this.sortByDistance(this.filterPlacesArr);
+            console.log('before sort', this.filterPlacesArr);
+            try {
+              await Promise.all(this.filterPlacesArr.map(async (a: any) => {
+                let distance = this.commonService.PythagorasEquirectangular(
+                  coordinates.latitude,
+                  coordinates.longitude,
+                  a.latitude,
+                  a.longitude
+                );
+                a.distanceKM = Math.round(distance * 10) / 10;
+              }))
+            } catch (err) {
+              console.log('getDistanceErr', err);
+            }
+
+            let result = this.sortByDistanceKM(this.filterPlacesArr);
             this.filterPlacesArr = result;
 
             console.log('initSavedPlaces: ', this.filterPlacesArr);

@@ -36,6 +36,9 @@ export class PlaceCardComponent implements OnInit {
       }else if (!isEmpty(this.place.type) && isArray(this.place.types)) {
         this.placeType = this.place.type;
       }
+      else {
+        this.placeType = this.place.type;
+      }
     }
   }
 

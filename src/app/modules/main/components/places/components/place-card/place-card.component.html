@@ -28,17 +28,15 @@
     <ion-card-subtitle>
       <span class="place-type">{{placeType}}</span>
       <ng-container
-        *ngIf="place?.types?.subTypes && place?.types?.subTypes?.length > 0"
+        *ngIf="place?.subTypes && place?.subTypes?.length > 0"
       >
-        <span class="sub-type" *ngFor="let item of place.types?.subTypes">{{
-          item.subType
+        <span class="sub-type" *ngFor="let item of place.subTypes">{{
+          item
         }}</span>
       </ng-container>
     </ion-card-subtitle>
     <app-trail-distance
-      [latitude]="place?.latitude"
-      [longitude]="place?.longitude"
-      [autoDistance]="true"
+      [distanceKM] = "place?.distanceKM"
     ></app-trail-distance>
     <ng-container *ngIf="place?.priceRange > 0">
       <ionic5-star-rating
