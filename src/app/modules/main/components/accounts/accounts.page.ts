@@ -295,6 +295,7 @@ export class AccountsPage implements OnInit, OnDestroy {
                   a.longitude
                 );
                 a.distanceKM = Math.round(distance * 10) / 10;
+                if ((a.distanceKM % 1) === 0) a.distanceKM += '.0';
               }))
             } catch (err) {
               console.log('getDistanceErr', err);
