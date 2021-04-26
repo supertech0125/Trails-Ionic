@@ -103,6 +103,7 @@ export class TokenInterceptorService implements HttpInterceptor {
 
           return this.auth.refreshToken(tokenRefresh).pipe(
             switchMap((rToken) => {
+              console.log('rToken============', rToken);
               // When the call to refreshToken completes we reset the refreshTokenInProgress to false
               // for the next time the token needs to be refreshed
               const user = this.localStorageService.getItem(TRAIL_CURRENT_USER);
@@ -121,6 +122,7 @@ export class TokenInterceptorService implements HttpInterceptor {
 
                     loginInfoStorage.refreshToken = refreshToken;
                     loginInfoStorage.RefreshToken = refreshToken;
+                    console.log('current loginInfoStorage: ', loginInfoStorage, user);
 
                     this.localStorageService.setItem(
                       TRAIL_CURRENT_USER,

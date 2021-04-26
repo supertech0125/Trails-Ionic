@@ -87,7 +87,7 @@ export class FilterModalComponent implements OnInit {
     private mainStore: Store<MainState>,
     private modalController: ModalController,
     private storage: LocalStorageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.action === 'place') {
@@ -116,6 +116,7 @@ export class FilterModalComponent implements OnInit {
 
     const filters: ITrailStepsFilter = this.storage.getItem(TRAIL_STEP_FILTER);
     if (filters) {
+      console.log('filters======================', filters);
       this.filter.place = filters.place || this.typeOfPlacesArr[0].value;
       this.filter.trail = filters.trail || this.typeOfTrailsArr[0].value;
       this.filter.sort = filters.sort || this.sortArr[0].value;
@@ -208,7 +209,7 @@ export class FilterModalComponent implements OnInit {
 
   updateFilter() {
     this.storage.setItem(TRAIL_STEP_FILTER, this.filter);
-    if(this.action !== 'place') this.storage.setItem(TRAIL_STEP_SHOW_SUBTYPES, this.showPlaceSubTypes);
+    if (this.action !== 'place') this.storage.setItem(TRAIL_STEP_SHOW_SUBTYPES, this.showPlaceSubTypes);
     else this.storage.setItem(PLACE_SHOW_SUBTYPES, this.showPlaceSubTypes);
     this.modalController.dismiss({
       filter: this.filter,
@@ -412,7 +413,9 @@ export class FilterModalComponent implements OnInit {
             this.placeTypeIdsArr = tmpTypeArr.map((type) => {
               return type.value;
             });
-            this.placeTypeSelectedText = SELECTION_TEXT;
+            if (typeArr.length > 1)
+              this.placeTypeSelectedText = SELECTION_TEXT;
+            else this.placeTypeSelectedText = typeArr[0];
             this.filter.placeType = filters.placeType;
           } else {
             this.filter.placeType = lowerCase(ALL_TEXT);
@@ -435,7 +438,9 @@ export class FilterModalComponent implements OnInit {
             this.placeSubTypeIdsArr = tmpTypeArr.map((type) => {
               return type.value;
             });
-            this.placeSubTypeSelectedText = SELECTION_TEXT;
+            if (typeArr.length > 1)
+              this.placeSubTypeSelectedText = SELECTION_TEXT;
+            else this.placeSubTypeSelectedText = typeArr[0];
             this.filter.placeSubType = filters.placeSubType;
           } else {
             this.filter.placeSubType = lowerCase(ALL_TEXT);

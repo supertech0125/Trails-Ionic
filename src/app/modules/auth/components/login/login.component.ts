@@ -121,11 +121,11 @@ export class LoginComponent implements OnInit {
         tap((resp: UserAccount) => {
           this.store.dispatch(new Login({ user: resp }));
         })
-      )
-      .toPromise()
-      .then(
-        (response) => {
-          if (response) {
+        )
+        .toPromise()
+        .then(
+          (response) => {
+            if (response) {
             const coordinates = this.storage.getItem(
               TRAIL_CURRENT_USER_GEOLOCATION
             );
