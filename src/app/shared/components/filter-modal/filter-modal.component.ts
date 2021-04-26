@@ -22,6 +22,8 @@ import {
   TRAIL_DETAILS_FILTER_TIME,
   TRAIL_DETAILS_FILTER_WITH,
   TRAIL_STEP_FILTER,
+  TRAIL_STEP_SHOW_SUBTYPES,
+  PLACE_SHOW_SUBTYPES,
   TRAIL_PLACE_SORT_FILTERS,
   TRAIL_PLACE_SORT_ITEMS,
   SELECTION_TEXT,
@@ -95,6 +97,18 @@ export class FilterModalComponent implements OnInit {
     }
 
     this.initPlaceTypes();
+    let trail_step_showPlaceSubTypes;
+    let place_showPlaceSubTypes;
+    if (this.action !== 'place') {
+      trail_step_showPlaceSubTypes = this.storage.getItem(TRAIL_STEP_SHOW_SUBTYPES);
+      if (trail_step_showPlaceSubTypes === null || trail_step_showPlaceSubTypes) this.showPlaceSubTypes = true;
+      else this.showPlaceSubTypes = false;
+    }
+    else {
+      place_showPlaceSubTypes = this.storage.getItem(PLACE_SHOW_SUBTYPES);
+      if (place_showPlaceSubTypes === null || place_showPlaceSubTypes) this.showPlaceSubTypes = true;
+      else this.showPlaceSubTypes = false;
+    }
 
     this.sortArr = filter(this.sortArr, (row: any) => {
       return row.allowOn.indexOf(this.action) > -1;
@@ -194,6 +208,8 @@ export class FilterModalComponent implements OnInit {
 
   updateFilter() {
     this.storage.setItem(TRAIL_STEP_FILTER, this.filter);
+    if(this.action !== 'place') this.storage.setItem(TRAIL_STEP_SHOW_SUBTYPES, this.showPlaceSubTypes);
+    else this.storage.setItem(PLACE_SHOW_SUBTYPES, this.showPlaceSubTypes);
     this.modalController.dismiss({
       filter: this.filter,
       isFiltering: this.isFiltering,
@@ -226,11 +242,6 @@ export class FilterModalComponent implements OnInit {
 
   onPlaceFilterSelect(event: any) {
     const val = event.target.value;
-    // if (val === PLACES_FILTERS_ITEM.CUSTOMIZE_SELECTION.value) {
-    //   this.showPlaceSubTypes = true;
-    // } else {
-    //   this.showPlaceSubTypes = false;
-    // }
     this.filter.place = val;
   }
 
@@ -274,6 +285,7 @@ export class FilterModalComponent implements OnInit {
 
     this.placeTypeIdsArr = type;
     this.showPlaceSubTypes = !isEmpty(this.placeSubTypeArr);
+    if (isEmpty(this.placeSubTypeArr)) this.filter.placeSubType = ''
   }
 
   onPlaceSubTypeFilterSelect(event: any) {
@@ -289,10 +301,10 @@ export class FilterModalComponent implements OnInit {
 
     if (size(subType) !== size(this.placeSubTypeArr)) {
       this.filter.placeSubType = placeTypeArr.join(',');
-      if(size(subType) > 1 ) {
+      if (size(subType) > 1) {
         this.placeSubTypeSelectedText = SELECTION_TEXT;
       } else {
-        if(!isEmpty(subType)) {
+        if (!isEmpty(subType)) {
           this.placeSubTypeSelectedText = subType[0];
         } else {
           this.placeSubTypeSelectedText = '';
@@ -352,7 +364,7 @@ export class FilterModalComponent implements OnInit {
       component: ExperienceModalComponent,
       cssClass: 'modal-experience-screen',
     });
-    modal.onDidDismiss().then(() => {});
+    modal.onDidDismiss().then(() => { });
     modal.present();
   }
 
@@ -432,7 +444,7 @@ export class FilterModalComponent implements OnInit {
               return type.value;
             });
           }
-          this.showPlaceSubTypes = true;
+          // this.showPlaceSubTypes = true;
         }
       });
   }

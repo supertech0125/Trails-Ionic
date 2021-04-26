@@ -16,6 +16,8 @@ import {
   TRAIL_CURRENT_USER_GEOLOCATION,
   TRAIL_CURRENT_USER_PROFILE,
   TRAIL_STEP_FILTER,
+  TRAIL_STEP_SHOW_SUBTYPES,
+  PLACE_SHOW_SUBTYPES,
 } from './shared/constants/utils';
 import {
   ConnectionStatus,
@@ -168,6 +170,8 @@ export class AppComponent {
 
           // Clears filter
           this.storage.removeItem(TRAIL_STEP_FILTER);
+          this.storage.removeItem(TRAIL_STEP_SHOW_SUBTYPES);
+          this.storage.removeItem(PLACE_SHOW_SUBTYPES);
         }
       });
 

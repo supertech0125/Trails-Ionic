@@ -34,6 +34,10 @@ export const TRAIL_STEP_ALL_USERS_TRAILS = 'trail_step_all_users_trails';
 
 export const TRAIL_STEP_FILTER = 'trail_step_filters';
 
+export const TRAIL_STEP_SHOW_SUBTYPES = 'trail_step_showPlaceSubTypes';
+
+export const PLACE_SHOW_SUBTYPES = 'place_showPlaceSubTypes';
+
 export const IS_USER_PROFILE_LOADED = 'is_trail_user_profile_loaded';
 
 export const emailValidationRegex =
