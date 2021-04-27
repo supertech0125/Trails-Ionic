@@ -30,7 +30,7 @@ export class SavedPlacesDistanceComponent implements OnInit {
   // @Input() longitude: number;
   // @Input() autoDistance: boolean | false;
   // @Input() distance: number;
-  @Input() distanceKM: any = {};
+  @Input() distanceKM: any;
 
   // currentCoords: IGeoServiceLatLng = {
   //   latitude: 0,
