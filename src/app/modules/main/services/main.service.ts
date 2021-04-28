@@ -119,6 +119,10 @@ export class MainService extends BaseService {
   rateTrail(data: ITrailRate): Observable<IPlacesRatings> {
     return this.post('/ratings/trail', data);
   }
+  
+  updateRateTrail(data: ITrailRate): Observable<any> {
+    return this.post('/ratings/updatetrail', data);
+  }
 
   ratePlace(data: IPlaceRate): Observable<any> {
     return this.post('/ratings/place', data);

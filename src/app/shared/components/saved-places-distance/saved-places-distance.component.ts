@@ -53,6 +53,7 @@ export class SavedPlacesDistanceComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.distanceKM = this.distanceKM * 1;
     // if (this.autoDistance) {
     //   this.getCurrentPosition();
     // } else {

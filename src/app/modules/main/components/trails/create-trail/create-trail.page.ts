@@ -227,8 +227,8 @@ export class CreateTrailPage implements OnInit {
 
     if (isEmpty(formattedTrailsArr)) {
       const alert = await this.alertController.create({
-        header: 'Warning!',
-        message: 'Trails needed Places entry before saving!',
+        header: 'Almost There!',
+        message: 'Please add at least two places in your trail',
         buttons: ['Ok'],
       });
       return await alert.present();
@@ -236,8 +236,8 @@ export class CreateTrailPage implements OnInit {
 
     if (size(formattedTrailsArr) < 2) {
       const alert = await this.alertController.create({
-        header: 'Warning!',
-        message: 'Trails needed to have more than 1 places!',
+        header: 'Almost There!',
+        message: 'Please add at least two places in your trail',
         buttons: ['Ok'],
       });
       return await alert.present();

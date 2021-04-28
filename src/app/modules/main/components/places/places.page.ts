@@ -298,6 +298,7 @@ export class PlacesPage implements OnInit, OnDestroy {
   private initPlaces() {
     const handleResponse = (places: any[]) => {
       const placesArr = this.formatter.formatPlace2(places);
+      this.placesArr = []; // important
       if (!isEmpty(placesArr)) {
         placesArr.forEach((place: any) => {
           const resIndex = findIndex(this.placesArr, { id: place.id });

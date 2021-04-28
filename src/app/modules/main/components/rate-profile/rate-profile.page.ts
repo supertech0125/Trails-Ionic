@@ -177,10 +177,10 @@ export class RateProfilePage implements OnInit, OnDestroy {
   private async ratePlace() {
     const loading = await this.loadingController.create();
     const parseUser = JSON.parse(localStorage.getItem(TRAIL_CURRENT_USER));
-        
+
     this.isAlreadyRated = false;
-    for(let i = 0; i<this.trailPlaceRating.reviews?.length; i++) {
-      if(this.trailPlaceRating.reviews[i].id === parseUser.id) {
+    for (let i = 0; i < this.trailPlaceRating.reviews?.length; i++) {
+      if (this.trailPlaceRating.reviews[i].id === parseUser.id) {
         this.isAlreadyRated = true;
         break;
       }
@@ -192,7 +192,7 @@ export class RateProfilePage implements OnInit, OnDestroy {
       rating: this.rating,
     };
 
-    if(!this.isAlreadyRated) {
+    if (!this.isAlreadyRated) {
       loading.present();
       this.mainService
         .ratePlace(rating)
@@ -204,12 +204,12 @@ export class RateProfilePage implements OnInit, OnDestroy {
             loading.dismiss();
             if (response && response.statusCode === 200) {
               this.resetForm();
-  
+
               this.refreshPlace(
                 this.currentCoords.latitude,
                 this.currentCoords.longitude
               );
-  
+
               this.toastService.showAlertMessage(
                 this.DEFAULT_SUCCESS_HEADER,
                 this.DEFAULT_SUCCESS_MSG,
@@ -233,8 +233,8 @@ export class RateProfilePage implements OnInit, OnDestroy {
     }
     else {
       const confirm_result = await this.toastService.showConfirm('Would you like to replace your old review?', '');
-      if(confirm_result) {
-        if(this.rating == 0 ) {
+      if (confirm_result) {
+        if (this.rating == 0) {
           this.toastService.showWarning('WARNING!', 'You can only give ratings from 1-5.');
         }
         else {
@@ -249,12 +249,12 @@ export class RateProfilePage implements OnInit, OnDestroy {
                 loading.dismiss();
                 if (response && response.statusCode === 200) {
                   this.resetForm();
-      
+
                   this.refreshPlace(
                     this.currentCoords.latitude,
                     this.currentCoords.longitude
                   );
-      
+
                   this.toastService.showAlertMessage(
                     this.DEFAULT_SUCCESS_HEADER,
                     this.DEFAULT_SUCCESS_MSG,
@@ -324,7 +324,16 @@ export class RateProfilePage implements OnInit, OnDestroy {
 
   private async rateTrail() {
     const loading = await this.loadingController.create();
-    loading.present();
+    // loading.present();
+    const parseUser = JSON.parse(localStorage.getItem(TRAIL_CURRENT_USER));
+
+    this.isAlreadyRated = false;
+    for (let i = 0; i < this.trailPlaceRating.reviews?.length; i++) {
+      if (this.trailPlaceRating.reviews[i].id === parseUser.id) {
+        this.isAlreadyRated = true;
+        break;
+      }
+    }
 
     const rating: ITrailRate = {
       trailId: Number(this.trailId) || this.trail.id,
@@ -332,41 +341,91 @@ export class RateProfilePage implements OnInit, OnDestroy {
       rating: this.rating,
     };
 
-    this.mainService
-      .rateTrail(rating)
-      .pipe(take(1))
-      .toPromise()
-      .then(
-        (response: any) => {
-          console.log('rateTrail: ', response);
-          loading.dismiss();
-          if (response && response.statusCode === 200) {
-            this.resetForm();
-            this.refreshTrails(
-              this.currentCoords.latitude,
-              this.currentCoords.longitude
-            );
+    if (!this.isAlreadyRated) {
+      loading.present();
+      this.mainService
+        .rateTrail(rating)
+        .pipe(take(1))
+        .toPromise()
+        .then(
+          (response: any) => {
+            console.log('rateTrail: ', response);
+            loading.dismiss();
+            if (response && response.statusCode === 200) {
+              this.resetForm();
+              this.refreshTrails(
+                this.currentCoords.latitude,
+                this.currentCoords.longitude
+              );
 
-            this.toastService.showAlertMessage(
-              this.DEFAULT_SUCCESS_HEADER,
-              this.DEFAULT_SUCCESS_MSG,
-              () => {
-                this.dismiss();
+              this.toastService.showAlertMessage(
+                this.DEFAULT_SUCCESS_HEADER,
+                this.DEFAULT_SUCCESS_MSG,
+                () => {
+                  this.dismiss();
+                }
+              );
+            }
+          },
+          (err) => {
+            console.log('error: ', err);
+            loading.dismiss();
+            if (err) {
+              const error = err.error;
+              if (error && error.message) {
+                return this.toastService.showWarning('WARNING!', error.message);
               }
-            );
-          }
-        },
-        (err) => {
-          console.log('error: ', err);
-          loading.dismiss();
-          if (err) {
-            const error = err.error;
-            if (error && error.message) {
-              return this.toastService.showWarning('WARNING!', error.message);
             }
           }
+        );
+    }
+    else {
+      const confirm_result = await this.toastService.showConfirm('Would you like to replace your old review?', '');
+      if (confirm_result) {
+        if (this.rating == 0) {
+          this.toastService.showWarning('WARNING!', 'You can only give ratings from 1-5.');
         }
-      );
+        else {
+          loading.present();
+          this.mainService
+            .updateRateTrail(rating)
+            .pipe(take(1))
+            .toPromise()
+            .then(
+              (response: any) => {
+                console.log('rateTrail: ', response);
+                loading.dismiss();
+                if (response && response.statusCode === 200) {
+                  this.resetForm();
+
+                  this.refreshPlace(
+                    this.currentCoords.latitude,
+                    this.currentCoords.longitude
+                  );
+
+                  this.toastService.showAlertMessage(
+                    this.DEFAULT_SUCCESS_HEADER,
+                    this.DEFAULT_SUCCESS_MSG,
+                    () => {
+                      this.dismiss();
+                    }
+                  );
+                }
+              },
+              (err) => {
+                console.log('error: ', err);
+                loading.dismiss();
+                if (err) {
+                  const error = err.error;
+                  if (error && error.message) {
+                    return this.toastService.showWarning('WARNING!', error.message);
+                  }
+                }
+              }
+            );
+        }
+      }
+    }
   }
 
   private initTrails() {

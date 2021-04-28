@@ -62,7 +62,8 @@ export const trailsReducer = createReducer(
   on(TrailsActionSuccess, (state, action) => ({
     ...state,
     trails: action.trails,
-    trailsData: trailsData(action.trails.data, state),
+    // trailsData: trailsData(action.trails.data, state),
+    trailsData: action.trails.data,
     trailsLoading: false,
     trailsLoaded: true,
   })),
