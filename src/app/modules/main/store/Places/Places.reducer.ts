@@ -9,6 +9,7 @@ import {
   SearchPlacesActionSuccess,
   paginateSearchPlacesAction,
   clearSearchPlacesAction,
+  SetUpdatedPlace,
 } from './Places.action';
 
 export interface PlacesState {
@@ -67,6 +68,19 @@ const searchPlacesData = (places: any[], state): Places[] => {
   return itemPlaces;
 };
 
+const updateBookmarkedPlace = (data: Places[], id: any, flag: boolean) => {
+  let temp = [];
+  data.map((a: any) => {
+    let place: any;
+    if (a.id == id) {
+      place = { ...a, isBookMarked: flag };
+    }
+    else place = { ...a };
+    temp.push(place);
+  })
+  return temp;
+}
+
 export const placesReducer = createReducer(
   initialPlacesState,
   on(paginatePlacesAction, (state, action) => ({
@@ -87,6 +101,12 @@ export const placesReducer = createReducer(
     placesLoading: state.placesOnPaginate ? false : true,
     placesLoaded:
       state.placesData && state.placesData.length > 0 ? true : false,
+  })),
+  on(SetUpdatedPlace, (state, action) => ({
+    ...state,
+    placesData: updateBookmarkedPlace(state.placesData, action.id, action.flag),
+    placesLoading: false,
+    placesLoaded: true,
   })),
   on(PlacesActionSuccess, (state, action) => ({
     ...state,

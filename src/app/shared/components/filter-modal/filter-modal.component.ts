@@ -116,17 +116,23 @@ export class FilterModalComponent implements OnInit {
 
     const filters: ITrailStepsFilter = this.storage.getItem(TRAIL_STEP_FILTER);
     if (filters) {
-      console.log('filters======================', filters);
       this.filter.place = filters.place || this.typeOfPlacesArr[0].value;
       this.filter.trail = filters.trail || this.typeOfTrailsArr[0].value;
       this.filter.sort = filters.sort || this.sortArr[0].value;
       this.filter.sortAs = filters.sortAs;
 
       if (filters.who) {
+
         if (filters.who !== lowerCase(ALL_TEXT)) {
           const whoArr = filters.who.split(',');
           this.trailWhoIdsArr = whoArr;
-          this.trailWithSelectedText = SELECTION_TEXT;
+          this.filter.who = filters.who;
+          if (this.trailWhoIdsArr.length > 1) {
+            this.trailWithSelectedText = SELECTION_TEXT
+          };
+          if (this.trailWhoIdsArr.length === 1) {
+            this.trailWithSelectedText = whoArr[0];
+          }
         } else {
           this.trailWhoIdsArr = this.filterDetailsWith.items.map((item) => {
             return item.value;
@@ -148,7 +154,11 @@ export class FilterModalComponent implements OnInit {
             }
           });
           this.trailWhenIdsArr = whenArr;
-          this.trailWhenSelectedText = SELECTION_TEXT;
+          if (this.trailWhenIdsArr.length === 1) {
+            this.trailWhenSelectedText = whenArr[0];
+            // this.filter.when = whenArr[0]
+            this.filter.when = filters.when;
+          }
         } else {
           each(this.filterDetailsTime.items, (row) => {
             row.selected = true;
@@ -259,6 +269,12 @@ export class FilterModalComponent implements OnInit {
       }
     });
 
+    if(isEmpty(type)) {
+      this.placeTypeArr.map(placeType=>{
+        placeSubTypeArr.push(placeType.subTypes);
+      })
+    }
+
     placeSubTypeArr = flatten(placeSubTypeArr);
     this.placeSubTypeArr = placeSubTypeArr.map((row) => {
       return {
@@ -276,7 +292,8 @@ export class FilterModalComponent implements OnInit {
         if (!isEmpty(type)) {
           this.placeTypeSelectedText = type[0];
         } else {
-          this.placeTypeSelectedText = '';
+          this.placeTypeSelectedText = ALL_TYPES;
+          this.filter.placeType = lowerCase(ALL_TEXT);
         }
       }
     } else {
@@ -285,6 +302,11 @@ export class FilterModalComponent implements OnInit {
     }
 
     this.placeTypeIdsArr = type;
+    if(isEmpty(type)) {
+      this.placeTypeIdsArr = this.placeTypeArr.map((type) => {
+        return type.value;
+      });
+    }
     this.showPlaceSubTypes = !isEmpty(this.placeSubTypeArr);
     if (isEmpty(this.placeSubTypeArr)) this.filter.placeSubType = ''
   }
@@ -308,7 +330,8 @@ export class FilterModalComponent implements OnInit {
         if (!isEmpty(subType)) {
           this.placeSubTypeSelectedText = subType[0];
         } else {
-          this.placeSubTypeSelectedText = '';
+          this.placeSubTypeSelectedText = ALL_CUISINES;
+          this.filter.placeSubType = lowerCase(ALL_TEXT);
         }
       }
     } else {
@@ -317,6 +340,11 @@ export class FilterModalComponent implements OnInit {
     }
 
     this.placeSubTypeIdsArr = subType;
+    if(isEmpty(subType)) {
+      this.placeSubTypeIdsArr = this.placeSubTypeArr.map((type) => {
+        return type.value;
+      });
+    }
   }
 
   onTrailTimeFilterSelect(event: any) {
@@ -349,7 +377,7 @@ export class FilterModalComponent implements OnInit {
         }
       } else {
         this.trailWithSelectedText = ALL_TEXT;
-        this.filter.who = ALL_TEXT;
+        this.filter.who = lowerCase(ALL_TEXT);
       }
     }
     this.trailWhoIdsArr = withArr;
@@ -455,9 +483,9 @@ export class FilterModalComponent implements OnInit {
   }
 
   private resetForm() {
-    each(this.filterDetailsWith.items, (row: any) => {
-      row.selected = false;
-    });
+    // each(this.filterDetailsWith.items, (row: any) => {
+    //   row.selected = false;
+    // });
 
     this.filter.place = this.typeOfPlacesArr[0].value;
     this.filter.trail = this.typeOfTrailsArr[0].value;
@@ -472,5 +500,17 @@ export class FilterModalComponent implements OnInit {
     this.placeTypeSelectedText = ALL_TYPES;
 
     this.isFiltering = false;
+
+    this.placeTypeIdsArr = this.placeTypeArr.map((type) => {
+      return type.value;
+    });
+    this.placeSubTypeIdsArr = this.placeSubTypeArr.map((subtype) => {
+      return subtype.value;
+    })
+    this.showPlaceSubTypes = true;
+    this.trailWhoIdsArr = this.filterDetailsWith.items.map((who: any) => who.id);
+    this.trailWithSelectedText = ALL_TEXT;
+    this.trailWhenIdsArr = this.filterDetailsTime.items.map((when: any) => when.label);
+    this.trailWhenSelectedText = ALL_TEXT;
   }
 }

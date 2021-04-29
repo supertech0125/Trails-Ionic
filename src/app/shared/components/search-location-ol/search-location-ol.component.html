@@ -55,7 +55,7 @@
     </div>
   </ion-card>
 
-  <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+  <ion-fab vertical="top" horizontal="end" edge slot="fixed" style="z-index: 9999;">
     <ion-fab-button color="warning2" (click)="getGeolocation()">
       <ion-icon name="locate-outline" *ngIf="!isLocating"></ion-icon>
       <ion-spinner *ngIf="isLocating"></ion-spinner>

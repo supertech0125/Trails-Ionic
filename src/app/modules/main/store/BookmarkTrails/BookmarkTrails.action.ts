@@ -8,6 +8,7 @@ export enum ActionTypes {
   BookmarkTrailsActionFail = '[main] bookmark_trails fail',
   BookmarkTrails = '[main] Bookmark Trails',
   UnbookMarkTrails = '[main] UnBookmark Trails',
+  SetUpdateBookmarkTrailAction = '[main] setUpdateBookmark Trail',
 }
 
 export const BookmarkedTrailsAction = createAction(
@@ -18,6 +19,11 @@ export const BookmarkedTrailsAction = createAction(
 export const BookmarkedTrailsList = createAction(
   ActionTypes.BookmarkTrailsActionList,
   props<{ bookmarkTrails: Trails[] }>()
+);
+
+export const SetUpdatedBookmarkTrail = createAction(
+  ActionTypes.SetUpdateBookmarkTrailAction,
+  props<{ id: any, flag: boolean }>()
 );
 
 export const BookmarkedTrailsFailure = createAction(

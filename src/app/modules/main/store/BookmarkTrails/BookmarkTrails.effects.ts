@@ -67,10 +67,15 @@ export class BookmarkTrailsEffects {
         this.mainService.bookmarkTrail(trailId).then(
           (response) => {
             if (response) {
+              // Promise.all([
+              //   this.dataLoader.getAllTrails(this.params, true, true),
+              //   this.dataLoader.getAllBookmarkedTrails(this.params),
+              // ]);
               Promise.all([
-                this.dataLoader.getAllTrails(this.params, true, true),
-                this.dataLoader.getAllBookmarkedTrails(this.params),
+                // this.dataLoader.setUpdatedTrail(trailId, true),
+                this.dataLoader.setUpdatedBookmarkedTrail(trailId, true),
               ]);
+
               this.pubsub.$pub('TRAIL_STEP_TRAILS_SAVED');
             }
           },
@@ -87,11 +92,15 @@ export class BookmarkTrailsEffects {
       switchMap(({ trailId }) => {
         this.mainService.unBookmarkTrail(trailId).then(
           (response) => {
-            console.log('response: ', response);
             if (response && response.statusCode === 200) {
+              console.log('unbookmarkTrailEffectResponse', response);
+              // Promise.all([
+              //   this.dataLoader.getAllTrails(this.params, true, true),
+              //   this.dataLoader.getAllBookmarkedTrails(this.params),
+              // ]);
               Promise.all([
-                this.dataLoader.getAllTrails(this.params, true, true),
-                this.dataLoader.getAllBookmarkedTrails(this.params),
+                // this.dataLoader.setUpdatedTrail(trailId, false),
+                this.dataLoader.setUpdatedBookmarkedTrail(trailId, false),
               ]);
 
               this.pubsub.$pub('TRAIL_STEP_TRAILS_SAVED');

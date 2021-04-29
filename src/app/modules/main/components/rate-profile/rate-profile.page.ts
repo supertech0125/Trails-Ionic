@@ -398,7 +398,7 @@ export class RateProfilePage implements OnInit, OnDestroy {
                 if (response && response.statusCode === 200) {
                   this.resetForm();
 
-                  this.refreshPlace(
+                  this.refreshTrails(
                     this.currentCoords.latitude,
                     this.currentCoords.longitude
                   );

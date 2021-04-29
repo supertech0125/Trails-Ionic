@@ -48,12 +48,14 @@ import {
   PlacesActionFailure,
   PlacesActionSuccess,
   SearchPlacesActionSuccess,
+  SetUpdatedPlace,
 } from 'src/app/modules/main/store/Places/Places.action';
-import { BookmarkedsPlacesList } from './../../modules/main/store/BookmarkPlaces/BookmarkPlaces.action';
-import { BookmarkedTrailsList } from './../../modules/main/store/BookmarkTrails/BookmarkTrails.action';
+import { BookmarkedsPlacesList, SetUpdatedBookmarkPlace } from './../../modules/main/store/BookmarkPlaces/BookmarkPlaces.action';
+import { BookmarkedTrailsList, SetUpdatedBookmarkTrail } from './../../modules/main/store/BookmarkTrails/BookmarkTrails.action';
 import {
   TrailsActionFailure,
   TrailsActionSuccess,
+  SetUpdatedTrail,
 } from 'src/app/modules/main/store/Trails/Trails.action';
 import { PlaceTypesActionSuccess } from 'src/app/modules/main/store/PlaceTypes/PlaceTypes.action';
 
@@ -68,7 +70,7 @@ export class DataLoaderService {
     private mainStore: Store<MainState>,
     private storage: LocalStorageService,
     private pubsub: PubsubService
-  ) {}
+  ) { }
 
   refreshProfileData(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -139,6 +141,12 @@ export class DataLoaderService {
     });
   }
 
+  setUpdatedPlace(id: any, flag: boolean): void {
+    this.mainStore.dispatch(
+      SetUpdatedPlace({ id, flag })
+    );
+  }
+
   getAllBookmarkedPlaces(params?: IPlaceQueryParams): Promise<any> {
     this.pubsub.$pub(TRAIL_STEP_PLACES_SAVED_LOADING, true);
     return new Promise((resolve, reject) => {
@@ -162,6 +170,12 @@ export class DataLoaderService {
           }
         );
     });
+  }
+
+  setUpdatedBookmarkedPlace(id: any, flag: boolean): void {
+    this.mainStore.dispatch(
+      SetUpdatedBookmarkPlace({ id, flag })
+    );
   }
 
   getAllTrails(
@@ -213,6 +227,12 @@ export class DataLoaderService {
     });
   }
 
+  setUpdatedTrail(id: any, flag: boolean): void {
+    this.mainStore.dispatch(
+      SetUpdatedTrail({ id, flag })
+    );
+  }
+
   getAllBookmarkedTrails(params?: IPlaceQueryParams): Promise<any> {
     this.pubsub.$pub(TRAIL_STEP_TRAILS_SAVED_LOADING, true);
     return new Promise((resolve, reject) => {
@@ -236,6 +256,12 @@ export class DataLoaderService {
           }
         );
     });
+  }
+
+  setUpdatedBookmarkedTrail(id: any, flag: boolean): void {
+    this.mainStore.dispatch(
+      SetUpdatedBookmarkTrail({ id, flag })
+    );
   }
 
   getAllCreatedTrails(userId: string, params: ITrailQueryParams): Promise<any> {

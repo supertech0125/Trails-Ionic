@@ -7,6 +7,7 @@ import {
 import { Trails } from '../../models/trails.model';
 import {
   BookmarkedTrailsList,
+  SetUpdatedBookmarkTrail,
 } from './BookmarkTrails.action';
 
 export interface BookmarkTrailsState {
@@ -17,11 +18,27 @@ export const initialookmarkTrailState: BookmarkTrailsState = {
   bookmarkTrails: undefined,
 };
 
+const setUpdatedBookmarkTrail = (data: Trails[], id: any, flag: boolean) => {
+  console.log('flag', flag);
+  let temp = [];
+  data.map((a: any)=> {
+    let trail: any;
+    if(a.id == id) trail = { ...a, isbookMarked: flag};
+    else trail = {...a};
+    temp.push(trail);
+  })
+  return temp;
+}
+
 export const bookmarkTrailsReducer = createReducer(
   initialookmarkTrailState,
   on(BookmarkedTrailsList, (state, action) => ({
     ...state,
     bookmarkTrails: action.bookmarkTrails,
+  })),
+  on(SetUpdatedBookmarkTrail, (state, action) => ({
+    ...state,
+    bookmarkTrails: setUpdatedBookmarkTrail(state.bookmarkTrails, action.id, action.flag)
   }))
 );
 

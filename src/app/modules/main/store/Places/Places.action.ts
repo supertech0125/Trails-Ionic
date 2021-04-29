@@ -12,6 +12,7 @@ export enum ActionTypes {
   searchPlacesAction_Failure = '[main] Search Places Failure',
   searchPlacesClearAction = '[main] Search Places Clear',
   searchPlacesPaginateAction = '[main] Search Places Paginate',
+  updatedBookmarkedplacesAction_Success = '[main] updatedBookmarkedPlaces Success'
 }
 
 export const PlacesAction = createAction(
@@ -43,6 +44,11 @@ export const clearSearchPlacesAction = createAction(
 export const paginateSearchPlacesAction = createAction(
   ActionTypes.searchPlacesPaginateAction,
   props<{ paginate: boolean }>()
+);
+
+export const SetUpdatedPlace = createAction(
+  ActionTypes.updatedBookmarkedplacesAction_Success,
+  props<{ id: any, flag: boolean }>()
 );
 
 export const SearchPlacesActionSuccess = createAction(

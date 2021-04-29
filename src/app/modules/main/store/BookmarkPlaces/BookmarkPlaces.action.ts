@@ -7,6 +7,7 @@ export enum ActionTypes {
   bookmarkPlacesActionFail = '[main] bookmark_places fail',
   bookMarkPlace = '[main] bookmark Place',
   unbookMarkPlace = '[main] UnBookmark Place',
+  SetUpdateBookmarkPlaceAction = '[main] setUpdateBookmark Place',
 }
 
 export const BookmarkedsPlacesAction = createAction(
@@ -17,6 +18,11 @@ export const BookmarkedsPlacesAction = createAction(
 export const BookmarkedsPlacesList = createAction(
   ActionTypes.bookmarkPlacesActionList,
   props<{ bookmarkPlaces: Places[] }>()
+);
+
+export const SetUpdatedBookmarkPlace = createAction(
+  ActionTypes.SetUpdateBookmarkPlaceAction,
+  props<{ id: any, flag: boolean }>()
 );
 
 export const BookmarkedsPlacesFailure = createAction(

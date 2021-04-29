@@ -68,9 +68,13 @@ export class BookmarkPlacesEffects {
         this.mainService.bookmarkPlace(placeId).then(
           (response) => {
             if (response && response.bookMarkId !== null) {
+              // Promise.all([
+              //   this.dataLoader.getAllPlaces(this.params),
+              //   this.dataLoader.getAllBookmarkedPlaces(this.params),
+              // ]);
               Promise.all([
-                this.dataLoader.getAllPlaces(this.params),
-                this.dataLoader.getAllBookmarkedPlaces(this.params),
+                // this.dataLoader.setUpdatedPlace(placeId, true),
+                this.dataLoader.setUpdatedBookmarkedPlace(placeId, true),
               ]);
             }
           },
@@ -89,9 +93,13 @@ export class BookmarkPlacesEffects {
           (response) => {
             console.log('response: ', response);
             if (response && response.statusCode === 200) {
+              // Promise.all([
+              //   this.dataLoader.getAllPlaces(this.params),
+              //   this.dataLoader.getAllBookmarkedPlaces(this.params),
+              // ]);
               Promise.all([
-                this.dataLoader.getAllPlaces(this.params),
-                this.dataLoader.getAllBookmarkedPlaces(this.params),
+                // this.dataLoader.setUpdatedPlace(placeId, false),
+                this.dataLoader.setUpdatedBookmarkedPlace(placeId, false),
               ]);
             }
           },

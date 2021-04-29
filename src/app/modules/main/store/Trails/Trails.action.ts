@@ -7,6 +7,7 @@ export enum ActionTypes {
   trailsAction_Failure = '[main] Trails Failure',
   trailsClearAction = '[main] Trails Clear',
   trailsPaginateAction = '[main] Trails Paginate',
+  updatedBookmarkedtrailsAction_Success = '[main] updatedBookmarkedTrails Success',
 }
 
 export const TrailsAction = createAction(
@@ -19,6 +20,11 @@ export const clearTrailsAction = createAction(ActionTypes.trailsClearAction);
 export const paginateTrailsAction = createAction(
   ActionTypes.trailsPaginateAction,
   props<{ paginate: boolean }>()
+);
+
+export const SetUpdatedTrail = createAction(
+  ActionTypes.updatedBookmarkedtrailsAction_Success,
+  props<{ id: any, flag: boolean }>()
 );
 
 export const TrailsActionSuccess = createAction(

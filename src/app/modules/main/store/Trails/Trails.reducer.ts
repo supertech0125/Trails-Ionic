@@ -7,6 +7,7 @@ import {
   TrailsAction,
   TrailsActionFailure,
   TrailsActionSuccess,
+  SetUpdatedTrail,
 } from './Trails.action';
 
 export interface TrailsState {
@@ -38,6 +39,18 @@ const trailsData = (places: any[], state): Trails[] => {
   return itemPlaces;
 };
 
+const updateBookmarkedTrail = (data: Trails[], id: any, flag: boolean) => {
+  console.log('flag', flag);
+  let temp = [];
+  data.map((a: any) => {
+    let trail: any;
+    if (a.id == id) trail = { ...a, isbookMarked: flag };
+    else trail = { ...a };
+    temp.push(trail);
+  })
+  return temp;
+}
+
 export const trailsReducer = createReducer(
   initialPlacesState,
   on(paginateTrailsAction, (state, action) => ({
@@ -58,6 +71,12 @@ export const trailsReducer = createReducer(
     trailsLoading: state.trailsOnPaginate ? false : true,
     trailsLoaded:
       state.trailsData && state.trailsData.length > 0 ? true : false,
+  })),
+  on(SetUpdatedTrail, (state, action) => ({
+    ...state,
+    trailsData: updateBookmarkedTrail(state.trailsData, action.id, action.flag),
+    trailsLoading: false,
+    trailsLoaded: true,
   })),
   on(TrailsActionSuccess, (state, action) => ({
     ...state,
