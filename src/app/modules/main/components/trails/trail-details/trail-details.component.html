@@ -11,10 +11,12 @@
     </ion-buttons>
     <ion-title class="app-title">&nbsp; </ion-title>
     <ion-buttons slot="end">
-      <app-trail-share-button
+      <!--   for now, invisible, for the future, visible  -->
+      <!-- <app-trail-share-button
         *ngIf="showContent && isLoggedIn"
         (shareClick)="onShareTrail()"
-      ></app-trail-share-button>
+      ></app-trail-share-button> -->
+      <!--                                                -->
       <app-trail-save-bookmark
         *ngIf="showContent && isLoggedIn"
         [isActive]="trail.isbookMarked"
