@@ -132,8 +132,12 @@ export class MainService extends BaseService {
     return this.post('/ratings/updateplace', data);
   }
 
-  updateUserProfile(data: UserUpdate): Observable<any> {
-    return this.put('/userprofile', data);
+  // updateUserProfile(data: UserUpdate): Observable<any> {
+  //   return this.put('/userprofile', data);
+  // }
+
+  updateUserProfile(data: FormData): Observable<any> {
+    return this.putImageUpload('/userprofile', data);
   }
 
   sendAppFeedback(data: IFeedback): Promise<any> {

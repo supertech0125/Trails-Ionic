@@ -34,7 +34,8 @@ export class EditProfilePage implements OnInit {
   isFormValid = false;
   isSubmitting = false;
   userAvatar: any;
-  imageFile: string;
+  // imageFile: string;
+  file: any = null;
 
   currentProfile: UserProfile = {};
 
@@ -49,7 +50,7 @@ export class EditProfilePage implements OnInit {
     private toastService: ToastService,
     private pubsub: PubsubService,
     private storage: LocalStorageService
-  ) {}
+  ) { }
 
   ionViewDidEnter() {
     this.loginForm.reset();
@@ -80,7 +81,6 @@ export class EditProfilePage implements OnInit {
     }
 
     this.isSubmitting = true;
-
     if (this.loginForm.invalid) {
       this.isSubmitting = false;
       this.validateAllFormFields(this.loginForm);
@@ -92,17 +92,24 @@ export class EditProfilePage implements OnInit {
     });
     await loading.present();
 
-    const payload: UserUpdate = {
-      imageInfo: {
-        base64: this.imageFile,
-        fileName: this.currentProfile.id + '_' + new Date().getTime(),
-      },
-      ...this.loginForm.value,
-    };
-    console.log('payload: ', payload);
+    // const payload: UserUpdate = {
+    //   imageInfo: {
+    //     base64: this.imageFile,
+    //     fileName: this.currentProfile.id + '_' + new Date().getTime(),
+    //   },
+    //   ...this.loginForm.value,
+    // };
+    // console.log('payload: ', payload);
+
+    let lastName = (this.loginForm.value.lastName != 'null' && this.loginForm.value.lastName != null) ? this.loginForm.value.lastName : '';
+
+    let formData = new FormData();
+    if(this.file) formData.append('ImageInfo', this.file, this.currentProfile.id + '_' + new Date().getTime());
+    formData.append('FirstName', this.loginForm.value.firstName);
+    formData.append('LastName', lastName);
 
     this.mainService
-      .updateUserProfile(payload)
+      .updateUserProfile(formData)
       .pipe(take(1))
       .subscribe(
         (response) => {
@@ -178,7 +185,8 @@ export class EditProfilePage implements OnInit {
       });
       console.log('image: ', image);
 
-      this.imageFile = image.base64String;
+      // this.imageFile = image.base64String;
+      this.file = this.b64toBlob(image.base64String, `image/${image.format}`);
       this.userAvatar = 'data:image/png;base64,' + image.base64String;
     } else {
       const vm = this;
@@ -189,15 +197,36 @@ export class EditProfilePage implements OnInit {
       input.click();
       input.onchange = () => {
         const file = input.files[0];
+        vm.file = file;
         const reader: FileReader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
           const base64result = String(reader.result).split(',');
-          vm.imageFile = base64result[1];
+          // vm.imageFile = base64result[1];
           vm.userAvatar = String(reader.result);
         };
       };
     }
+  }
+
+  private b64toBlob(b64Data, contentType = '', sliceSize = 512) {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+ 
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+ 
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+ 
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+ 
+    const blob = new Blob(byteArrays, { type: contentType });
+    return blob;
   }
 
   private initUserProfile() {
@@ -217,8 +246,10 @@ export class EditProfilePage implements OnInit {
 
   private createForm() {
     this.loginForm = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      // firstName: ['', [Validators.required]],
+      firstName: [''],
+      // lastName: ['', [Validators.required]],
+      lastName: [''],
       email: [{ value: '', disabled: true }],
     });
   }

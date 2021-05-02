@@ -37,6 +37,13 @@ export abstract class BaseService {
     });
   }
 
+  protected imgUploadHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      Accept: 'application/json',
+      Authorization: `Bearer ${this.getToken()}`,
+    });
+  }
+
   protected get(route: string): Observable<any> {
     const url = this.getAPIBase() + route;
     const headers = new HttpHeaders({
@@ -95,6 +102,12 @@ export abstract class BaseService {
   protected put(route: string, object: any): Observable<any> {
     return this.http.put(this.getAPIBase(route), object, {
       headers: this.commonStateChangeHeaders(),
+    });
+  }
+
+  protected putImageUpload(route: string, object: any): Observable<any> {
+    return this.http.put(this.getAPIBase(route), object, {
+      headers: this.imgUploadHeaders(),
     });
   }
 

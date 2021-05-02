@@ -77,10 +77,9 @@
                 autocomplete="off"
                 id="lastName"
                 formControlName="lastName"
-                required
               />
             </ion-item>
-            <div
+            <!-- <div
               *ngIf="
           (f.lastName?.dirty || f.lastName?.touched) &&
           f.lastName?.invalid &&
@@ -90,7 +89,7 @@
               <div class="mat-error" *ngIf="f.lastName?.errors?.required">
                 Last Name is required.
               </div>
-            </div>
+            </div> -->
             <ion-item class="no-input-padding app-trail-input" lines="none">
               <ion-label position="stacked">Email address</ion-label>
               <input
