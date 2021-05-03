@@ -152,7 +152,7 @@
   dependencies:
     tslib "^2.0.0"
 
-"@angular/cli@~11.0.6":
+"@angular/cli@11.0.7":
   version "11.0.7"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-11.0.7.tgz#b1c35cd23eeb966dabb575c7ff41111507113147"
   integrity sha512-gKHfkkjduNi5OFaEKd75UKpZ7gg9h2+eVoo7ufrZda87PLP7v/XB/QoFz9zj6tTM2/IWkKhJhcsE2MLyIOTUZA==
