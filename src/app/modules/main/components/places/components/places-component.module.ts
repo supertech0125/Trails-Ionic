@@ -6,6 +6,7 @@ import { ComponentsModule } from './../../../../../shared/components/components.
 
 import { PlaceContactInfoComponent } from './place-contact-info/place-contact-info.component';
 import { PlaceCardComponent } from './place-card/place-card.component';
+import { PlaceTrailCardComponent } from './place-trail-card/place-trail-card.component';
 import { PlaceServicesComponent } from './place-services/place-services.component';
 import { PlacesAmbianceComponent } from './places-ambiance/places-ambiance.component';
 import { PlacesMentionedComponent } from './places-mentioned/places-mentioned.component';
@@ -18,6 +19,7 @@ import { StarRatingModule } from 'ionic5-star-rating';
   declarations: [
     PlaceContactInfoComponent,
     PlaceCardComponent,
+    PlaceTrailCardComponent,
     PlaceServicesComponent,
     PlacesAmbianceComponent,
     PlacesMentionedComponent,
@@ -29,6 +31,7 @@ import { StarRatingModule } from 'ionic5-star-rating';
   exports: [
     PlaceContactInfoComponent,
     PlaceCardComponent,
+    PlaceTrailCardComponent,
     PlaceServicesComponent,
     PlacesAmbianceComponent,
     PlacesMentionedComponent,

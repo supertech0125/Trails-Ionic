@@ -13,6 +13,7 @@ export enum MainActionTypes {
   allTrailsAction = '[main] all_trails',
   mapAllTrailsAction = '[main] all_map_trails',
   createdTrail = '[main] Created Trail',
+  createdTrailBookMark = '[main] Created Trail BookMark',
   allCreatedTrail = '[main] All Created Trail',
   allUsersTrailAction = '[main] All Users Trail',
 }
@@ -52,6 +53,11 @@ export class CreatedTrailAction implements Action {
   constructor(public payload: { createdTrails: ITrailsResponse }) {}
 }
 
+export class SetCreatedTrailBookMark implements Action {
+  readonly type = MainActionTypes.createdTrailBookMark;
+  constructor(public payload: { id: any, flag: boolean }) {}
+}
+
 export class AllCreatedTrailAction implements Action {
   readonly type = MainActionTypes.allCreatedTrail;
   constructor(public payload: { allCreatedTrails: ITrailsResponse[] }) {}
@@ -67,6 +73,7 @@ export type MainActions =
   | AllTrailsAction
   | MapAllTrailsAction
   | CreatedTrailAction
+  | SetCreatedTrailBookMark
   | AllCreatedTrailAction
   | AllUsersTrailsAction
   | AllPlacesAction

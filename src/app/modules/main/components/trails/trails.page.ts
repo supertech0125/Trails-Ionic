@@ -115,12 +115,12 @@ export class TrailsPage implements OnInit, OnDestroy {
 
   ionViewDidEnter() {
     console.log('ionViewDidEnter: ');
-    setTimeout(() => {
-      this.initTrails();
-    }, 600);
+    // setTimeout(() => {
+    //   this.initTrails();
+    // }, 600);
   }
 
-  ionViewWillLeave() {}
+  ionViewWillLeave() { }
 
   onShowSearch() {
     this.showSearch = !this.showSearch;
@@ -341,7 +341,10 @@ export class TrailsPage implements OnInit, OnDestroy {
         this.trailsArr.forEach((trail: any) => {
           const resIndex = findIndex(this.filterTrailsArr, { id: trail.id });
           if (resIndex !== -1) {
-            this.filterTrailsArr[resIndex] = trail;
+            // this.filterTrailsArr[resIndex] = trail;
+            if (this.filterTrailsArr[resIndex].isbookMarked !== trail.isbookMarked) { 
+              this.filterTrailsArr[resIndex] = { ...this.filterTrailsArr[resIndex], isbookMarked: trail.isbookMarked } 
+            }
           } else {
             this.filterTrailsArr.push(trail);
           }
@@ -369,7 +372,7 @@ export class TrailsPage implements OnInit, OnDestroy {
             if (response.trails) {
               // this.lastPage = response.trails.pageSize;
               this.totalItems = response.trails.count;
-              const trails = cloneDeep(response.trails.data);
+              const trails = cloneDeep(response.trailsData);
               handleResponse(trails);
             }
           }

@@ -1,0 +1,82 @@
+<ion-card class="places-card">
+  <!-- <img [src]="place.image" class="places-card-image" /> -->
+  <ng-container *ngIf="place?.hasPhoto">
+    <app-place-card-photo [place]="place"></app-place-card-photo>
+  </ng-container>
+  <ng-container *ngIf="!place?.hasPhoto">
+    <ion-img [src]="place?.image" class="places-card-image"></ion-img>
+  </ng-container>
+
+  <app-trail-rating-badge
+    [rating]="place?.rating"
+    color="white"
+    (ratingClick)="onRatePlace()"
+  >
+  </app-trail-rating-badge>
+  <!-- <app-trail-save-bookmark
+    [isActive]="place?.isBookMarked"
+    [isLoading]="isBookmarking"
+    (bookmarkClick)="bookmarkActionClick(place, $event)"
+  > </app-trail-save-bookmark>-->
+  <app-trail-save-bookmark
+    [isActive]="place?.isBookMarked"
+    (bookmarkClick)="bookmarkActionClick(place, $event)"
+  >
+  </app-trail-save-bookmark>
+  <ion-card-header class="places-card-header">
+    <ion-card-title>{{ place?.name }}</ion-card-title>
+    <ion-card-subtitle>
+      <span class="place-type">{{placeType}}</span>
+      <ng-container
+        *ngIf="place?.subTypes && place?.subTypes?.length > 0"
+      >
+        <span class="sub-type" *ngFor="let item of place.subTypes">{{
+          item
+        }}</span>
+      </ng-container>
+    </ion-card-subtitle>
+    <app-saved-places-distance
+      [distanceKM] = "distanceKM"
+    ></app-saved-places-distance>
+    <ng-container *ngIf="place?.priceRange > 0">
+      <ionic5-star-rating
+        #rating
+        [maxRating]="place?.priceRange"
+        activeIcon="logo-usd"
+        defaultIcon="logo-usd"
+        activeColor="#FFC940"
+        defaultColor="#C3E2E3"
+        readonly="true"
+        [rating]="place?.priceRange"
+        fontSize="12px"
+      >
+      </ionic5-star-rating>
+    </ng-container>
+  </ion-card-header>
+  <ion-card-content
+    class="places-card-content"
+    *ngIf="place && place?.description && place?.description !== ''"
+  >
+    <h2 class="place-text-header">Description</h2>
+    <p class="place-text-paragraph">
+      {{ place?.description }}
+    </p>
+  </ion-card-content>
+
+  <!-- <ng-container *ngIf="place && place?.ambiances && place?.ambiances.length > 0">
+    <app-places-ambiance></app-places-ambiance>
+  </ng-container> -->
+
+  <!-- <app-place-services></app-place-services> -->
+
+  <!-- <ng-container *ngIf="place && place?.mentionIns && place?.mentionIns.length > 0">
+    <app-places-mentioned></app-places-mentioned>
+  </ng-container> -->
+
+  <app-place-contact-info-alt
+    [address]="place?.address"
+    [phone]="place?.phone"
+    [website]="place?.website"
+    [reservationUrl]="place?.reservationUrl"
+  ></app-place-contact-info-alt>
+</ion-card>

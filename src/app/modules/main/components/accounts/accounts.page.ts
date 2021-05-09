@@ -285,7 +285,7 @@ export class AccountsPage implements OnInit, OnDestroy {
               this.placesArr
             );
 
-            console.log('before sort', this.filterPlacesArr);
+            // console.log('before sort', this.filterPlacesArr);
             try {
               await Promise.all(this.filterPlacesArr.map(async (a: any) => {
                 let distance = this.commonService.PythagorasEquirectangular(
@@ -304,7 +304,7 @@ export class AccountsPage implements OnInit, OnDestroy {
             let result = this.sortByDistanceKM(this.filterPlacesArr);
             this.filterPlacesArr = result;
 
-            console.log('initSavedPlaces: ', this.filterPlacesArr);
+            // console.log('initSavedPlaces: ', this.filterPlacesArr);
 
             setTimeout(() => {
               this.showSavedPlaces = true;
@@ -328,6 +328,7 @@ export class AccountsPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (response) => {
+          console.log('gggggghhhhhhhh', response);
           if (response) {
             this.trailsArr = [];
             this.filterTrailsArr = [];
@@ -382,7 +383,7 @@ export class AccountsPage implements OnInit, OnDestroy {
             let result = this.sortByDistance(this.filterCreatedTrailsArr);
             this.filterCreatedTrailsArr = result;
 
-            console.log('initCreatedTrails: ', this.filterCreatedTrailsArr);
+            // console.log('initCreatedTrails: ', this.filterCreatedTrailsArr);
 
             setTimeout(() => {
               this.showCreatedTrails = true;

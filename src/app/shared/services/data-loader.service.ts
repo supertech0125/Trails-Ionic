@@ -11,6 +11,7 @@ import { MainState } from './../../modules/main/store/main.reducer';
 import { ProfileInfoAction } from './../../modules/auth/store/auth.actions';
 import {
   CreatedTrailAction,
+  SetCreatedTrailBookMark,
   AllUsersTrailsAction,
   AllPlacesAction,
   AllTrailsAction,
@@ -284,6 +285,12 @@ export class DataLoaderService {
         }
       );
     });
+  }
+
+  setCreatedTrailsBookMark(id: any, flag: boolean): void {
+    this.mainStore.dispatch(
+      new SetCreatedTrailBookMark({id, flag})
+    );
   }
 
   setAllUsersTrails(userId: string, trails: ITrailsResponse) {

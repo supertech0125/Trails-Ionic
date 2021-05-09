@@ -69,6 +69,7 @@ export class ViewAllTrailsComponent implements OnInit {
         .toPromise()
         .then(
           (trails: any) => {
+            console.log('view-all-trails: ', trails)
             const trailsArr = trails.data;
             if (!isEmpty(trailsArr)) {
               const formatterTrails = this.formatter.formatTrails(trailsArr);

@@ -19,11 +19,11 @@ export const initialookmarkTrailState: BookmarkTrailsState = {
 };
 
 const setUpdatedBookmarkTrail = (data: Trails[], id: any, flag: boolean) => {
-  console.log('flag', flag);
+  console.log('setUpdatedBookmarkTrail', data, id, flag);
   let temp = [];
   data.map((a: any)=> {
     let trail: any;
-    if(a.id == id) trail = { ...a, isbookMarked: flag};
+    if(a.id == id) trail = { ...a, isBookMarked: flag};
     else trail = {...a};
     temp.push(trail);
   })

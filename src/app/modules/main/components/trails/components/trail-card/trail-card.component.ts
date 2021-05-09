@@ -37,7 +37,9 @@ export class TrailCardComponent implements OnInit {
     private commonService: CommonService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // console.log('ssssssssss', this.trail)
+  }
 
   async onRateTrail(event) {
     event.stopPropagation();
@@ -74,8 +76,8 @@ export class TrailCardComponent implements OnInit {
 
   async bookmarkClick(event: any) {
     this.isBookmarking = true;
-    this.trail.isbookMarked = true;
-    this.trail.isBookMarked = true;
+    // this.trail.isbookMarked = true;
+    // this.trail.isBookMarked = true;
 
     this.mainStore.dispatch(
       BookmarkTrails({
@@ -86,8 +88,8 @@ export class TrailCardComponent implements OnInit {
 
   async unBookmarkClick(event: any) {
     this.isBookmarking = true;
-    this.trail.isbookMarked = false;
-    this.trail.isBookMarked = false;
+    // this.trail.isbookMarked = false;
+    // this.trail.isBookMarked = false;
 
     this.mainStore.dispatch(
       UnbookmarkTrails({

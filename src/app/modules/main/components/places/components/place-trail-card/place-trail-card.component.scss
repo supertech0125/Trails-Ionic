@@ -1,0 +1,111 @@
+@import '../../../../../../../theme/variables.scss';
+
+:host {
+  .places-card {
+    position: relative;
+
+    .places-card-image {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+
+      &::part(image) {
+        width: 100%;
+        height: 230px;
+      }
+    }
+
+    .places-card-header {
+      position: relative;
+
+      app-saved-places-distance {
+        position: absolute;
+        right: 24px;
+        top: 26px;
+      }
+
+      ion-card-title {
+        font-family: $font-family-base;
+        font-weight: $font-weight-bold;
+        font-size: 22px;
+        line-height: 29px;
+        letter-spacing: 0;
+        text-align: left;
+        color: $color-heading-text;
+
+        width: 70%;
+      }
+
+      ion-card-subtitle {
+        font-family: $font-family-base;
+        font-weight: $font-weight-base;
+        font-size: 15px;
+        line-height: 18px;
+        letter-spacing: 0;
+        text-align: left;
+        color: $color-heading-note-text;
+        text-transform: none;
+
+        display: flex;
+
+        .sub-type {
+          padding-right: 8px;
+
+          &:not(:first-child) {
+            &:before {
+              content: '• ';
+            }
+          }
+        }
+
+        .place-type {
+          padding-right: 4px;
+        }
+      }
+    }
+
+    .places-card-content {
+    }
+
+    .place-text-header {
+      font-family: $font-family-base;
+      font-weight: $font-weight-medium;
+      font-size: 15px;
+      line-height: 18px;
+      letter-spacing: 0;
+      text-align: left;
+      color: $color-heading-text;
+    }
+
+    .place-text-paragraph {
+      font-family: $font-family-base;
+      font-weight: $font-weight-base;
+      font-size: 15px;
+      line-height: 24px;
+      letter-spacing: 0;
+      text-align: left;
+      color: $color-heading-note-text;
+    }
+
+    ionic5-star-rating {
+      position: absolute;
+      right: 22px;
+      top: 45px;
+      pointer-events: none;
+    }
+
+    app-trail-rating-badge {
+      position: absolute;
+      top: 13em;
+      left: 16px;
+      z-index: 1;
+    }
+
+    app-trail-save-bookmark {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      z-index: 1;
+    }
+  }
+}

@@ -29,6 +29,18 @@ export const initialMainState: MainState = {
   mapAllTrails: undefined,
 };
 
+const updateCreatedTrailBookMark = (state: Trails[], data: any) => {
+  const trailItems = [];
+  state.map((a: Trails) => {
+    let xx: any;
+    if(a.id == data.id) xx = {...a, isbookMarked: data.flag}
+    else xx = {...a}
+    trailItems.push(xx);
+  })
+  // console.log('ggggggggg', trailItems);
+  return trailItems;
+}
+
 export function mainReducer(
   // tslint:disable-next-line:no-shadowed-variable
   MainState = initialMainState,
@@ -63,6 +75,11 @@ export function mainReducer(
     case MainActionTypes.createdTrail:
       return Object.assign({}, MainState, {
         createdTrails: action.payload.createdTrails,
+      });
+
+    case MainActionTypes.createdTrailBookMark:
+      return Object.assign({}, MainState, {
+        createdTrails: {...MainState.createdTrails, data: updateCreatedTrailBookMark(MainState.createdTrails.data, action.payload)},
       });
 
     case MainActionTypes.allUsersTrailAction:

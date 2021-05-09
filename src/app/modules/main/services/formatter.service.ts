@@ -446,6 +446,20 @@ export class FormatterServices {
             longitude: row.longitude,
           };
         });
+
+        // ----- mark based on user's current position(last index number mark)
+
+        // mapMarkers.push({
+        //   index: place.trailPlace.length *1 + 1,
+        //   lat: coordinates.latitude,
+        //   lng: coordinates.longitude,
+        //   markerPosition: {lat: coordinates.latitude, lng: coordinates.longitude},
+        //   markerOptions: {
+        //     icon: './assets/png/map_pins/' + mapPINS[place.trailPlace.length *1 + 1] + '.png',
+        //   },
+        //   latitude: coordinates.latitude,
+        //   longitude: coordinates.longitude,
+        // })
       }
       place.mapMarkers = mapMarkers;
       const centerGeo = this.commonService.centerGeolocationBounds(mapMarkers);
@@ -460,6 +474,7 @@ export class FormatterServices {
       place.sumOfAllDistance = Number(sumOfAllDistance).toFixed(
         DEFAULT_DISTANCE_DECIMAL
       );
+      
     });
 
     return trailsArr;

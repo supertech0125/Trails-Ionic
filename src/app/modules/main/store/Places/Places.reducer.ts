@@ -52,12 +52,20 @@ export const initialSearchPlacesState: SearchPlacesState = {
   searchPlacesOnPaginate: false,
 };
 
-const placesData = (places: any[], state): Places[] => {
+const placesData = (places: any[], pageIndex: any, state): Places[] => {
   const itemPlaces = [...state.placesData];
+  if (pageIndex * 1 === 1 && state.placesData) {
+    itemPlaces.splice(0, state.placesData.length);
+  }
   places.forEach((content) => {
     itemPlaces.push(content);
   });
   return itemPlaces;
+  // if (pageIndex * 1 === 1) state.placeData = [];
+  // places.forEach((content) => {
+  //   state.placeData.push(content)
+  // });
+  // return state.placeData;
 };
 
 const searchPlacesData = (places: any[], state): Places[] => {
@@ -111,8 +119,8 @@ export const placesReducer = createReducer(
   on(PlacesActionSuccess, (state, action) => ({
     ...state,
     places: action.places,
-    // placesData: placesData(action.places.data, state),
-    placesData: action.places.data,
+    placesData: placesData(action.places.data, action.places.pageIndex, state),
+    // placesData: action.places.data,
     placesLoading: false,
     placesLoaded: true,
   })),

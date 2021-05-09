@@ -122,9 +122,9 @@ export class PlacesPage implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  ionViewDidEnter() {}
+  ionViewDidEnter() { }
 
-  ionViewWillLeave() {}
+  ionViewWillLeave() { }
 
   onShowSearch() {
     this.showSearch = !this.showSearch;
@@ -298,12 +298,11 @@ export class PlacesPage implements OnInit, OnDestroy {
   private initPlaces() {
     const handleResponse = (places: any[]) => {
       const placesArr = this.formatter.formatPlace2(places);
-      this.placesArr = []; // important
       if (!isEmpty(placesArr)) {
         placesArr.forEach((place: any) => {
           const resIndex = findIndex(this.placesArr, { id: place.id });
           if (resIndex !== -1) {
-            this.placesArr[resIndex] = place;
+            // this.placesArr[resIndex] = place;
           } else {
             this.placesArr.push(place);
           }
@@ -389,7 +388,9 @@ export class PlacesPage implements OnInit, OnDestroy {
     this.showContent = false;
     this.isDataLoaded = false;
 
-    this.placesArr = [];
+    if (this.placesArr?.length) {
+      this.placesArr.splice(0)
+    }
     this.currentPage = 1;
   }
 
