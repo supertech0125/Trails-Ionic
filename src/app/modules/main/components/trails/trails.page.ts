@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
 
 import { SearchLocationOlComponent } from 'src/app/shared/components/search-location-ol/search-location-ol.component';
 // import { FilterModalComponent } from './../../../../shared/components/filter-modal/filter-modal.component';
-import { FilterModalComponent } from './../../../../shared/components/filtering-modal/filtering-modal.component';
+import { FilteringModalComponent } from './../../../../shared/components/filtering-modal/filtering-modal.component';
 import { SortModalComponent } from './../../../../shared/components/sort-modal/sort-modal.component';
 
 import {
@@ -193,7 +193,7 @@ export class TrailsPage implements OnInit, OnDestroy {
 
   async openFilterModal() {
     const modal = await this.modalController.create({
-      component: FilterModalComponent,
+      component: FilteringModalComponent,
       componentProps: {
         action: 'trail',
       },

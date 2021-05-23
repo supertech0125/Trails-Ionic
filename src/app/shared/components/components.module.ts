@@ -6,8 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MomentModule } from 'ngx-moment';
 import { LongPressModule } from 'ionic-long-press';
 
-// import { FilterModalComponent } from './filter-modal/filter-modal.component';
-import { FilterModalComponent } from './filtering-modal/filtering-modal.component';
+import { FilterModalComponent } from './filter-modal/filter-modal.component';
+import { FilteringModalComponent } from './filtering-modal/filtering-modal.component';
 import { SortModalComponent } from './sort-modal/sort-modal.component';
 import { MentionedModalComponent } from './mentioned-modal/mentioned-modal.component';
 import { SearchLocationComponent } from './search-location/search-location.component';
@@ -44,6 +44,7 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
 
 const COMPONENTS = [
   FilterModalComponent,
+  FilteringModalComponent,
   SortModalComponent,
   MentionedModalComponent,
   SearchLocationComponent,

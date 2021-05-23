@@ -28,11 +28,11 @@ import { trailFilterSelector, placeFilterSelector, addTrailStepFilterSelector } 
 import { placeTypesSelectorState } from 'src/app/modules/main/store/PlaceTypes/PlaceTypes.store';
 
 @Component({
-  selector: 'app-filter-modal',
+  selector: 'app-filtering-modal',
   templateUrl: './filtering-modal.component.html',
   styleUrls: ['./filtering-modal.component.scss'],
 })
-export class FilterModalComponent implements OnInit {
+export class FilteringModalComponent implements OnInit {
   @Input() action: string;
 
   typeOfPlacesArr = PLACES_FILTERS.items;

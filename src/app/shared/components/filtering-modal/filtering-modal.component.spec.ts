@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilterModalComponent } from './filtering-modal.component';
+import { FilteringModalComponent } from './filtering-modal.component';
 
-describe('FilterModalComponent', () => {
-  let component: FilterModalComponent;
-  let fixture: ComponentFixture<FilterModalComponent>;
+describe('FilteringModalComponent', () => {
+  let component: FilteringModalComponent;
+  let fixture: ComponentFixture<FilteringModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FilterModalComponent ]
+      declarations: [ FilteringModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FilterModalComponent);
+    fixture = TestBed.createComponent(FilteringModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -30,7 +30,7 @@ import { FormatterServices } from './../../services/formatter.service';
 import { LocalStorageService } from './../../../../shared/services/local-storage.service';
 
 // import { FilterModalComponent } from './../../../../shared/components/filter-modal/filter-modal.component';
-import { FilterModalComponent } from './../../../../shared/components/filtering-modal/filtering-modal.component';
+import { FilteringModalComponent } from './../../../../shared/components/filtering-modal/filtering-modal.component';
 import { SortModalComponent } from './../../../../shared/components/sort-modal/sort-modal.component';
 import { ITrailStepsFilter } from '../../models/generic.model';
 import { PubsubService } from 'src/app/shared/services/pubsub.service';
@@ -291,7 +291,7 @@ export class PlacesPage implements OnInit, OnDestroy {
 
   async openFilterModal() {
     const modal = await this.modalController.create({
-      component: FilterModalComponent,
+      component: FilteringModalComponent,
       componentProps: {
         action: 'place',
       },

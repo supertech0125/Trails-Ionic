@@ -108,8 +108,8 @@ export class GeolocationService {
 
   async storeCurrentLocationPosition() {
     if (this.currentCoords) {
-      this.storage.setItem(TRAIL_CURRENT_USER_GEOLOCATION, this.currentCoords);
-      // this.storage.setItem(TRAIL_CURRENT_USER_GEOLOCATION, {latitude: 40.730610, longitude: -73.935242});
+      // this.storage.setItem(TRAIL_CURRENT_USER_GEOLOCATION, this.currentCoords);
+      this.storage.setItem(TRAIL_CURRENT_USER_GEOLOCATION, {latitude: 40.730610, longitude: -73.935242});
     }
   }
 

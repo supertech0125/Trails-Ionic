@@ -36,7 +36,7 @@ import {
 } from './../../../../../shared/constants/utils';
 
 // import { FilterModalComponent } from './../../../../../shared/components/filter-modal/filter-modal.component';
-import { FilterModalComponent } from './../../../../../shared/components/filtering-modal/filtering-modal.component';
+import { FilteringModalComponent } from './../../../../../shared/components/filtering-modal/filtering-modal.component';
 import { SortModalComponent } from './../../../../../shared/components/sort-modal/sort-modal.component';
 import {
   IPlaceQueryParams,
@@ -141,7 +141,7 @@ export class AddStepsComponent implements OnInit, OnDestroy {
 
   async openFilterModal() {
     const modal = await this.modalController.create({
-      component: FilterModalComponent,
+      component: FilteringModalComponent,
       componentProps: {
         action: 'addTrailStep',
       },
