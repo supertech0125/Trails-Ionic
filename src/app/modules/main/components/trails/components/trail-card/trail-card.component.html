@@ -28,6 +28,7 @@
       </app-trail-save-bookmark> -->
       <app-trail-save-bookmark
         [isActive]="trail?.isbookMarked || trail?.isBookMarked"
+        [isLoading]="isBookmarking"
         (bookmarkClick)="bookmarkActionClick($event)"
       >
       </app-trail-save-bookmark>
@@ -60,6 +61,7 @@
   </div>
   <app-trail-card-distance-item
     [sumOfAllDistance]="trail.sumOfAllDistance"
+    [verified]="trail.verified"
   ></app-trail-card-distance-item>
   <!-- --------------------             here               -------------------- -->
   <app-trail-theme

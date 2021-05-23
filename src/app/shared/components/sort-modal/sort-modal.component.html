@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" class="back-button-has-icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="clearAll()" fill="clear" color="royal">
+        Clear All
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <app-content-header-view [title]="'Sort By'"></app-content-header-view>
+  <ion-list class="list-filters">
+    <ion-grid>
+      <ion-row class="ion-justify-content-between">
+        <ion-col size="5.5" *ngFor="let item of sortArr">
+          <ion-button [class]="sort===item? 'round-activate' : 'round'" size="small" shape="round" fill="fill" (click)="setSort(item)">{{item}}</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-between" *ngIf="action === 'trail'">
+        <ion-col size="5.5" *ngFor="let item of additionalTrailSortArr">
+          <ion-button [class]="sort===item? 'round-activate' : 'round'" size="small" shape="round" fill="fill" (click)="setSort(item)">{{item}}</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+</ion-content>
+<ion-footer class="ion-no-border ion-padding">
+  <ion-toolbar class="ion-no-border">
+    <app-trail-button label="Update" (click)="updateSort()"></app-trail-button>
+  </ion-toolbar>
+</ion-footer>

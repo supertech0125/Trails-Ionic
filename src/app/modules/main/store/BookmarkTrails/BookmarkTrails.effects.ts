@@ -72,12 +72,12 @@ export class BookmarkTrailsEffects {
               //   this.dataLoader.getAllBookmarkedTrails(this.params),
               // ]);
               Promise.all([
-                this.dataLoader.setUpdatedTrail(trailId, true),
+                // this.dataLoader.setUpdatedTrail(trailId, true),
                 this.dataLoader.setUpdatedBookmarkedTrail(trailId, true),
                 this.dataLoader.setCreatedTrailsBookMark(trailId, true),
               ]);
 
-              this.pubsub.$pub('TRAIL_STEP_TRAILS_SAVED');
+              this.pubsub.$pub('TRAIL_STEP_TRAILS_SAVED', {event: 'bookmark', data: {isBookMarked: true, id: trailId}});
             }
           },
           (error) => of({ error })
@@ -100,12 +100,12 @@ export class BookmarkTrailsEffects {
               //   this.dataLoader.getAllBookmarkedTrails(this.params),
               // ]);
               Promise.all([
-                this.dataLoader.setUpdatedTrail(trailId, false),
+                // this.dataLoader.setUpdatedTrail(trailId, false),
                 this.dataLoader.setUpdatedBookmarkedTrail(trailId, false),
                 this.dataLoader.setCreatedTrailsBookMark(trailId, false),
               ]);
 
-              this.pubsub.$pub('TRAIL_STEP_TRAILS_SAVED');
+              this.pubsub.$pub('TRAIL_STEP_TRAILS_SAVED', {event: 'bookmark', data: {isBookMarked: false, id: trailId}});
             }
           },
           (error) => of({ error })

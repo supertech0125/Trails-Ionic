@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { ModalController } from '@ionic/angular';
 
 import isEmpty from 'lodash-es/isEmpty';
 
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {
   MAX_ITEMS_PER_PAGE,
@@ -15,6 +16,9 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 
 import { FormatterServices } from '../../../services/formatter.service';
 import { MainService } from '../../../services/main.service';
+import { MainState } from '../../../store/main.reducer';
+import { PubsubService } from 'src/app/shared/services/pubsub.service';
+import { trailsSelector, trailsDataSelector } from '../../../store/Trails/Trails.selector';
 
 @Component({
   selector: 'app-view-all-trails',
@@ -23,6 +27,7 @@ import { MainService } from '../../../services/main.service';
 })
 export class ViewAllTrailsComponent implements OnInit {
   showPlaces: boolean;
+  willResetNgRX: boolean = false;
 
   @Input() trail: any;
   placesArr: any[] = [];
@@ -30,17 +35,53 @@ export class ViewAllTrailsComponent implements OnInit {
   fakeArr: any[] = [];
 
   $unsubscribe = new Subject<any>();
+  $trailsSubscribe = new Subscription();
+  // $placesSubscribe = new Subscription();
 
   constructor(
     private modalController: ModalController,
     private mainService: MainService,
+    private store: Store<MainState>,
     private formatter: FormatterServices,
     private dataLoader: DataLoaderService,
-    private storage: LocalStorageService
+    private storage: LocalStorageService,
+    private pubsub: PubsubService,
   ) {
     this.fakeArr = Array.from({
       length: 10,
     });
+
+    this.$trailsSubscribe = this.pubsub.$sub('TRAIL_STEP_TRAILS_SAVED', (data) => {
+      if (data.event === 'bookmark') {
+        const temp: any = [...this.trailsArr];
+
+        for (let i = 0; i < temp.length; i++) {
+          if (temp[i].id * 1 === data.data.id * 1) {
+            temp[i] = {...temp[i], isbookMarked: data.data.isBookMarked};
+            break;
+          }
+        }
+
+        this.trailsArr = temp;
+      }
+    });
+    
+    // this.$placesSubscribe = this.pubsub.$sub('TRAIL_STEP_PLACES_SAVED', (data) => {
+    //   if (data.event === 'bookmark') {
+    //     const temp: any = [...this.trailsArr];
+
+    //     for (let i = 0; i < temp.length; i++) {
+    //       for (let j = 0; j < temp[i].trailPlace.length; j++) {
+    //         if (temp[i].trailPlace[j].placeId * 1 === data.data.id * 1) {
+    //           temp[i].trailPlace[j].isBookMarked = data.data.isBookMarked;
+    //           break;
+    //         }
+    //       }
+    //     }
+
+    //     this.trailsArr = temp;
+    //   }
+    // });
   }
 
   ngOnInit(): void {
@@ -105,6 +146,8 @@ export class ViewAllTrailsComponent implements OnInit {
   ionViewWillLeave() {
     this.$unsubscribe.next();
     this.$unsubscribe.complete();
+    // this.$placesSubscribe.unsubscribe();
+    this.$trailsSubscribe.unsubscribe();
   }
 
   dismiss() {

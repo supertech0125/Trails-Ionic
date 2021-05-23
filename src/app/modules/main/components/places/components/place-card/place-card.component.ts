@@ -7,6 +7,7 @@ import { isEmpty, isArray } from 'lodash-es';
 import { Places } from './../../../../models/places.model';
 import { MainState } from 'src/app/modules/main/store/main.reducer';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { PubsubService } from 'src/app/shared/services/pubsub.service';
 import {
   BookmarkPlace,
   UnbookmarkPlace,
@@ -26,8 +27,13 @@ export class PlaceCardComponent implements OnInit {
   constructor(
     private mainStore: Store<MainState>,
     private navCtrl: NavController,
-    private commonService: CommonService
-  ) {}
+    private commonService: CommonService,
+    private pubsub: PubsubService
+  ) {
+    this.pubsub.$sub('TRAIL_STEP_PLACES_SAVED', () => {
+      this.isBookmarking = false;
+    })
+  }
 
   ngOnInit(): void {
     if (this.place) {
@@ -44,7 +50,6 @@ export class PlaceCardComponent implements OnInit {
 
   async bookmarkClick(event: any) {
     this.isBookmarking = true;
-    this.place.isBookMarked = true;
     this.mainStore.dispatch(
       BookmarkPlace({
         placeId: this.place.placeId,
@@ -54,7 +59,6 @@ export class PlaceCardComponent implements OnInit {
 
   async unBookmarkClick(event: any) {
     this.isBookmarking = true;
-    this.place.isBookMarked = false;
     this.mainStore.dispatch(
       UnbookmarkPlace({
         placeId: this.place.placeId,

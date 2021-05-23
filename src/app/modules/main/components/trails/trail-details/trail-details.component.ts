@@ -76,6 +76,10 @@ export class TrailDetailsComponent implements OnInit {
         this.isLoggedIn = true;
       }
     });
+
+    this.pubsub.$sub('TRAIL_STEP_TRAILS_SAVED', () => {
+      this.isBookmarking = false;
+    })
   }
 
   ngOnInit(): void {
@@ -210,6 +214,7 @@ export class TrailDetailsComponent implements OnInit {
   }
 
   bookmarkActionClick(event: any) {
+    this.isBookmarking = true;
     if (this.trail.isbookMarked) {
       this.unBookmarkClick(event);
     } else {

@@ -35,11 +35,13 @@ export class TrailCardComponent implements OnInit {
     private toastService: ToastService,
     private pubsub: PubsubService,
     private commonService: CommonService
-  ) {}
-
-  ngOnInit(): void {
-    // console.log('ssssssssss', this.trail)
+  ) {
+    this.pubsub.$sub('TRAIL_STEP_TRAILS_SAVED', () => {
+      this.isBookmarking = false;
+    })
   }
+
+  ngOnInit(): void { }
 
   async onRateTrail(event) {
     event.stopPropagation();

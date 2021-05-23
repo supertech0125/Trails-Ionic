@@ -1,7 +1,7 @@
 import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { IonItemSliding, ModalController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, combineLatest } from 'rxjs';
 import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -15,6 +15,8 @@ import findIndex from 'lodash-es/findIndex';
 import orderBy from 'lodash-es/orderBy';
 
 import { MainState } from '../../../store/main.reducer';
+import { AddTrailStepFilterAction, AddTrailStepSortAction } from '../../../store/main.actions';
+import { addTrailStepFilterSelector, addTrailStepSortSelector } from '../../../store/main.selector';
 import {
   placesSelector,
   searchPlacesSelector,
@@ -33,7 +35,9 @@ import {
   TRAIL_STEP_ALL_PLACES,
 } from './../../../../../shared/constants/utils';
 
-import { FilterModalComponent } from './../../../../../shared/components/filter-modal/filter-modal.component';
+// import { FilterModalComponent } from './../../../../../shared/components/filter-modal/filter-modal.component';
+import { FilterModalComponent } from './../../../../../shared/components/filtering-modal/filtering-modal.component';
+import { SortModalComponent } from './../../../../../shared/components/sort-modal/sort-modal.component';
 import {
   IPlaceQueryParams,
   IPlacesResponse,
@@ -68,6 +72,7 @@ export class AddStepsComponent implements OnInit, OnDestroy {
   onFiltering: boolean;
   isPaginate: boolean;
 
+  sort: string = null;
   currentPage = 1;
   lastPage: number;
   searchText: string;
@@ -89,13 +94,40 @@ export class AddStepsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('coordinates: ', this.coordinates);
     this.onSearching = false;
     this.showContent = false;
     this.isPaginate = false;
 
     this.reset();
-    this.refreshPlace(null, String(this.currentPage), null, null, null, null);
+    combineLatest([
+      this.store.select(addTrailStepFilterSelector),
+      this.store.select(addTrailStepSortSelector),
+    ])
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        map((res) => res)
+      )
+      .subscribe((response) => {
+        let range = null;
+        let type = null;
+        let subtype = null;
+        let sortAs = null;
+
+        if (response) {
+          let [filter, sort] = response;
+          if (filter) {
+            this.filterPlace = filter;
+
+            range = filter.place;
+            type = filter.placeType;
+            subtype = filter.placeSubType;
+          }
+          this.sort = sort;
+          sortAs = sort;
+        }
+
+        this.refreshPlace(null, String(this.currentPage), range, type, subtype, sortAs);
+      });
   }
 
   ngOnDestroy() {
@@ -111,19 +143,50 @@ export class AddStepsComponent implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: FilterModalComponent,
       componentProps: {
-        action: 'place',
+        action: 'addTrailStep',
       },
     });
     modal.onDidDismiss().then((resp) => {
       if (resp.data) {
         this.onFiltering = resp.data.isFiltering;
         this.reset();
+        let data = resp.data.filter;
 
-        if (resp.data.filter) {
-          this.filterPlace = resp.data.filter;
-          console.log('this.filterPlace: ', this.filterPlace);
+        if (data) {
+          this.filterPlace = data;
+          this.store.dispatch(
+            new AddTrailStepFilterAction({
+              data: data,
+            })
+          )
           this.filterPlaces();
         }
+      }
+    });
+    modal.present();
+  }
+
+  async openSortModal() {
+    const modal = await this.modalController.create({
+      component: SortModalComponent,
+      componentProps: {
+        action: 'addTrailStep',
+      },
+    });
+    modal.onDidDismiss().then((resp) => {
+      console.log('dismissed modal')
+      if (resp.data) {
+        let data = resp.data.sort;
+        this.sort = data;
+
+        this.reset();
+
+        this.store.dispatch(
+          new AddTrailStepSortAction({
+            data: data,
+          })
+        );
+        this.filterPlaces();
       }
     });
     modal.present();
@@ -136,22 +199,17 @@ export class AddStepsComponent implements OnInit, OnDestroy {
     let type = null;
     let subStype = null;
     let sortAs = null;
-    
+
     range = this.filterPlace.place;
     type = this.filterPlace.placeType;
     subStype = this.filterPlace.placeSubType;
     
-    if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RATING.value) {
-      sortAs = this.filterPlace.sortAs || RATINGS_SORT.HIGH.value;
-    }
+    sortAs = this.sort;
     
-    if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RECENCY.value) {
-      sortAs = this.filterPlace.sortAs;
-    }
+    this.reset();
     
     this.refreshPlace(null, null, range, type, subStype, sortAs, event);
 
-    // this.reset();
     // this.refreshPlace(
     //   null,
     //   String(this.currentPage),
@@ -179,18 +237,25 @@ export class AddStepsComponent implements OnInit, OnDestroy {
     this.currentPage += 1;
     this.isPaginate = true;
 
-    if (this.onFiltering) {
-      range = this.filterPlace.place;
-      type = this.filterPlace.placeType;
-      subStype = this.filterPlace.placeSubType;
-
-      if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RATING.value) {
-        sortAs = this.filterPlace.sortAs || RATINGS_SORT.HIGH.value;
+    if (this.searchText) {
+      this.refreshPlace(
+        this.searchText,
+        String(this.currentPage),
+        null,
+        null,
+        null,
+        null,
+        event
+      );
+    }
+    else if (this.onFiltering || this.sort) {
+      if (this.onFiltering) {
+        range = this.filterPlace.place;
+        type = this.filterPlace.placeType;
+        subStype = this.filterPlace.placeSubType;
       }
 
-      if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RECENCY.value) {
-        sortAs = this.filterPlace.sortAs;
-      }
+      if (this.sort) sortAs = this.sort
 
       this.refreshPlace(
         null,
@@ -199,16 +264,6 @@ export class AddStepsComponent implements OnInit, OnDestroy {
         type,
         subStype,
         sortAs,
-        event
-      );
-    } else if (this.searchText) {
-      this.refreshPlace(
-        this.searchText,
-        String(this.currentPage),
-        null,
-        null,
-        null,
-        null,
         event
       );
     } else {
@@ -392,45 +447,45 @@ export class AddStepsComponent implements OnInit, OnDestroy {
 
     const handleResponse = (places) => {
       let filterPlacesArr = [];
-      
+
       // const placesArr = this.formatter.formatPlaceManualCoordinates(
-        //   places,
-        //   true,
-        //   this.coordinates
-        // );
-        const placesArr = this.formatter.formatPlace2(places);
-        this.placesArr = [...placesArr];
-        
-        if (!isEmpty(this.filterPlacesArr)) {
-          filterPlacesArr = [...this.filterPlacesArr, ...this.placesArr];
+      //   places,
+      //   true,
+      //   this.coordinates
+      // );
+      const placesArr = this.formatter.formatPlace2(places);
+      this.placesArr = [...placesArr];
+
+      if (!isEmpty(this.filterPlacesArr)) {
+        filterPlacesArr = [...this.filterPlacesArr, ...this.placesArr];
+      } else {
+        filterPlacesArr = [...this.placesArr];
+      }
+
+
+      // Remove places that are already added on the create trails
+      each(this.selectedPlaces, (place: any) => {
+        filterPlacesArr = filterPlacesArr.filter((obj) => {
+          return obj.id !== place.id;
+        });
+      });
+
+      each(filterPlacesArr, (place: any) => {
+        const resIndex = findIndex(this.filterPlacesArr, { id: place.id });
+        const result = find(this.filterPlacesArr, { id: place.id });
+        if (result) {
+          this.filterPlacesArr[resIndex] = place;
         } else {
-          filterPlacesArr = [...this.placesArr];
+          this.filterPlacesArr.push(place);
         }
-        
-        
-        // Remove places that are already added on the create trails
-        each(this.selectedPlaces, (place: any) => {
-          filterPlacesArr = filterPlacesArr.filter((obj) => {
-            return obj.id !== place.id;
-          });
-        });
-        
-        each(filterPlacesArr, (place: any) => {
-          const resIndex = findIndex(this.filterPlacesArr, { id: place.id });
-          const result = find(this.filterPlacesArr, { id: place.id });
-          if (result) {
-            this.filterPlacesArr[resIndex] = place;
-          } else {
-            this.filterPlacesArr.push(place);
-          }
-        });
-        
-        setTimeout(() => {
-          this.showContent = true;
-        }, 300);
-      };
-      
-      if (!this.isPaginate) {
+      });
+
+      setTimeout(() => {
+        this.showContent = true;
+      }, 300);
+    };
+
+    if (!this.isPaginate) {
       this.showContent = false;
     }
 

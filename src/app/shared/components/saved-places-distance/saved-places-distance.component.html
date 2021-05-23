@@ -5,5 +5,5 @@
     *ngIf="!showLoading"
   ></ion-icon>
   <ion-spinner name="lines-small" *ngIf="showLoading"></ion-spinner>
-  <ng-container *ngIf="!showLoading && (distanceKM !== -1)"> {{ distanceKM }} km </ng-container>
+  <ng-container *ngIf="!showLoading && (distanceKM * 1 !== -1)"> {{ distanceKM }} km </ng-container>
 </ion-text>

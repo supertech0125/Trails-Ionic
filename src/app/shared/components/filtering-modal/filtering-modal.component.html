@@ -1,0 +1,123 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon
+          slot="icon-only"
+          class="back-button-has-icon-only"
+          name="chevron-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>&nbsp;</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="clearAll()" fill="clear" color="royal">
+        Clear All
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <app-content-header-view [title]="'Filter'"></app-content-header-view>
+  <ion-list class="list-filters">
+    <ng-container *ngIf="action === 'trail'">
+      <ion-list-header class="ion-justify-content-between">
+        <ion-label> Trails </ion-label>
+      </ion-list-header>
+      <app-trail-selecting
+        [value]="trail"
+        [items]="typeOfTrailsArr"
+        [size]="5.5"
+        [action]="action"
+        [fontSize]="'17px'"
+        (changeItems)="changeItems($event)"
+
+      ></app-trail-selecting>
+    </ng-container>
+    <ng-container *ngIf="action === 'place' || action === 'addTrailStep'">
+      <ion-list-header>
+        <ion-label> Place </ion-label>
+      </ion-list-header>
+      <app-trail-selecting
+        [value]="place"
+        [items]="typeOfPlacesArr"
+        [action]="action"
+        [size]="5.5"
+        [fontSize]="'17px'"
+        (changeItems)="changeItems($event)"
+      >
+      </app-trail-selecting>
+    </ng-container>
+    <ion-list-header>
+      <ion-label> Type </ion-label>
+      <ion-buttons>
+        <ion-button (click)="clearAllTypes()" fill="clear" color="royal">
+          {{!isSelectAllPlaces? "Select All" : "Deselect All"}}
+        </ion-button>
+      </ion-buttons>
+    </ion-list-header>
+    <app-trail-selecting
+      [value]="placeType"
+      [items]="placeTypeArr"
+      [action]="'placeType'"
+      [size]="4"
+      [fontSize]="'14px'"
+      (changeItems)="changeItems($event)"
+    >
+    </app-trail-selecting>
+    
+    <ion-list-header>
+      <ion-label> Cuisine </ion-label>
+      <ion-buttons>
+        <ion-button (click)="clearAllCuisines()" fill="clear" color="royal">
+          {{!isSelectAllCuisines? "Select All" : "Deselect All"}}
+        </ion-button>
+      </ion-buttons>
+    </ion-list-header>
+
+    <app-trail-selecting
+      [value]="placeSubType"
+      [items]="placeSubTypeArr"
+      [action]="'placeSubType'"
+      [size]="4"
+      [fontSize]="'14px'"
+      (changeItems)="changeItems($event)"
+    >
+    </app-trail-selecting>
+    
+    <ng-container *ngIf="action === 'trail'">
+      <ion-list-header>
+        <ion-label> {{ filterDetailsTime.header }} </ion-label>
+      </ion-list-header>
+      <app-trail-selecting
+        [items]="filterDetailsTime.items"
+        [value]="when"
+        [action]="'when'"
+        [size]="5.5"
+        [fontSize]="'17px'"
+        (changeItems)="changeItems($event)"
+      >
+      </app-trail-selecting>
+      <ion-list-header>
+        <ion-label> {{ filterDetailsWith.header }} </ion-label>
+      </ion-list-header>
+      <app-trail-selecting
+        [value]="who"
+        [items]="filterDetailsWith.items"
+        [action]="'who'"
+        [size]="5.5"
+        [fontSize]="'17px'"
+        (changeItems)="changeItems($event)"
+      >
+      </app-trail-selecting>
+    </ng-container>
+  </ion-list>
+</ion-content>
+<ion-footer class="ion-no-border ion-padding">
+  <ion-toolbar class="ion-no-border">
+    <app-trail-button
+      label="Update"
+      (click)="updateFilter()"
+    ></app-trail-button>
+  </ion-toolbar>
+</ion-footer>

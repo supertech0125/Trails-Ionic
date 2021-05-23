@@ -34,6 +34,7 @@ import {
   IGeoServiceLatLng,
 } from '../../services/geolocation.service';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { PubsubService } from 'src/app/shared/services/pubsub.service';
 import {
   EPSG_3857,
   EPSG_4326,
@@ -130,8 +131,9 @@ export class SearchLocationOlComponent implements OnInit, AfterViewInit {
     private geoService: GeolocationService,
     private dataLoader: DataLoaderService,
     private formatter: FormatterServices,
-    private commonService: CommonService
-  ) {}
+    private commonService: CommonService,
+    private pubsub: PubsubService,
+  ) { }
 
   ngOnInit() {
     this.isLocating = false;
@@ -222,11 +224,13 @@ export class SearchLocationOlComponent implements OnInit, AfterViewInit {
           this.currentCoords.latitude,
           this.currentCoords.longitude
         );
+        this.pubsub.$pub('TRAIL_STEP_TRAILS_SAVED', {event: 'locationUpdated', data: ''});
       } else if (this.action === PLACE_TEXT) {
         this.refreshTrails(
           this.currentCoords.latitude,
           this.currentCoords.longitude
         );
+        this.pubsub.$pub('TRAIL_STEP_PLACES_SAVED', {event: 'locationUpdated', data: ''});
       }
 
       this.storage.setItem(TRAIL_CURRENT_USER_GEOLOCATION, this.currentCoords);
@@ -367,7 +371,6 @@ export class SearchLocationOlComponent implements OnInit, AfterViewInit {
       if (features) {
         const properties = features.getProperties();
         if (this.action === TRAIL_TEXT) {
-          console.log('properties: ', properties);
           this.viewTrailDetails(properties.id);
         } else if (this.action === PLACE_TEXT) {
           this.viewPlaceDetail(properties);

@@ -6,7 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MomentModule } from 'ngx-moment';
 import { LongPressModule } from 'ionic-long-press';
 
-import { FilterModalComponent } from './filter-modal/filter-modal.component';
+// import { FilterModalComponent } from './filter-modal/filter-modal.component';
+import { FilterModalComponent } from './filtering-modal/filtering-modal.component';
+import { SortModalComponent } from './sort-modal/sort-modal.component';
 import { MentionedModalComponent } from './mentioned-modal/mentioned-modal.component';
 import { SearchLocationComponent } from './search-location/search-location.component';
 import { ExperienceModalComponent } from './experience-modal/experience-modal.component';
@@ -21,6 +23,7 @@ import { SavedPlacesDistanceComponent } from './saved-places-distance/saved-plac
 import { TrailSaveBookmarkComponent } from './trail-save-bookmark/trail-save-bookmark.component';
 import { TrailSearchbarComponent } from './trail-searchbar/trail-searchbar.component';
 import { TrailSelectComponent } from './trail-select/trail-select.component';
+import { TrailSelectingComponent } from './trail-selecting/trail-selecting.component';
 import { CardMapComponent } from './card-map/card-map.component';
 import { LocationPermissionComponent } from './location-permission/location-permission.component';
 import { TrailPlacesItemComponent } from './trail-places-item/trail-places-item.component';
@@ -41,6 +44,7 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
 
 const COMPONENTS = [
   FilterModalComponent,
+  SortModalComponent,
   MentionedModalComponent,
   SearchLocationComponent,
   ExperienceModalComponent,
@@ -55,6 +59,7 @@ const COMPONENTS = [
   TrailSaveBookmarkComponent,
   TrailSearchbarComponent,
   TrailSelectComponent,
+  TrailSelectingComponent,
   CardMapComponent,
   LocationPermissionComponent,
   TrailPlacesItemComponent,

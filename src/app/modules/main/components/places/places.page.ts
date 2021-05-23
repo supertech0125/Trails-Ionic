@@ -23,12 +23,15 @@ import {
 } from './../../../../shared/constants/utils';
 
 import { MainState } from './../../store/main.reducer';
+import { PlaceFilterAction, PlaceSortAction } from './../../store/main.actions';
 
 import { DataLoaderService } from './../../../../shared/services/data-loader.service';
 import { FormatterServices } from './../../services/formatter.service';
 import { LocalStorageService } from './../../../../shared/services/local-storage.service';
 
-import { FilterModalComponent } from './../../../../shared/components/filter-modal/filter-modal.component';
+// import { FilterModalComponent } from './../../../../shared/components/filter-modal/filter-modal.component';
+import { FilterModalComponent } from './../../../../shared/components/filtering-modal/filtering-modal.component';
+import { SortModalComponent } from './../../../../shared/components/sort-modal/sort-modal.component';
 import { ITrailStepsFilter } from '../../models/generic.model';
 import { PubsubService } from 'src/app/shared/services/pubsub.service';
 import { ScreensizeService } from 'src/app/shared/services/screensize.service';
@@ -65,6 +68,7 @@ export class PlacesPage implements OnInit, OnDestroy {
 
   filterPlace: ITrailStepsFilter = {};
 
+  sort: string = null;
   currentPage: 1;
   totalItems: number;
   lastPage: number;
@@ -95,9 +99,25 @@ export class PlacesPage implements OnInit, OnDestroy {
       this.showContent = !value;
     });
 
-    this.pubsub.$sub('TRAIL_STEP_PLACES_SAVED', () => {
-      this.willResetNgRX = true;
+    this.pubsub.$sub('TRAIL_STEP_PLACES_SAVED', (data) => {
+      if (data.event === 'bookmark') {
+        const temp: any = [...this.placesArr];
+        for (let i = 0; i < temp.length; i++) {
+          if (temp[i].placeId * 1 === data.data.id * 1) {
+            temp[i].isBookMarked = data.data.isBookMarked;
+            break;
+          }
+        }
+      }
+      else this.willResetNgRX = true;
     });
+
+    // this.pubsub.$sub('TRAIL_STEP_TRAILS_SAVED', (data) => {
+    //   if(data.event === 'locationUpdated') {
+    //     console.log('hhhhhhhhhhhhh')
+    //     this.doRefresh(null);
+    //   }
+    // })
 
     this.screensizeService.isDesktopView().subscribe((isDesktop) => {
       if (this.isDesktop && !isDesktop) {
@@ -122,7 +142,8 @@ export class PlacesPage implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  ionViewDidEnter() { }
+  ionViewDidEnter() {
+  }
 
   ionViewWillLeave() { }
 
@@ -141,29 +162,7 @@ export class PlacesPage implements OnInit, OnDestroy {
 
     this.reset();
 
-    if (this.onFiltering) {
-      range = this.filterPlace.place;
-      type = this.filterPlace.placeType;
-      subStype = this.filterPlace.placeSubType;
-
-      if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RATING.value) {
-        sortAs = this.filterPlace.sortAs || RATINGS_SORT.HIGH.value;
-      }
-
-      if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RECENCY.value) {
-        sortAs = this.filterPlace.sortAs;
-      }
-
-      this.refreshPlace(
-        null,
-        String(this.currentPage),
-        range,
-        type,
-        subStype,
-        sortAs,
-        event
-      );
-    } else if (this.showSearch) {
+    if (this.showSearch) {
       this.refreshPlace(
         this.searchText,
         String(this.currentPage),
@@ -171,6 +170,26 @@ export class PlacesPage implements OnInit, OnDestroy {
         null,
         null,
         null,
+        event
+      );
+    }
+
+    else if (this.onFiltering || this.sort) {
+      if (this.onFiltering) {
+        range = this.filterPlace.place;
+        type = this.filterPlace.placeType;
+        subStype = this.filterPlace.placeSubType;
+      }
+      if (this.sort) {
+        sortAs = this.sort;
+      }
+      this.refreshPlace(
+        null,
+        String(this.currentPage),
+        range,
+        type,
+        subStype,
+        sortAs,
         event
       );
     } else {
@@ -206,29 +225,7 @@ export class PlacesPage implements OnInit, OnDestroy {
     );
     this.currentPage += 1;
 
-    if (this.onFiltering) {
-      range = this.filterPlace.place;
-      type = this.filterPlace.placeType;
-      subStype = this.filterPlace.placeSubType;
-
-      if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RATING.value) {
-        sortAs = this.filterPlace.sortAs || RATINGS_SORT.HIGH.value;
-      }
-
-      if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RECENCY.value) {
-        sortAs = this.filterPlace.sortAs;
-      }
-
-      this.refreshPlace(
-        null,
-        String(this.currentPage),
-        range,
-        type,
-        subStype,
-        sortAs,
-        event
-      );
-    } else if (this.showSearch) {
+    if (this.showSearch) {
       this.refreshPlace(
         this.searchText,
         String(this.currentPage),
@@ -236,6 +233,25 @@ export class PlacesPage implements OnInit, OnDestroy {
         null,
         null,
         null,
+        event
+      );
+    }
+    else if (this.onFiltering || this.sort) {
+      if (this.onFiltering) {
+        range = this.filterPlace.place;
+        type = this.filterPlace.placeType;
+        subStype = this.filterPlace.placeSubType;
+      }
+      if (this.sort) {
+        sortAs = this.sort;
+      }
+      this.refreshPlace(
+        null,
+        String(this.currentPage),
+        range,
+        type,
+        subStype,
+        sortAs,
         event
       );
     } else {
@@ -284,12 +300,42 @@ export class PlacesPage implements OnInit, OnDestroy {
       if (resp.data) {
         this.onFiltering = resp.data.isFiltering;
         this.reset();
+        let data = resp.data.filter;
 
-        if (resp.data.filter) {
-          this.filterPlace = resp.data.filter;
-          console.log('this.filterPlace: ', this.filterPlace);
+        if (data) {
+          this.filterPlace = data;
+          this.store.dispatch(
+            new PlaceFilterAction({
+              data: data,
+            })
+          );
           this.filterPlaces();
         }
+      }
+    });
+    modal.present();
+  }
+
+  async openSortModal() {
+    const modal = await this.modalController.create({
+      component: SortModalComponent,
+      componentProps: {
+        action: 'place',
+      },
+    });
+    modal.onDidDismiss().then((resp) => {
+      if (resp.data) {
+        let data = resp.data.sort;
+        this.sort = data;
+
+        this.reset();
+
+        this.store.dispatch(
+          new PlaceSortAction({
+            data: data,
+          })
+        );
+        this.filterPlaces();
       }
     });
     modal.present();
@@ -299,6 +345,9 @@ export class PlacesPage implements OnInit, OnDestroy {
     const handleResponse = (places: any[]) => {
       const placesArr = this.formatter.formatPlace2(places);
       if (!isEmpty(placesArr)) {
+        if (this.currentPage === 1) { // at the time that allows the permission to location when user logs in app
+          this.placesArr.splice(0)
+        }
         placesArr.forEach((place: any) => {
           const resIndex = findIndex(this.placesArr, { id: place.id });
           if (resIndex !== -1) {
@@ -321,17 +370,23 @@ export class PlacesPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (response) => {
-          if (response) {
-            this.showContent = !response.placesLoading;
-            this.isDataLoaded = response.placesLoaded;
-            this.onSearching = response.placesOnSearching;
-            this.onPaginate = response.placesOnPaginate;
+          if (this.willResetNgRX) {
+            this.willResetNgRX = false;
+            this.doRefresh(null);
+          }
+          else {
+            if (response) {
+              this.showContent = !response.placesLoading;
+              this.isDataLoaded = response.placesLoaded;
+              this.onSearching = response.placesOnSearching;
+              this.onPaginate = response.placesOnPaginate;
 
-            if (response.places) {
-              // this.lastPage = response.places.pageSize;
-              this.totalItems = response.places.count;
-              const places = cloneDeep(response.placesData);
-              handleResponse(places);
+              if (response.places) {
+                // this.lastPage = response.places.pageSize;
+                this.totalItems = response.places.count;
+                const places = cloneDeep(response.placesData);
+                handleResponse(places);
+              }
             }
           }
         },
@@ -365,21 +420,19 @@ export class PlacesPage implements OnInit, OnDestroy {
     let subStype = null;
     let sortAs = null;
 
-    if (this.filterPlace) {
-      range = this.filterPlace.place;
-      type = this.filterPlace.placeType;
-      subStype = this.filterPlace.placeSubType;
-
-      if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RATING.value) {
-        sortAs = this.filterPlace.sortAs || RATINGS_SORT.HIGH.value;
+    if (this.filterPlace || this.sort) {
+      if (this.filterPlace) {
+        range = this.filterPlace.place;
+        type = this.filterPlace.placeType;
+        subStype = this.filterPlace.placeSubType;
       }
-
-      if (this.filterPlace.sort === TRAIL_PLACE_SORT_ITEMS.RECENCY.value) {
-        sortAs = this.filterPlace.sortAs;
+      if (this.sort) {
+        if (this.sort === 'Rating') this.sort = 'ratingDesc';
+        sortAs = this.sort;
       }
-
       this.refreshPlace(null, null, range, type, subStype, sortAs);
-    } else {
+    }
+    else {
       this.initPlaces();
     }
   }
@@ -457,7 +510,7 @@ export class PlacesPage implements OnInit, OnDestroy {
         }
       },
       () => {
-        this.dataLoader.fetchPlaces(Number(page));
+        // this.dataLoader.fetchPlaces(Number(page));
 
         if (search) {
           this.onSearching = false;

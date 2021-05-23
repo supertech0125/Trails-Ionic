@@ -4,7 +4,13 @@
   *ngIf="sumOfAllDistance > 0"
 >
   <ion-label class="ion-text-wrap">
-    <h2 class="trail-distance-item-name">Total Trail Distance</h2>
-    <p class="trail-distance-item-title">{{ sumOfAllDistance }} km</p>
+    <div class="wrapper">
+      <h2 class="trail-distance-item-name">Total Trail Distance</h2>
+      <img class="trail-verifed-img" *ngIf="verified" src="../../../../../../../assets/png/logo_wave.png" height="15" />
+    </div>
+    <div class="wrapper">
+      <p class="trail-distance-item-title">{{ sumOfAllDistance }} km</p>
+      <p class="trail-verified" *ngIf="verified">Verified Trail</p>
+    </div>
   </ion-label>
 </ion-item>

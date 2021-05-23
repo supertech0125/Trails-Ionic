@@ -10,7 +10,9 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { SearchLocationOlComponent } from 'src/app/shared/components/search-location-ol/search-location-ol.component';
-import { FilterModalComponent } from './../../../../shared/components/filter-modal/filter-modal.component';
+// import { FilterModalComponent } from './../../../../shared/components/filter-modal/filter-modal.component';
+import { FilterModalComponent } from './../../../../shared/components/filtering-modal/filtering-modal.component';
+import { SortModalComponent } from './../../../../shared/components/sort-modal/sort-modal.component';
 
 import {
   MAX_ITEMS_PER_PAGE,
@@ -27,6 +29,7 @@ import { DataLoaderService } from './../../../../shared/services/data-loader.ser
 import { LocalStorageService } from './../../../../shared/services/local-storage.service';
 
 import { MainState } from '../../store/main.reducer';
+import { TrailFilterAction, TrailSortAction } from '../../store/main.actions';
 import { ITrailStepsFilter } from '../../models/generic.model';
 import { PubsubService } from 'src/app/shared/services/pubsub.service';
 import { ScreensizeService } from 'src/app/shared/services/screensize.service';
@@ -47,6 +50,7 @@ export class TrailsPage implements OnInit, OnDestroy {
   isDataLoaded = false;
   isDesktop: boolean;
 
+  sort: string = null;
   currentPage = 1;
   lastPage = 1;
   searchText = '';
@@ -82,9 +86,37 @@ export class TrailsPage implements OnInit, OnDestroy {
       this.showContent = value;
     });
 
-    this.pubsub.$sub('TRAIL_STEP_TRAILS_SAVED', () => {
-      this.willResetNgRX = true;
+    this.pubsub.$sub('TRAIL_STEP_TRAILS_SAVED', (data) => {
+      if (data.event === 'bookmark') {
+        const temp: any = [...this.filterTrailsArr];
+
+        for (let i = 0; i < temp.length; i++) {
+          if (temp[i].id * 1 === data.data.id * 1) {
+            temp[i].isbookMarked = data.data.isBookMarked;
+            break;
+          }
+        }
+      }
+
+      else this.willResetNgRX = true;
     });
+
+    this.pubsub.$sub('TRAIL_STEP_PLACES_SAVED', (data) => {
+      if (data.event === 'bookmark') {
+        const temp: any = [...this.filterTrailsArr];
+        for (let i = 0; i < temp.length; i++) {
+          for (let j = 0; j < temp[i].trailPlace.length; j++) {
+            if (temp[i].trailPlace[j].placeId * 1 === data.data.id * 1) {
+              temp[i].trailPlace[j].isBookMarked = data.data.isBookMarked;
+              break;
+            }
+          }
+        }
+      }
+      else {
+        this.doRefresh(null);
+      }
+    })
 
     this.screensizeService.isDesktopView().subscribe((isDesktop) => {
       if (this.isDesktop && !isDesktop) {
@@ -163,7 +195,7 @@ export class TrailsPage implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: FilterModalComponent,
       componentProps: {
-        action: 'trails',
+        action: 'trail',
       },
     });
     modal.onDidDismiss().then((resp) => {
@@ -171,11 +203,46 @@ export class TrailsPage implements OnInit, OnDestroy {
         this.onFiltering = resp.data.isFiltering;
         this.reset();
 
-        if (resp.data.filter) {
-          this.filterTrail = resp.data.filter;
-          console.log('this.filterTrail: ', this.filterTrail);
+        let data = resp.data.filter;
+
+        if (data) {
+          this.filterTrail = data;
+          this.store.dispatch(
+            new TrailFilterAction({
+              data: data,
+            })
+          );
           this.filterTrails();
         }
+
+        // if (resp.data.filter) {
+        //   this.filterTrail = resp.data.filter;
+        //   this.filterTrails();
+        // }
+      }
+    });
+    modal.present();
+  }
+
+  async openSortModal() {
+    const modal = await this.modalController.create({
+      component: SortModalComponent,
+      componentProps: {
+        action: 'trail',
+      },
+    });
+    modal.onDidDismiss().then((resp) => {
+      if (resp.data) {
+        let data = resp.data.sort;
+        this.sort = data;
+        this.reset();
+
+        this.store.dispatch(
+          new TrailSortAction({
+            data: data,
+          })
+        )
+        this.filterTrails();
       }
     });
     modal.present();
@@ -208,19 +275,16 @@ export class TrailsPage implements OnInit, OnDestroy {
 
     this.reset();
 
-    if (this.onFiltering) {
-      range = this.filterTrail.trail;
-      who = this.filterTrail.who;
-      time = this.filterTrail.when;
-      type = this.filterTrail.placeType;
-      subStype = this.filterTrail.placeSubType;
-
-      if (this.filterTrail.sort === TRAIL_PLACE_SORT_ITEMS.RATING.value) {
-        sortAs = this.filterTrail.sortAs || RATINGS_SORT.HIGH.value;
+    if (this.onFiltering || this.sort) {
+      if (this.onFiltering) {
+        range = this.filterTrail.trail;
+        who = this.filterTrail.who;
+        time = this.filterTrail.when;
+        type = this.filterTrail.placeType;
+        subStype = this.filterTrail.placeSubType;
       }
-
-      if (this.filterTrail.sort === TRAIL_PLACE_SORT_ITEMS.RECENCY.value) {
-        sortAs = this.filterTrail.sortAs;
+      if (this.sort) {
+        sortAs = this.sort;
       }
 
       this.refreshTrails(
@@ -234,7 +298,8 @@ export class TrailsPage implements OnInit, OnDestroy {
         sortAs,
         event
       );
-    } else if (this.showSearch) {
+    }
+    else if (this.showSearch) {
       this.refreshTrails(
         this.searchText,
         String(this.currentPage),
@@ -279,21 +344,17 @@ export class TrailsPage implements OnInit, OnDestroy {
     this.onPaginate = true;
     this.currentPage += 1;
 
-    if (this.onFiltering) {
-      range = this.filterTrail.trail;
-      who = this.filterTrail.who;
-      time = this.filterTrail.when;
-      type = this.filterTrail.placeType;
-      subStype = this.filterTrail.placeSubType;
-
-      if (this.filterTrail.sort === TRAIL_PLACE_SORT_ITEMS.RATING.value) {
-        sortAs = this.filterTrail.sortAs || RATINGS_SORT.HIGH.value;
+    if (this.onFiltering || this.sort) {
+      if (this.onFiltering) {
+        range = this.filterTrail.trail;
+        who = this.filterTrail.who;
+        time = this.filterTrail.when;
+        type = this.filterTrail.placeType;
+        subStype = this.filterTrail.placeSubType;
       }
-
-      if (this.filterTrail.sort === TRAIL_PLACE_SORT_ITEMS.RECENCY.value) {
-        sortAs = this.filterTrail.sortAs;
+      if (this.sort) {
+        sortAs = this.sort;
       }
-
       this.refreshTrails(
         null,
         String(this.currentPage),
@@ -305,7 +366,8 @@ export class TrailsPage implements OnInit, OnDestroy {
         sortAs,
         event
       );
-    } else if (this.showSearch) {
+    }
+    else if (this.showSearch) {
       this.refreshTrails(
         this.searchText,
         String(this.currentPage),
@@ -342,8 +404,8 @@ export class TrailsPage implements OnInit, OnDestroy {
           const resIndex = findIndex(this.filterTrailsArr, { id: trail.id });
           if (resIndex !== -1) {
             // this.filterTrailsArr[resIndex] = trail;
-            if (this.filterTrailsArr[resIndex].isbookMarked !== trail.isbookMarked) { 
-              this.filterTrailsArr[resIndex] = { ...this.filterTrailsArr[resIndex], isbookMarked: trail.isbookMarked } 
+            if (this.filterTrailsArr[resIndex].isbookMarked !== trail.isbookMarked) {
+              this.filterTrailsArr[resIndex] = { ...this.filterTrailsArr[resIndex], isbookMarked: trail.isbookMarked }
             }
           } else {
             this.filterTrailsArr.push(trail);
@@ -363,17 +425,23 @@ export class TrailsPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (response) => {
-          if (response) {
-            this.showContent = !response.trailsLoading;
-            this.isDataLoaded = response.trailsLoaded;
-            this.onSearching = response.trailsOnSearching;
-            this.onPaginate = response.trailsOnPaginate;
+          if (this.willResetNgRX) {
+            this.willResetNgRX = false;
+            this.doRefresh(null);
+          }
+          else {
+            if (response) {
+              this.showContent = !response.trailsLoading;
+              this.isDataLoaded = response.trailsLoaded;
+              this.onSearching = response.trailsOnSearching;
+              this.onPaginate = response.trailsOnPaginate;
 
-            if (response.trails) {
-              // this.lastPage = response.trails.pageSize;
-              this.totalItems = response.trails.count;
-              const trails = cloneDeep(response.trailsData);
-              handleResponse(trails);
+              if (response.trails) {
+                // this.lastPage = response.trails.pageSize;
+                this.totalItems = response.trails.count;
+                const trails = cloneDeep(response.trailsData);
+                handleResponse(trails);
+              }
             }
           }
         },
@@ -400,23 +468,22 @@ export class TrailsPage implements OnInit, OnDestroy {
     let type = null;
     let subStype = null;
 
-    if (this.filterTrail) {
-      range = this.filterTrail.trail;
-      time = this.filterTrail.when;
-      who = this.filterTrail.who;
-      type = this.filterTrail.placeType;
-      subStype = this.filterTrail.placeSubType;
-
-      if (this.filterTrail.sort === TRAIL_PLACE_SORT_ITEMS.RATING.value) {
-        sortAs = this.filterTrail.sortAs || RATINGS_SORT.HIGH.value;
-      } else if (
-        this.filterTrail.sort === TRAIL_PLACE_SORT_ITEMS.RECENCY.value
-      ) {
-        sortAs = this.filterTrail.sortAs;
+    if (this.filterTrail || this.sort) {
+      if (this.filterTrail) {
+        range = this.filterTrail.trail;
+        time = this.filterTrail.when;
+        who = this.filterTrail.who;
+        type = this.filterTrail.placeType;
+        subStype = this.filterTrail.placeSubType;
       }
-
+      if (this.sort) {
+        if (this.sort === 'Rating') this.sort = 'ratingDesc';
+        if (this.sort === 'Newest') this.sort = 'recency';
+        sortAs = this.sort
+      }
       this.refreshTrails(null, null, range, time, who, type, subStype, sortAs);
-    } else {
+    }
+    else {
       this.initTrails();
     }
   }
@@ -466,6 +533,8 @@ export class TrailsPage implements OnInit, OnDestroy {
 
     if (sortAs) {
       params.Sort = sortAs;
+    } else {
+      params.Sort = 'distance';
     }
 
     if (type) {
@@ -499,6 +568,8 @@ export class TrailsPage implements OnInit, OnDestroy {
         }
       },
       () => {
+        // this.dataLoader.fetchTrails(Number(page));
+
         if (search) {
           this.onSearching = false;
         }

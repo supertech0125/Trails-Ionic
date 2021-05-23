@@ -82,6 +82,46 @@ export class AccountsPage implements OnInit, OnDestroy {
       this.initUserProfile();
     });
 
+    this.pubsub.$sub('TRAIL_STEP_PLACES_SAVED', (data) => {
+      if(data.event === 'bookmark') {
+        const tempSavedPlaces: any = [...this.filterPlacesArr];
+        for (let i=0; i<tempSavedPlaces.length; i++) {
+          if(tempSavedPlaces[i].placeId * 1 === data.data.id * 1) {
+            tempSavedPlaces[i].isBookMarked = data.data.isBookMarked;
+            break;
+          }
+        }
+
+        const tempCreatedTrails: any = [...this.filterCreatedTrailsArr];
+        for(let i=0; i<tempCreatedTrails.length; i++) {
+          for(let j=0; j<tempCreatedTrails[i].trailPlace.length; j++) {
+            if(tempCreatedTrails[i].trailPlace[j].placeId * 1 === data.data.id * 1) {
+              tempCreatedTrails[i].trailPlace[j].isBookMarked = data.data.isBookMarked;
+              break;
+            }
+          }
+        }
+
+        const tempTrails: any = [...this.filterTrailsArr];
+        for(let i=0; i<tempTrails.length; i++) {
+          for(let j=0; j<tempTrails[i].trailPlace.length; j++) {
+            if(tempTrails[i].trailPlace[j].placeId * 1 === data.data.id * 1) {
+              tempTrails[i].trailPlace[j].isBookMarked = data.data.isBookMarked;
+              break;
+            }
+          }
+        }
+      }
+      else {
+        let activeSegment = this.activeSegment;
+        ['created', 'trails', 'places'].map(data=>{
+          this.activeSegment = data;
+          this.doRefresh(null);
+        });
+        this.activeSegment = activeSegment;
+      }
+    });
+
     this.screensizeService.isDesktopView().subscribe((isDesktop) => {
       if (this.isDesktop && !isDesktop) {
         // Reload because our routing is out of place
@@ -328,7 +368,6 @@ export class AccountsPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (response) => {
-          console.log('gggggghhhhhhhh', response);
           if (response) {
             this.trailsArr = [];
             this.filterTrailsArr = [];

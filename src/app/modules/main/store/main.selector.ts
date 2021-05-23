@@ -33,3 +33,33 @@ export const allUsersTrailsSelector = createSelector(
   mainSelectorState,
   (state: MainState) => state.allUsersTrails
 );
+
+export const trailFilterSelector = createSelector(
+  mainSelectorState,
+  (state: MainState) => state.trailFilter
+);
+
+export const trailSortSelector = createSelector(
+  mainSelectorState,
+  (state: MainState) => state.trailSort
+);
+
+export const placeFilterSelector = createSelector(
+  mainSelectorState,
+  (state: MainState) => state.placeFilter
+);
+
+export const placeSortSelector = createSelector(
+  mainSelectorState,
+  (state: MainState) => state.placeSort
+);
+
+export const addTrailStepFilterSelector = createSelector(
+  mainSelectorState,
+  (state: MainState) => state.addTrailStepFilter
+);
+
+export const addTrailStepSortSelector = createSelector(
+  mainSelectorState,
+  (state: MainState) => state.addTrailStepSort
+);

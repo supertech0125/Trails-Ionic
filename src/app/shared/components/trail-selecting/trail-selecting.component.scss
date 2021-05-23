@@ -1,0 +1,21 @@
+@import '../../../../theme/variables.scss';
+
+:host {
+  .list-filters {
+    .round, .round-activate {
+      --background-activated: black;
+      width: 100%;
+      font-size: 17px;
+    }
+
+    .round {
+      color: black;
+      --background: #cac2c2;
+    }
+
+    .round-activate {
+      color: white;
+      --background: black;
+    }
+  }
+}

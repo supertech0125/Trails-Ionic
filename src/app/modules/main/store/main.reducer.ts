@@ -16,6 +16,12 @@ export interface MainState {
   allUsersTrails?: IAllUserTrailsResponse[];
   mapAllPlaces?: IPlacesResponse[];
   mapAllTrails?: ITrailsResponse[];
+  trailFilter?: any;
+  placeFilter?: any;
+  addTrailStepFilter?: any;
+  trailSort?: any;
+  placeSort?: any;
+  addTrailStepSort?: any;
 }
 
 export const initialMainState: MainState = {
@@ -27,6 +33,12 @@ export const initialMainState: MainState = {
   allUsersTrails: undefined,
   mapAllPlaces: undefined,
   mapAllTrails: undefined,
+  trailFilter: undefined,
+  placeFilter: undefined,
+  addTrailStepFilter: undefined,
+  trailSort: 'Distance',
+  placeSort: 'Distance',
+  addTrailStepSort: 'Distance',
 };
 
 const updateCreatedTrailBookMark = (state: Trails[], data: any) => {
@@ -85,6 +97,36 @@ export function mainReducer(
     case MainActionTypes.allUsersTrailAction:
       return Object.assign({}, MainState, {
         allUsersTrails: action.payload.allUsersTrails,
+      });
+
+    case MainActionTypes.trailFilterAction:
+      return Object.assign({}, MainState, {
+        trailFilter: action.payload.data,
+      });
+
+    case MainActionTypes.placeFilterAction:
+      return Object.assign({}, MainState, {
+        placeFilter: action.payload.data,
+      });
+
+    case MainActionTypes.addTrailStepFilterAction:
+      return Object.assign({}, MainState, {
+        addTrailStepFilter: action.payload.data,
+      });
+
+    case MainActionTypes.trailSortAction:
+      return Object.assign({}, MainState, {
+        trailSort: action.payload.data,
+      });
+
+    case MainActionTypes.placeSortAction:
+      return Object.assign({}, MainState, {
+        placeSort: action.payload.data,
+      });
+
+    case MainActionTypes.addTrailStepSortAction:
+      return Object.assign({}, MainState, {
+        addTrailStepSort: action.payload.data,
       });
 
     default:

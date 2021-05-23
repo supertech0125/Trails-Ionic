@@ -1,12 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 import { isEmpty, isArray } from 'lodash-es';
 
 import { Places } from '../../../../models/places.model';
 import { MainState } from 'src/app/modules/main/store/main.reducer';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { PubsubService } from 'src/app/shared/services/pubsub.service';
 
 import {
   TRAIL_CURRENT_USER_PROFILE,
@@ -31,13 +33,21 @@ export class PlaceTrailCardComponent implements OnInit {
   distanceKM: any = null;
 
   isBookmarking = false;
+  $placesSubscribe = new Subscription();
 
   constructor(
     private mainStore: Store<MainState>,
     private navCtrl: NavController,
     private storage: LocalStorageService,
-    private commonService: CommonService
-  ) { }
+    private commonService: CommonService,
+    private pubsub: PubsubService
+  ) {
+    this.$placesSubscribe = this.pubsub.$sub('TRAIL_STEP_PLACES_SAVED', (data) => {
+      this.isBookmarking = false;
+      
+      if(this.place.id * 1 === data.data.id * 1) this.place = {...this.place, isBookMarked: data.data.isBookMarked};
+    })
+  }
 
   ngOnInit(): void {
     if (this.place) {
@@ -64,9 +74,13 @@ export class PlaceTrailCardComponent implements OnInit {
     }
   }
 
+  ionViewWillLeave() {
+    this.$placesSubscribe.unsubscribe();
+  }
+
   async bookmarkClick(event: any) {
     this.isBookmarking = true;
-    this.place.isBookMarked = true;
+    // this.place.isBookMarked = true;
     this.mainStore.dispatch(
       BookmarkPlace({
         placeId: this.place.placeId,
@@ -76,7 +90,7 @@ export class PlaceTrailCardComponent implements OnInit {
 
   async unBookmarkClick(event: any) {
     this.isBookmarking = true;
-    this.place.isBookMarked = false;
+    // this.place.isBookMarked = false;
     this.mainStore.dispatch(
       UnbookmarkPlace({
         placeId: this.place.placeId,

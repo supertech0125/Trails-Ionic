@@ -13,13 +13,9 @@
     (ratingClick)="onRatePlace()"
   >
   </app-trail-rating-badge>
-  <!-- <app-trail-save-bookmark
-    [isActive]="place?.isBookMarked"
-    [isLoading]="isBookmarking"
-    (bookmarkClick)="bookmarkActionClick(place, $event)"
-  > </app-trail-save-bookmark>-->
   <app-trail-save-bookmark
     [isActive]="place?.isBookMarked"
+    [isLoading]="isBookmarking"
     (bookmarkClick)="bookmarkActionClick(place, $event)"
   >
   </app-trail-save-bookmark>

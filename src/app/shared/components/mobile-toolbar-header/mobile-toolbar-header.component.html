@@ -9,6 +9,11 @@
         <ion-icon slot="icon-only" name="funnel-sharp"></ion-icon>
         <ion-badge style="background-color: #054d4f" *ngIf="showFilterBadge">&nbsp;</ion-badge>
       </ion-button>
+      <!-- added sort button -->
+      <ion-button (click)="openSort.emit($event)">
+        <img src="../../../../assets/icon/sort.png" height="28">
+      </ion-button>
+      <!--                   -->
       <ion-button (click)="openSearch()">
         <ion-icon slot="icon-only" name="navigate"></ion-icon>
       </ion-button>

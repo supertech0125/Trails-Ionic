@@ -190,6 +190,11 @@ export const TRAIL_FILTERS: any = {
       label: 'Created',
       value: 'created',
     },
+    {
+      id: 'verified',
+      label: 'Verified',
+      value: 'verified',
+    },
   ],
 };
 

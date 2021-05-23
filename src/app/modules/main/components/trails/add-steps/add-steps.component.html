@@ -2,22 +2,12 @@
   <ion-toolbar class="ion-no-border">
     <ion-buttons slot="start">
       <ion-button (click)="dismiss()">
-        <ion-icon
-          slot="icon-only"
-          class="back-button-has-icon-only"
-          name="chevron-back-outline"
-        ></ion-icon>
+        <ion-icon slot="icon-only" class="back-button-has-icon-only" name="chevron-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>&nbsp;</ion-title>
     <ion-buttons slot="end">
-      <ion-button
-        (click)="addSteps()"
-        fill="solid"
-        color="royal"
-        class="add-button"
-        *ngIf="hasSelectedPlace()"
-      >
+      <ion-button (click)="addSteps()" fill="solid" color="royal" class="add-button" *ngIf="hasSelectedPlace()">
         Add
       </ion-button>
     </ion-buttons>
@@ -27,16 +17,19 @@
   </ion-toolbar>
 </ion-header>
 <ion-toolbar mode="md">
-  <app-trail-searchbar
-    placeholder="Search"
-    debounce="500"
-    (ionChange)="onSearchInput($event)"
-    (ionCancel)="onShowSearch()"
-  ></app-trail-searchbar>
+  <app-trail-searchbar placeholder="Search" debounce="500" (ionChange)="onSearchInput($event)"
+    (ionCancel)="onShowSearch()"></app-trail-searchbar>
   <ion-buttons slot="end">
     <ion-button (click)="openFilterModal()">
       <ion-icon slot="icon-only" name="funnel-sharp"></ion-icon>
     </ion-button>
+
+    <!--  added button for sort modal -->
+    <ion-button (click)="openSortModal()">
+      <img src="../../../../assets/icon/sort.png" height="28">
+    </ion-button>
+    <!--                              -->
+
     <ion-button (click)="openSearchPlace()">
       <ion-icon slot="icon-only" name="navigate"></ion-icon>
     </ion-button>
@@ -44,9 +37,7 @@
 </ion-toolbar>
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-      pullingIcon="arrow-down-outline"
-    ></ion-refresher-content>
+    <ion-refresher-content pullingIcon="arrow-down-outline"></ion-refresher-content>
   </ion-refresher>
   <ion-list>
     <ng-container *ngIf="!showContent">
@@ -66,29 +57,17 @@
 
 <ng-template #placesContent>
   <ng-container *ngIf="filterPlacesArr && filterPlacesArr.length < 1">
-    <app-trail-places-no-result-found
-      [action]="'places'"
-      [caption]="'No places found!'"
-      [subCaption]="'Try searching or filtering for something else'"
-    ></app-trail-places-no-result-found>
+    <app-trail-places-no-result-found [action]="'places'" [caption]="'No places found!'"
+      [subCaption]="'Try searching or filtering for something else'"></app-trail-places-no-result-found>
   </ng-container>
   <ng-container *ngIf="filterPlacesArr && filterPlacesArr.length > 0">
     <ng-container *ngFor="let item of filterPlacesArr">
       <ion-item-sliding #slidingItem>
-        <app-trail-places-item
-          [place]="item"
-          [showCheckbox]="true"
-          [showDistance]="true"
-          [autoDistance]="false"
-          (placeClick)="onSelectPlace(item)"
-        ></app-trail-places-item>
+        <app-trail-places-item [place]="item" [showCheckbox]="true" [showDistance]="true" [autoDistance]="false"
+          (placeClick)="onSelectPlace(item)"></app-trail-places-item>
         <ion-item-options side="end">
-          <ion-item-option
-            color="trailsteps"
-            (click)="onSelectPlace(item, slidingItem)"
-            expandable
-            >Add</ion-item-option
-          >
+          <ion-item-option color="trailsteps" (click)="onSelectPlace(item, slidingItem)" expandable>Add
+          </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ng-container>
@@ -99,10 +78,7 @@
   <ng-container *ngFor="let item of fakeArr">
     <ion-item class="trail-places-item">
       <ion-thumbnail slot="start" style="width: 74px; height: 74px">
-        <ion-skeleton-text
-          animated
-          style="border-radius: 14px; width: 74px; height: 74px"
-        ></ion-skeleton-text>
+        <ion-skeleton-text animated style="border-radius: 14px; width: 74px; height: 74px"></ion-skeleton-text>
       </ion-thumbnail>
       <ion-label>
         <h3>

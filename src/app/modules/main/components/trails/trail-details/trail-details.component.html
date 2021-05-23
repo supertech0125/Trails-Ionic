@@ -12,10 +12,10 @@
     <ion-title class="app-title">&nbsp; </ion-title>
     <ion-buttons slot="end">
       <!--   for now, invisible, for the future, visible  -->
-      <!-- <app-trail-share-button
+      <app-trail-share-button
         *ngIf="showContent && isLoggedIn"
         (shareClick)="onShareTrail()"
-      ></app-trail-share-button> -->
+      ></app-trail-share-button>
       <!--                                                -->
       <app-trail-save-bookmark
         *ngIf="showContent && isLoggedIn"
@@ -94,6 +94,7 @@
             </div>
             <app-trail-card-distance-item
               [sumOfAllDistance]="trail.sumOfAllDistance"
+              [verified]="trail.verified"
             >
             </app-trail-card-distance-item>
             <app-trail-theme

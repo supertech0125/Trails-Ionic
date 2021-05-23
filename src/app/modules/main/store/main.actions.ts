@@ -16,6 +16,12 @@ export enum MainActionTypes {
   createdTrailBookMark = '[main] Created Trail BookMark',
   allCreatedTrail = '[main] All Created Trail',
   allUsersTrailAction = '[main] All Users Trail',
+  trailFilterAction = '[main] Trail Filter',
+  trailSortAction = '[main] Trail Sort',
+  placeFilterAction = '[main] Place Filter',
+  placeSortAction = '[main] Place Sort',
+  addTrailStepFilterAction = '[main] addTrailStep Filter',
+  addTrailStepSortAction = '[main] addTrailStep Sort',
 }
 
 export class IsUSERLoadedAction implements Action {
@@ -68,6 +74,36 @@ export class AllUsersTrailsAction implements Action {
   constructor(public payload: { allUsersTrails: IAllUserTrailsResponse[] }) {}
 }
 
+export class TrailFilterAction implements Action {
+  readonly type = MainActionTypes.trailFilterAction;
+  constructor(public payload: { data: any }) {}
+}
+
+export class TrailSortAction implements Action {
+  readonly type = MainActionTypes.trailSortAction;
+  constructor(public payload: { data: any }) {}
+}
+
+export class PlaceFilterAction implements Action {
+  readonly type = MainActionTypes.placeFilterAction;
+  constructor(public payload: { data: any }) {}
+}
+
+export class PlaceSortAction implements Action {
+  readonly type = MainActionTypes.placeSortAction;
+  constructor(public payload: { data: any }) {}
+}
+
+export class AddTrailStepFilterAction implements Action {
+  readonly type = MainActionTypes.addTrailStepFilterAction;
+  constructor(public payload: { data: any }) {}
+}
+
+export class AddTrailStepSortAction implements Action {
+  readonly type = MainActionTypes.addTrailStepSortAction;
+  constructor(public payload: { data: any }) {}
+}
+
 export type MainActions =
   | IsUSERLoadedAction
   | AllTrailsAction
@@ -77,4 +113,10 @@ export type MainActions =
   | AllCreatedTrailAction
   | AllUsersTrailsAction
   | AllPlacesAction
-  | MapAllPlacesAction;
+  | MapAllPlacesAction
+  | TrailFilterAction
+  | TrailSortAction
+  | PlaceFilterAction
+  | PlaceSortAction
+  | AddTrailStepFilterAction
+  | AddTrailStepSortAction;

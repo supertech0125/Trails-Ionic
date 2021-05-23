@@ -6,6 +6,7 @@ import { switchMap } from 'rxjs/operators';
 
 import { MainService } from '../../services/main.service';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
+import { PubsubService } from 'src/app/shared/services/pubsub.service';
 import {
   MAX_ITEMS_PER_PAGE,
   TRAIL_CURRENT_USER_GEOLOCATION,
@@ -28,7 +29,8 @@ export class BookmarkPlacesEffects {
     private store: Store,
     private mainService: MainService,
     private dataLoader: DataLoaderService,
-    private storage: LocalStorageService
+    private storage: LocalStorageService,
+    private pubsub: PubsubService,
   ) {
     this.coordinates = this.storage.getItem(TRAIL_CURRENT_USER_GEOLOCATION);
     this.params = {
@@ -76,6 +78,9 @@ export class BookmarkPlacesEffects {
                 // this.dataLoader.setUpdatedPlace(placeId, true),
                 this.dataLoader.setUpdatedBookmarkedPlace(placeId, true),
               ]);
+
+
+              this.pubsub.$pub('TRAIL_STEP_PLACES_SAVED', {event: 'bookmark', data: {isBookMarked: true, id: placeId}});
             }
           },
           (error) => of({ error })
@@ -101,6 +106,8 @@ export class BookmarkPlacesEffects {
                 // this.dataLoader.setUpdatedPlace(placeId, false),
                 this.dataLoader.setUpdatedBookmarkedPlace(placeId, false),
               ]);
+
+              this.pubsub.$pub('TRAIL_STEP_PLACES_SAVED', {event: 'bookmark', data: {isBookMarked: false, id: placeId}});
             }
           },
           (error) => of({ error })

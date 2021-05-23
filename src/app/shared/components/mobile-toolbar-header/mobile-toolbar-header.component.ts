@@ -17,7 +17,9 @@ import {
 import { ModalController } from '@ionic/angular';
 import { SearchLocationOlComponent } from '../search-location-ol/search-location-ol.component';
 import {
+  MAX_ITEMS_PER_PAGE,
   PLACE_TEXT,
+  TRAIL_TEXT,
   TRAIL_CURRENT_USER_GEOLOCATION,
 } from '../../constants/utils';
 import { Store } from '@ngrx/store';
@@ -68,6 +70,7 @@ export class MobileToolbarHeaderComponent implements OnInit, OnChanges {
 
   @Output() onShowSearch = new EventEmitter<any>();
   @Output() openFilter = new EventEmitter<any>();
+  @Output() openSort = new EventEmitter<any>();
   @Output() onSearchInput = new EventEmitter<any>();
   @Output() openFilterModal = new EventEmitter<any>();
 
@@ -99,7 +102,7 @@ export class MobileToolbarHeaderComponent implements OnInit, OnChanges {
     const modal = await this.modalController.create({
       component: SearchLocationOlComponent,
       componentProps: {
-        action: PLACE_TEXT,
+        action: this.action === 'places'? PLACE_TEXT : TRAIL_TEXT,
       },
     });
     modal.onDidDismiss().then((resp) => {
@@ -110,24 +113,25 @@ export class MobileToolbarHeaderComponent implements OnInit, OnChanges {
         params.Long = coordinates.longitude;
       }
       params.Sort = 'distance';
+      params.PageSize = MAX_ITEMS_PER_PAGE;
 
       if (resp && resp.data === 'save') {
         // this.reset();
 
         if (this.action === 'places') {
           this.store.dispatch(clearPlacesAction());
-          this.store.dispatch(
-            PlacesAction({
-              params,
-            })
-          );
+          // this.store.dispatch(
+          //   PlacesAction({
+          //     params,
+          //   })
+          // );
         } else {
           this.store.dispatch(clearTrailsAction());
-          this.store.dispatch(
-            TrailsAction({
-              params,
-            })
-          );
+          // this.store.dispatch(
+          //   TrailsAction({
+          //     params,
+          //   })
+          // );
         }
       }
     });
