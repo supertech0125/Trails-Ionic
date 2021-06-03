@@ -1,24 +1,25 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import each from 'lodash-es/each';
-import filter from 'lodash-es/filter';
-import find from 'lodash-es/find';
-import isEmpty from 'lodash-es/isEmpty';
+// import each from 'lodash-es/each';
+// import filter from 'lodash-es/filter';
+// import find from 'lodash-es/find';
+// import isEmpty from 'lodash-es/isEmpty';
 import flatten from 'lodash-es/flatten';
-import size from 'lodash-es/size';
-import lowerCase from 'lodash-es/lowerCase';
-import split from 'lodash-es/split';
-import upperFirst from 'lodash-es/upperFirst';
+// import size from 'lodash-es/size';
+// import lowerCase from 'lodash-es/lowerCase';
+// import split from 'lodash-es/split';
+// import upperFirst from 'lodash-es/upperFirst';
 
 import { Subject, combineLatest } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
-import { ExperienceModalComponent } from '../experience-modal/experience-modal.component';
+// import { ExperienceModalComponent } from '../experience-modal/experience-modal.component';
 
 import {
   PLACES_FILTERS,
   TRAIL_FILTERS,
+  TRAIL_THEME,
   TRAIL_DETAILS_FILTER_TIME,
   TRAIL_DETAILS_FILTER_WITH,
 } from '../../constants/utils';
@@ -37,6 +38,7 @@ export class FilteringModalComponent implements OnInit {
 
   typeOfPlacesArr = PLACES_FILTERS.items;
   typeOfTrailsArr = TRAIL_FILTERS.items;
+  trailTheme = TRAIL_THEME;
   filterDetailsTime = TRAIL_DETAILS_FILTER_TIME;
   filterDetailsWith = TRAIL_DETAILS_FILTER_WITH;
   placeTypeArr: any[] = [];
@@ -51,6 +53,7 @@ export class FilteringModalComponent implements OnInit {
 
   trail: string[] = [];
   place: string[] = [];
+  theme: string[] = [];
   placeType: string[] = [];
   placeSubType: string[] = [];
   when: string[] = [];
@@ -58,6 +61,10 @@ export class FilteringModalComponent implements OnInit {
 
   isSelectAllPlaces: boolean = false;
   isSelectAllCuisines: boolean = false;
+  isSelectAllThemes: boolean = false;
+
+  stepRange: any = { lower: 2, upper: 8 };
+  distanceRange: any = { lower: 1, upper: 10 };
 
   constructor(
     private mainStore: Store<MainState>,
@@ -104,11 +111,35 @@ export class FilteringModalComponent implements OnInit {
           if (response[1] && this.action === 'place') {
             this.setFilterOptions(response[1]);
           }
+          else if (this.action === 'place') {
+            this.setFilterOptions({
+              place: 'all',
+              placeType: 'all',
+              placeSubType: 'all'
+            })
+          }
           if (response[2] && this.action === 'trail') {
             this.setFilterOptions(response[2]);
           }
-          if(response[3] && this.action === 'addTrailStep') {
+          else if (this.action === 'trail') {
+            this.setFilterOptions({
+              trail: 'all,verified',
+              theme: 'all',
+              placeType: 'all',
+              placeSubType: 'all',
+              when: 'all',
+              who: 'all',
+            })
+          }
+          if (response[3] && this.action === 'addTrailStep') {
             this.setFilterOptions(response[3]);
+          }
+          else if (this.action === 'addTrailStep') {
+            this.setFilterOptions({
+              place: 'all',
+              placeType: 'all',
+              placeSubType: 'all'
+            })
           }
         }
       });
@@ -142,20 +173,31 @@ export class FilteringModalComponent implements OnInit {
     }
     temp = [];
 
-    if(this.action === 'place' || this.action === 'addTrailStep') {
+    if (this.action === 'place' || this.action === 'addTrailStep') {
       this.place = data.place.split(',');
     }
 
-    if(this.action === 'trail') {
+    if (this.action === 'trail') {
       this.trail = data.trail.split(',');
-      if(data.when === 'all') {
+      if (data.theme === 'all') {
+        this.isSelectAllThemes = true;
+        this.theme = [];
+        this.trailTheme.map((row: any) => {
+          this.theme.push(row.id);
+        })
+      }
+      else this.theme = data.theme.split(',');
+
+      if (data.when === 'all') {
+        this.when = [];
         this.filterDetailsTime.items.map((row: any) => {
           this.when.push(row.id);
         })
       }
       else this.when = data.when.split(',');
 
-      if(data.who === 'all') {
+      if (data.who === 'all') {
+        this.who = [];
         this.filterDetailsWith.items.map((row: any) => {
           this.who.push(row.id);
         })
@@ -173,31 +215,96 @@ export class FilteringModalComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  clearAllTypes() {
-    if (this.isSelectAllPlaces) this.placeType = [];
-    else {
-      this.placeType = [...this.placeAllTypes]
+  clearAllThemes() {
+    if (this.isSelectAllThemes) {
+      this.theme = [];
+      this.placeType = [];
+      this.placeSubType = [];
     }
-    this.isSelectAllPlaces = !this.isSelectAllPlaces;
+    else {
+      this.theme = [];
+      this.trailTheme.map((row: any) => {
+        this.theme.push(row.id);
+      })
+      this.placeType = [...this.placeAllTypes];
+      this.placeSubType = [...this.placeAllSubTypes];
+    }
+    this.isSelectAllThemes = this.isSelectAllPlaces = this.isSelectAllCuisines = !this.isSelectAllThemes;
+  }
+
+  clearAllTypes() {
+    if (this.isSelectAllPlaces) {
+      this.placeType = [];
+      this.placeSubType = [];
+      this.theme = [];
+    }
+    else {
+      this.placeType = [...this.placeAllTypes];
+      this.placeSubType = [...this.placeAllSubTypes];
+      this.theme = [];
+      this.trailTheme.map(theme => {
+        this.theme.push(theme.id);
+      })
+    }
+    this.isSelectAllPlaces = this.isSelectAllThemes = this.isSelectAllCuisines = !this.isSelectAllPlaces;
   }
 
   clearAllCuisines() {
-    if (this.isSelectAllCuisines) this.placeSubType = [];
+    let temp: any = 1;
+    let index = this.placeType.indexOf(temp);
+
+    if (this.isSelectAllCuisines) {
+      this.placeSubType = [];
+
+      if (index > -1) {
+        this.placeType.splice(index, 1);
+
+        let dinnerIndex = this.theme.indexOf('dinner');
+        if (dinnerIndex > -1) this.theme.splice(dinnerIndex, 1);
+        let lunchIndex = this.theme.indexOf('lunch');
+        if (lunchIndex > -1) this.theme.splice(lunchIndex, 1);
+
+        if (!this.placeType.length) {
+          this.isSelectAllPlaces = this.isSelectAllThemes = false;
+        }
+      }
+    }
     else {
       this.placeSubType = [...this.placeAllSubTypes];
+      if (index < 0) {
+        this.placeType.push(temp);
+        this.theme.push('dinner');
+        this.theme.push('lunch');
+
+        if (this.placeType.length === this.placeAllTypes.length) {
+          this.isSelectAllPlaces = this.isSelectAllThemes = true;
+        }
+      }
     }
     this.isSelectAllCuisines = !this.isSelectAllCuisines;
   }
 
-  clearAll() {
-    this.trail = [];
-    this.place = [];
-    this.placeType = [];
-    this.placeSubType = [];
-    this.when = [];
-    this.who = [];
-    this.isSelectAllPlaces = false;
-    this.isSelectAllCuisines = false;
+  reset() {
+    if (this.action === 'place' || this.action === 'addTrailStep') {
+      this.setFilterOptions({
+        place: 'all',
+        placeType: 'all',
+        placeSubType: 'all'
+      })
+    }
+    if (this.action === 'trail') {
+      this.setFilterOptions({
+        trail: 'all,verified',
+        theme: 'all',
+        placeType: 'all',
+        placeSubType: 'all',
+        when: 'all',
+        who: 'all',
+      })
+    }
+    this.isSelectAllPlaces = true;
+    this.isSelectAllCuisines = true;
+    this.isSelectAllThemes = true;
   }
 
   updateFilter() {
@@ -236,12 +343,14 @@ export class FilteringModalComponent implements OnInit {
       filter = {
         ...temp,
         trail: !this.trail.length ? 'all' : (this.trail[0] === 'all' && this.trail.length === 1) ? 'all' : this.trail.join(','),
+        theme: !this.theme.length ? 'all' : this.theme.length === this.trailTheme.length ? 'all' : this.theme.join(','),
         when: !this.when.length ? 'all' : this.when.length === this.filterDetailsTime.items.length ? 'all' : this.when.join(','),
         who: !this.who.length ? 'all' : this.who.length === this.filterDetailsWith.items.length ? 'all' : this.who.join(','),
       };
       isFiltering = !((filter.placeType === 'all') &&
         (filter.placeSubType === 'all') &&
-        (filter.trail === 'all') &&
+        ((filter.trail === 'all,verified') || (filter.trail === 'verified,all')) &&
+        (filter.theme === 'all') &&   // this might occur issue because 'dinner' & 'lunch' have the same type('restaurant')
         (filter.when === 'all') &&
         (filter.who === 'all'));
     }
@@ -253,17 +362,128 @@ export class FilteringModalComponent implements OnInit {
   }
 
   changeItems = (data: any) => {
-    if(data.action !== 'addTrailStep') this[data.action] = data.data;
+    if (data.action !== 'addTrailStep') this[data.action] = data.data;
     else this.place = data.data;
 
-    if(data.action === 'placeType') {
-      if(this.placeType.length === this.placeTypeArr.length) this.isSelectAllPlaces = true;
-      if(this.placeType.length === 0) this.isSelectAllPlaces = false;
+    if (data.action === 'placeType') {
+      if (this.placeType.length === this.placeTypeArr.length) {
+        this.isSelectAllPlaces = this.isSelectAllThemes = this.isSelectAllCuisines = true;
+      }
+      if (this.placeType.length === 0) {
+        this.isSelectAllPlaces = this.isSelectAllThemes = this.isSelectAllCuisines = false;
+      }
+
+      // when parent status is changed, child status should be changed along the parent status
+      if (data.changedParentData) {
+        if (data.changedParentData.flag) {
+          this.placeSubType = [];
+          this.isSelectAllCuisines = false;
+
+          let dinnerIndex = this.theme.indexOf('dinner');
+          if (dinnerIndex > -1) this.theme.splice(dinnerIndex, 1);
+          let lunchIndex = this.theme.indexOf('lunch');
+          if (lunchIndex > -1) this.theme.splice(lunchIndex, 1);
+        }
+        else {
+          this.placeSubType = [...this.placeAllSubTypes];
+          this.isSelectAllCuisines = true;
+
+          let dinnerIndex = this.theme.indexOf('dinner');
+          if (dinnerIndex < 0) this.theme.push('dinner');
+          let lunchIndex = this.theme.indexOf('lunch');
+          if (lunchIndex < 0) this.theme.push('lunch');
+        }
+      }
+      else {
+        this.theme = [];
+        data.data.map((a: any) => {
+          this.trailTheme.map((b: any) => {
+            if (b.child.indexOf(a) > -1) this.theme.push(b.id);
+          })
+        })
+      }
     }
-    if(data.action === 'placeSubType') {
-      if(this.placeSubType.length === this.placeSubTypeArr.length) this.isSelectAllCuisines = true;
-      if(this.placeSubType.length === 0) this.isSelectAllCuisines = false;
+    if (data.action === 'placeSubType') {
+      if (this.placeSubType.length > 0) {
+        let temp: any = 1;
+        let index = this.placeType.indexOf(temp); // check if placeType has 'restaurant' or not
+        if (index === -1) {
+          this.placeType.push(temp);
+          if (this.theme.indexOf('dinner') < 0 && this.theme.indexOf('lunch') < 0) {
+            this.theme.push('lunch');
+            this.theme.push('dinner');
+          }
+          if (this.placeType.length === this.placeAllTypes.length) {
+            this.isSelectAllPlaces = true;
+            this.isSelectAllThemes = true;
+          }
+        }
+        if (this.placeSubType.length === this.placeSubTypeArr.length) {
+          this.isSelectAllCuisines = true;
+        }
+      }
+      if (this.placeSubType.length === 0) {
+        this.isSelectAllCuisines = false;
+
+        let temp: any = 1;
+        let index = this.placeType.indexOf(temp);
+        if (index > -1) this.placeType.splice(index, 1);
+        if (!this.placeType.length) {
+          this.theme = [];
+          this.isSelectAllPlaces = this.isSelectAllThemes = false;
+        }
+      }
     }
+    if (data.action === 'theme') {
+      if (this.theme.length === 0) {
+        this.isSelectAllThemes = this.isSelectAllPlaces = this.isSelectAllCuisines = false;
+      }
+      if (this.theme.length === this.trailTheme.length) {
+        this.isSelectAllThemes = this.isSelectAllPlaces = this.isSelectAllCuisines = true;
+      }
+
+      // when theme is changed, the status of type and subType should be changed
+      let changedParentData = data.changedParentData;
+      if (changedParentData) {
+        this.trailTheme.map((theme: any) => {
+          if (changedParentData.id === theme.id) {
+            if (changedParentData.id === 'dinner' || changedParentData.id === 'lunch') {
+              if (this.theme.indexOf('dinner') === -1 && this.theme.indexOf('lunch') === -1 && changedParentData.flag) {
+                let index = this.placeType.indexOf(theme.child[0]);
+                this.placeType.splice(index, 1);
+
+                this.placeSubType = [];
+                this.isSelectAllCuisines = false;
+              }
+              if (!changedParentData.flag && !(this.theme.indexOf('dinner') > -1 && this.theme.indexOf('lunch') > -1)) {
+                this.placeType.push(theme.child[0]);
+
+                this.placeSubType = [...this.placeAllSubTypes];
+                this.isSelectAllCuisines = true;
+              }
+            }
+            else {
+              theme.child.map(child => {
+                if (changedParentData.flag) {
+                  let index = this.placeType.indexOf(child);
+                  this.placeType.splice(index, 1);
+                }
+                else this.placeType.push(child);
+              })
+            }
+          }
+        });
+
+      }
+    }
+  }
+
+  changeStepRange = (evt: any) => {
+    this.stepRange = evt.target.value;
+  }
+  
+  changeDistanceRange = (evt: any) => {
+    this.distanceRange = evt.target.value;
   }
 
 }

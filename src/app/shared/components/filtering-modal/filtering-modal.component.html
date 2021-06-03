@@ -11,8 +11,8 @@
     </ion-buttons>
     <ion-title>&nbsp;</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="clearAll()" fill="clear" color="royal">
-        Clear All
+      <ion-button (click)="reset()" fill="clear" color="royal">
+        Reset
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -30,6 +30,23 @@
         [size]="5.5"
         [action]="action"
         [fontSize]="'17px'"
+        (changeItems)="changeItems($event)"
+
+      ></app-trail-selecting>
+      <ion-list-header>
+        <ion-label> Theme </ion-label>
+        <ion-buttons>
+          <ion-button (click)="clearAllThemes()" fill="clear" color="royal">
+            {{!isSelectAllThemes? "Select All" : "Deselect All"}}
+          </ion-button>
+        </ion-buttons>
+      </ion-list-header>
+      <app-trail-selecting
+        [value]="theme"
+        [items]="trailTheme"
+        [size]="4"
+        [action]="'theme'"
+        [fontSize]="'14px'"
         (changeItems)="changeItems($event)"
 
       ></app-trail-selecting>
@@ -110,6 +127,24 @@
         (changeItems)="changeItems($event)"
       >
       </app-trail-selecting>
+
+      <!-- <ion-list-header>
+        <ion-label> Trail Length </ion-label>
+      </ion-list-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4" class="ion-align-self-center">Step Range</ion-col>
+          <ion-col size="8">
+            <ion-range min="0" max="8" pin dual-knobs snaps step="1" (ionChange)="changeStepRange($event)" [value]="stepRange"></ion-range>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4" class="ion-align-self-center">Total Distance</ion-col>
+          <ion-col size="8">
+            <ion-range min="0" max="10" pin dual-knobs snaps step="1" (ionChange)="changeDistanceRange($event)" [value]="distanceRange"></ion-range>
+          </ion-col>
+        </ion-row>
+      </ion-grid> -->
     </ng-container>
   </ion-list>
 </ion-content>

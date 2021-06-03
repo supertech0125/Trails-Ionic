@@ -3,19 +3,19 @@
 :host {
   .list-filters {
     .round, .round-activate {
-      --background-activated: black;
+      --background-activated: #404040;
       width: 100%;
       font-size: 17px;
     }
 
     .round {
-      color: black;
-      --background: #cac2c2;
+      color: #404040;
+      --background: #f2f2f2;
     }
 
     .round-activate {
-      color: white;
-      --background: black;
+      color: #f2f2f2;
+      --background: #404040;
     }
   }
 }

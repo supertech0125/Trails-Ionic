@@ -171,10 +171,13 @@ export class TrailDetailsComponent implements OnInit {
   async onShareTrail() {
     if (this.platform.is('cordova') || this.platform.is('capacitor')) {
       const shareRet = await Plugins.Share.share({
-        title: 'See cool stuff',
-        text: 'Really awesome thing you need to see right meow',
-        url: 'https://metomine.com/',
-        dialogTitle: 'Share with buddies',
+        // title: 'See cool stuff',
+        // text: 'Really awesome thing you need to see right meow',
+        // url: 'https://metomine.com/',
+        title: 'Share the Trail',
+        text: `Shared Trail Id for registering the trail as verified or not is ${this.trailId} and shared link is`,
+        url: `https://trailsteps-dev.web.app/trail-activity?trailId=${this.trailId}`,
+        dialogTitle: 'Verify the Trail', // only supported on Android
       });
 
       console.log('shareRet: ', shareRet);

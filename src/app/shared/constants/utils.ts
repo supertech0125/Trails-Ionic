@@ -122,6 +122,17 @@ export const PLACES_FILTERS: any = {
   items: [PLACES_FILTERS_ITEM.ALL_PLACES, PLACES_FILTERS_ITEM.SAVED_PLACES],
 };
 
+export const TRAIL_THEME: any = [
+  { label: 'Nature', id: 'nature', child: [8, 9] }, // [8, 9] -> ['Park', 'Zoo']
+  { label: 'Culture', id: 'culture', child: [6, 7, 10] }, // [] -> ['Landmark', 'Museum', 'Art Gallery']
+  { label: 'Lunch', id: 'lunch', child: [1] }, // [1] -> ['Restaurant']
+  { label: 'Dinner', id: 'dinner', child: [1] },
+  { label: 'Drinks', id: 'drinks', child: [2] },
+  { label: 'Dance', id: 'dance', child: [5] },
+  { label: 'Coffee', id: 'coffee', child: [3] },
+  { label: 'Pastries', id: 'pastries', child: [4] },
+]
+
 export const RATINGS_SORT = {
   HIGH: {
     value: 'ratingDesc',

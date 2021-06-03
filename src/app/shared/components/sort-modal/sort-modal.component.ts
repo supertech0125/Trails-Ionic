@@ -57,8 +57,8 @@ export class SortModalComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  clearAll() {
-    this.sort = null;
+  reset() {
+    this.sort = 'Distance';
   }
 
   updateSort() {
