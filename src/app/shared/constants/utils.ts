@@ -123,8 +123,8 @@ export const PLACES_FILTERS: any = {
 };
 
 export const TRAIL_THEME: any = [
-  { label: 'Nature', id: 'nature', child: [8, 9] }, // [8, 9] -> ['Park', 'Zoo']
-  { label: 'Culture', id: 'culture', child: [6, 7, 10] }, // [] -> ['Landmark', 'Museum', 'Art Gallery']
+  { label: 'Nature', id: 'nature', child: [8] }, // [8] -> ['Park']
+  { label: 'Culture', id: 'culture', child: [6, 7, 9] }, // [] -> ['Art Gallery', 'Museum', 'Landmark']
   { label: 'Lunch', id: 'lunch', child: [1] }, // [1] -> ['Restaurant']
   { label: 'Dinner', id: 'dinner', child: [1] },
   { label: 'Drinks', id: 'drinks', child: [2] },
