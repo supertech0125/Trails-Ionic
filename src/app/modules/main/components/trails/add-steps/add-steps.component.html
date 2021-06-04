@@ -22,6 +22,7 @@
   <ion-buttons slot="end">
     <ion-button (click)="openFilterModal()">
       <ion-icon slot="icon-only" name="funnel-sharp"></ion-icon>
+      <ion-badge style="background-color: #054d4f" *ngIf="onFiltering">&nbsp;</ion-badge>
     </ion-button>
 
     <!--  added button for sort modal -->
