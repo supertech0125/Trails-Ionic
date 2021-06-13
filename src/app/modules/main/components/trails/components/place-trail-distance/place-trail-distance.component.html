@@ -3,5 +3,5 @@
     <ion-icon name="location-sharp" color="warning2"></ion-icon>
   </div>
   <div class="place-trail-line"></div>
-  <div class="place-trail-label">{{ distance }}km</div>
+  <div class="place-trail-label">{{ isUnitKM? distance : (Math.round(distance * 6.214) / 10).toFixed(1) }} {{isUnitKM? 'km' : 'mile'}}</div>
 </div>

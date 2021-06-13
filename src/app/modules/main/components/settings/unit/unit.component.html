@@ -1,0 +1,41 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="md">
+    <ion-title class="unit-title"> Select preferred unit of measurement </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" color="medium">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-grid>
+    <ion-row class="ion-justify-content-between" style="margin-top: 20px; margin-bottom: 20px;">
+      <ion-col size="6">
+        <ion-button (click)="onSelectKM()"
+          [class]="isKM ? 'round-activate' : 'round'" 
+          size="small" shape="round" fill="fill" 
+        >
+          Kilometers
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="onSelectMile()"
+          [class]="!isKM ? 'round-activate' : 'round'" 
+          size="small" shape="round" fill="fill" 
+        >
+          Miles
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="dismiss()" color="medium" expand="block" style="height: 50px;">
+          Done
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

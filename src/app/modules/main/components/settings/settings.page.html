@@ -15,7 +15,7 @@
         offset-md="3"
       >
         <ion-list>
-          <ion-item detail="true" lines="none" (click)="onFeedBack()">
+          <ion-item detail="true" lines="none" (click)="onRate()">
             <ion-icon
               src="./assets/svg/rating-star.svg"
               slot="start"
@@ -43,6 +43,13 @@
               <p>To join our community!</p>
             </ion-label>
           </ion-item> -->
+          <ion-item detail="true" lines="none" (click)="onChangeUnit()">
+            <ion-icon name="walk" slot="start" color="warning2"></ion-icon>
+            <ion-label>
+              <h2>Unit of Measurement</h2>
+              <p>{{isKM? 'Kilometers' : 'Miles'}}</p>
+            </ion-label>
+          </ion-item>
         </ion-list>
         <ion-list class="second-group">
           <ion-item button lines="none" (click)="onTerms()">

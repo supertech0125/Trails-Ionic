@@ -1,6 +1,6 @@
 <ion-list class="list-filters">
   <ion-grid>
-    <ion-row class="ion-justify-content-between">
+    <ion-row [class]="isBetweenClass? 'ion-justify-content-between' : ''">
       <ion-col [size]="size" *ngFor="let item of items">
         <ion-button 
           [class]="(value?.indexOf(item.id) + 1) ? 'round-activate' : 'round'" 

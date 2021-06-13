@@ -520,7 +520,10 @@ export class TrailsPage implements OnInit, OnDestroy {
     }
 
     if (range) {
-      params.TrailRange = range;
+      params.TrailsRange = range;
+    }
+    else {
+      params.TrailsRange = 'all,verified';
     }
 
     if (time) {

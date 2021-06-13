@@ -52,7 +52,7 @@ export interface ITrailQueryParams {
   PageIndex?: number;
   PageSize?: number;
   Sort?: string;
-  TrailRange?: string;
+  TrailsRange?: string;
   Search?: string;
   Time?: string;
   Who?: string;

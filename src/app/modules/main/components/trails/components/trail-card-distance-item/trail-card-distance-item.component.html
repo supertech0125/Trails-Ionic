@@ -9,7 +9,7 @@
       <img class="trail-verifed-img" *ngIf="verified" src="../../../../../../../assets/png/logo_wave.png" height="15" />
     </div>
     <div class="wrapper">
-      <p class="trail-distance-item-title">{{ sumOfAllDistance }} km</p>
+      <p class="trail-distance-item-title">{{ isUnitKM? sumOfAllDistance : (Math.round(sumOfAllDistance * 6.214) / 10).toFixed(1) }} {{isUnitKM? 'km' : 'mile'}}</p>
       <p class="trail-verified" *ngIf="verified">Verified Trail</p>
     </div>
   </ion-label>

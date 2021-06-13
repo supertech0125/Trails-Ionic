@@ -8,6 +8,7 @@ import { SettingsPageRoutingModule } from './settings-routing.module';
 import { ComponentsModule } from './../../../../shared/components/components.module';
 
 import { SettingsPage } from './settings.page';
+import { UnitComponent } from './unit/unit.component';
 import { TermsComponent } from './terms/terms.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
@@ -19,6 +20,6 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     ComponentsModule,
     SettingsPageRoutingModule,
   ],
-  declarations: [SettingsPage, TermsComponent, PrivacyPolicyComponent],
+  declarations: [SettingsPage, UnitComponent, TermsComponent, PrivacyPolicyComponent],
 })
 export class SettingsPageModule {}

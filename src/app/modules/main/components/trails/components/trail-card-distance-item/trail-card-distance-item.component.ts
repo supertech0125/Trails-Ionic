@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { PubsubService } from 'src/app/shared/services/pubsub.service';
 
 @Component({
   selector: 'app-trail-card-distance-item',
@@ -8,8 +10,23 @@ import { Component, Input, OnInit } from '@angular/core';
 export class TrailCardDistanceItemComponent implements OnInit {
   @Input() sumOfAllDistance: number;
   @Input() verified: boolean = false;
+  isUnitKM: boolean = true;
+  Math: any;
 
-  constructor() {}
+  constructor(
+    private storage: LocalStorageService,
+    private pubsub: PubsubService,
+  ) {
+    this.pubsub.$sub('APP_MEASUREMENT_UNIT', (data) => {
+      this.isUnitKM = data.isKM;
+    });
 
-  ngOnInit(): void {}
+    this.Math = Math;
+  }
+
+  ngOnInit(): void {
+    const flag = this.storage.getItem('appUnit');
+    if(flag === null) this.isUnitKM = true;
+    else this.isUnitKM = flag;
+  }
 }

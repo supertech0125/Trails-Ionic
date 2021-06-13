@@ -14,6 +14,8 @@ export class TrailSelectingComponent implements OnInit {
 
   @Output() changeItems = new EventEmitter<any>();
 
+  isBetweenClass: boolean = false;
+
   interfaceOptions: {
     cssClass: 'trail-select-popover';
   };
@@ -22,7 +24,12 @@ export class TrailSelectingComponent implements OnInit {
 
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    if(this.action === 'placeType' || this.action === 'placeSubType' || this.action === 'theme') {
+      this.isBetweenClass = false;
+    }
+    else this.isBetweenClass = true;
+  }
 
   changeFilter(item: any) {
     let filter = this.value;

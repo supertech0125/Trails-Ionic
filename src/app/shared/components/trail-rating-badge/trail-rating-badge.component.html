@@ -6,6 +6,6 @@
 >
   <ion-icon slot="icon-only" [name]="iconName"></ion-icon>
   &nbsp;
-  <span *ngIf="rating && rating != '0.0'">{{ rating }}</span>
+  <span *ngIf="rating && rating != '0.0'">{{ (!isRate && !isUnitKM)? distanceMile : rating }}</span>
   <span *ngIf="rating && rating == '0.0'">Unrated</span>
 </ion-button>

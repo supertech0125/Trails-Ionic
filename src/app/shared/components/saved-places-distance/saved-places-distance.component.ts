@@ -9,6 +9,7 @@ import { CallbackID, Plugins } from '@capacitor/core';
 import isEmpty from 'lodash-es/isEmpty';
 
 import { LocalStorageService } from '../../services/local-storage.service';
+import { PubsubService } from 'src/app/shared/services/pubsub.service';
 import {
   DEFAULT_DISTANCE_DECIMAL,
   MAX_GEOLOCATION_TIMEOUT,
@@ -45,14 +46,26 @@ export class SavedPlacesDistanceComponent implements OnInit {
   // distanceKM: string;
   // watchId: CallbackID;
   showLoading = false;
+  isUnitKM: boolean = true;
+  Math: any;
 
   constructor(
-    // private storage: LocalStorageService,
+    private storage: LocalStorageService,
+    private pubsub: PubsubService,
     // private commonService: CommonService,
     // private geoService: GeolocationService
-  ) {}
+  ) {
+    this.pubsub.$sub('APP_MEASUREMENT_UNIT', (data) => {
+      this.isUnitKM = data.isKM;
+    });
+
+    this.Math = Math;
+  }
 
   ngOnInit(): void {
+    const flag = this.storage.getItem('appUnit');
+    if(flag === null) this.isUnitKM = true;
+    else this.isUnitKM = flag;
     // if (this.autoDistance) {
     //   this.getCurrentPosition();
     // } else {

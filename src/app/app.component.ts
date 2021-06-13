@@ -161,7 +161,7 @@ export class AppComponent {
             this.dataLoader.getAllPlaces(params, true, true);
             this.dataLoader.getAllBookmarkedPlaces(params);
 
-            this.dataLoader.getAllTrails(params, true, true);
+            this.dataLoader.getAllTrails({...params, TrailsRange: 'all,verified'}, true, true);
             this.dataLoader.getAllBookmarkedTrails(params);
 
             this.dataLoader.refreshProfileData();

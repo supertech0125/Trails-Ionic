@@ -9,6 +9,7 @@ import { CallbackID, Plugins } from '@capacitor/core';
 import isEmpty from 'lodash-es/isEmpty';
 
 import { LocalStorageService } from './../../services/local-storage.service';
+import { PubsubService } from 'src/app/shared/services/pubsub.service';
 import {
   DEFAULT_DISTANCE_DECIMAL,
   MAX_GEOLOCATION_TIMEOUT,
@@ -44,12 +45,21 @@ export class TrailDistanceComponent implements OnInit {
   distanceKM: string;
   watchId: CallbackID;
   showLoading = false;
+  isUnitKM: boolean = true;
+  Math: any;
 
   constructor(
     private storage: LocalStorageService,
     private commonService: CommonService,
+    private pubsub: PubsubService,
     private geoService: GeolocationService
-  ) {}
+  ) {
+    this.pubsub.$sub('APP_MEASUREMENT_UNIT', (data) => {
+      this.isUnitKM = data.isKM;
+    });
+
+    this.Math = Math;
+  }
 
   ngOnInit(): void {
     if (this.autoDistance) {
@@ -61,6 +71,10 @@ export class TrailDistanceComponent implements OnInit {
       this.distanceKM = distanceKm;
       this.showLoading = false;
     }
+
+    const flag = this.storage.getItem('appUnit');
+    if(flag === null) this.isUnitKM = true;
+    else this.isUnitKM = flag;
   }
 
   private computeDistance() {

@@ -7,6 +7,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import isEmpty from 'lodash-es/isEmpty';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { PubsubService } from 'src/app/shared/services/pubsub.service';
 
 @Component({
   selector: 'app-trail-rating-badge',
@@ -22,11 +24,37 @@ export class TrailRatingBadgeComponent implements OnInit {
 
   @Output() ratingClick = new EventEmitter<any>();
 
-  constructor() {}
+  isRate: boolean = true;
+  isUnitKM: boolean = true;
+  distanceMile: any;
+  Math: any;
+
+  constructor(
+    private storage: LocalStorageService,
+    private pubsub: PubsubService,
+  ) {
+    this.pubsub.$sub('APP_MEASUREMENT_UNIT', (data) => {
+      this.isUnitKM = data.isKM;
+    });
+
+    this.Math = Math;
+  }
 
   ngOnInit(): void {
     if (isEmpty(this.iconName)) {
       this.iconName = 'star';
     }
+    const isDistance = this.rating.indexOf('km');
+    const flag = this.storage.getItem('appUnit');
+    if(isDistance > -1) {
+      this.isRate = false;
+      if(flag !== null) {
+        const temp: any = this.rating.split(' km')[0];
+        this.distanceMile = (Math.round(temp * 6.214) / 10).toFixed(1) + ' mile';
+        this.isUnitKM = flag;
+      }
+      else this.isUnitKM = true;
+    }
+    else this.isRate = true;
   }
 }
