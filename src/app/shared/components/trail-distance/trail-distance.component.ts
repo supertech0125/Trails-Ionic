@@ -42,7 +42,7 @@ export class TrailDistanceComponent implements OnInit {
     longitude: 0,
   };
 
-  distanceKM: string;
+  distanceKM: any;
   watchId: CallbackID;
   showLoading = false;
   isUnitKM: boolean = true;
