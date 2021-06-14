@@ -180,7 +180,7 @@ export class DataLoaderService {
   }
 
   getAllTrails(
-    params?: IPlaceQueryParams,
+    params?: ITrailQueryParams,
     enableCaching: boolean = true,
     showLoading: boolean = false,
     forMapping: boolean = false

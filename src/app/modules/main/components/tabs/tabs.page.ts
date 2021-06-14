@@ -131,6 +131,7 @@ export class TabsPage {
           Lat: coordinates.latitude,
           Long: coordinates.longitude,
           Sort: 'distance',
+          TrailsRange: 'all,verified'
         });
       }
     });
