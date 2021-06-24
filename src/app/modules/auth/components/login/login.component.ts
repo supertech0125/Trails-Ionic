@@ -209,7 +209,7 @@ export class LoginComponent implements OnInit {
         [
           Validators.required,
           // Validators.pattern(passwordValidationRegex),
-          Validators.minLength(6),
+          Validators.minLength(8),
         ],
       ],
     });

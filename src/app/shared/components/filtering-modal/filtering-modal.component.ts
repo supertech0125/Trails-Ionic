@@ -331,7 +331,7 @@ export class FilteringModalComponent implements OnInit {
 
     let temp = {
       placeType: !placeType ? 'all' : (this.placeType.length === this.placeAllTypes.length) ? 'all' : placeType,
-      placeSubType: !placeSubType ? 'all' : (this.placeSubType.length === this.placeAllSubTypes.length) ? 'all' : placeSubType,
+      placeSubType: !placeSubType ? placeSubType==='' ? '' : 'all' : (this.placeSubType.length === this.placeAllSubTypes.length) ? 'all' : placeSubType,
     }
     if (this.action === 'place' || this.action === 'addTrailStep') {
       filter = { ...temp, place: !this.place.length ? 'all' : (this.place[0] === 'all') ? 'all' : this.place.join(',') };
